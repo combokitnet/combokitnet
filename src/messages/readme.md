@@ -1,0 +1,2 @@
+- Just update messages on en.json
+- Run auto-translate.js for auto translate message from en to others lang.

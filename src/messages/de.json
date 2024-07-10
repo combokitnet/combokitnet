@@ -1,0 +1,76 @@
+{
+  "common": {
+    "welcome": "Willkommen",
+    "welcome_user": "Willkommen: {username}"
+  },
+  "home": {
+    "header": {
+      "nav": {
+        "home": "Heim",
+        "tools": "Werkzeuge",
+        "blog": "Blog",
+        "about": "Um",
+        "tos": "Nutzungsbedingungen"
+      }
+    },
+    "banner": {
+      "title1": "Digitale Aufgaben vereinfachen",
+      "title2": "Effizienzsteigerung",
+      "title3": "Maximieren Sie die Produktivität",
+      "title4": "Workflow-Optimierung",
+      "title5": "Schnell digital arbeiten",
+      "desc1": "Willkommen zu",
+      "desc2": "Ihr ultimatives Toolkit zur Optimierung Ihres digitalen Workflows. Entdecken Sie eine Reihe kostenloser Open-Source-Tools, mit denen Sie Ihre digitalen Aufgaben optimieren und Ihre Online-Präsenz verbessern können.",
+      "btn1": "Anzeigen auf",
+      "btn2": "Tools erkunden"
+    },
+    "features": {
+      "topic1": "Effiziente Toolkit-Funktionalität",
+      "topic1_desc1": "Entdecken Sie eine intuitive Benutzeroberfläche und einen plattformübergreifenden Zugriff für schnelle Leistung.",
+      "topic1_desc2": "Greifen Sie auf umfassende Leitfäden zu und profitieren Sie von regelmäßigen Updates, um die Effizienz zu steigern.",
+      "topic1_item1": "Benutzerfreundliche Oberfläche",
+      "topic1_item2": "Plattformübergreifende Kompatibilität",
+      "topic1_item3": "Schnelle und zuverlässige Leistung",
+      "topic1_item4": "Umfassende Dokumentation",
+      "topic1_item5": "Regelmäßige Updates",
+      "topic2": "Robuster Support und Sicherheit",
+      "topic2_desc1": "Profitieren Sie von anpassbaren Optionen und reaktionsschnellem Support für eine skalierbare Nutzung.",
+      "topic2_desc2": "Nahtlose Integration mit starken Sicherheitsmaßnahmen, um den Datenschutz zu gewährleisten.",
+      "topic2_item1": "Anpassungsoptionen",
+      "topic2_item2": "Reaktionsschnelle Unterstützung",
+      "topic2_item3": "Skalierbarkeit",
+      "topic2_item4": "Integrationsmöglichkeiten",
+      "topic2_item5": "Sicherheitsmaßnahmen"
+    },
+    "trusted": {
+      "text1": "Weltweit vertrauenswürdig",
+      "text2": "Vertraut von über {users} Benutzern und {teams} Teams",
+      "text3": "Unsere strengen Sicherheits- und Compliance-Standards stehen im Mittelpunkt unseres Handelns. Wir arbeiten unermüdlich daran, Sie und Ihre Kunden zu schützen.",
+      "text4": "Legalitätsleitfaden erkunden",
+      "text5": "Besuchen Sie das Trust Center",
+      "text6": "{value}% Betriebszeit",
+      "text7": "Für {value}, ohne Wartungsausfallzeiten",
+      "text8": "{value} Benutzer",
+      "text9": "Über 600 Millionen Benutzer auf der ganzen Welt vertrauen darauf",
+      "text10": "100+ Länder",
+      "text11": "Habe {value} verwendet, um funktionale Websites zu erstellen",
+      "text12": "{value} Millionen",
+      "text13": "Aktionen pro Tag"
+    },
+    "questions": {
+      "text": "Häufig gestellte Fragen",
+      "title": "Maßgeschneidert für jedes Unterfangen",
+      "desc": "Bei {value} sind wir auf Märkte spezialisiert, in denen Technologie, Innovation und Kapital zusammenkommen, um dauerhafte Werte zu erschließen und den wirtschaftlichen Fortschritt voranzutreiben.",
+      "question1": "Ist die Nutzung von {value} kostenlos?",
+      "answer1": "Ja, {value} bietet eine Reihe von kostenlosen Tools für die digitale Arbeit. Darüber hinaus stehen Premium-Funktionen für diejenigen zur Verfügung, die erweiterte Funktionen benötigen.",
+      "question2": "Kann ich {value} auf mobilen Geräten verwenden?",
+      "answer2": "Ja, {value} ist für die Verwendung auf Desktop- und Mobilgeräten optimiert. Egal, ob Sie unterwegs oder an Ihrem Schreibtisch sind, Sie können von jedem Gerät aus nahtlos auf die Website zugreifen.",
+      "question3": "Wie oft werden die Tools aktualisiert?",
+      "answer3": "{value} aktualisiert seine Tools regelmäßig, um die Funktionalität zu verbessern und das Feedback der Benutzer zu berücksichtigen. Updates werden monatlich ausgerollt, um sicherzustellen, dass Sie immer Zugriff auf die neuesten Funktionen und Verbesserungen haben.",
+      "question4": "Gibt es eine Dokumentation für die Tools?",
+      "answer4": "Ja, es wird eine umfassende Dokumentation bereitgestellt, um Benutzer bei der effektiven Nutzung der Tools zu unterstützen. Die Dokumentation deckt alles ab, von der grundlegenden Verwendung bis hin zu erweiterten Funktionen, sodass Benutzer aller Qualifikationsstufen das Beste aus {value} herausholen können.",
+      "question5": "Sind die Tools sicher in der Anwendung?",
+      "answer5": "{value} priorisiert die Sicherheit und setzt Maßnahmen zum Schutz der Benutzerdaten und der Privatsphäre ein. Wir verwenden branchenübliche Verschlüsselungsprotokolle, um Ihre Daten zu schützen, und überprüfen unsere Systeme regelmäßig, um die Einhaltung der neuesten Sicherheitsstandards sicherzustellen."
+    }
+  }
+}

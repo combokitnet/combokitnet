@@ -1,0 +1,76 @@
+{
+  "common": {
+    "welcome": "bienvenido",
+    "welcome_user": "bienvenido: {username}"
+  },
+  "home": {
+    "header": {
+      "nav": {
+        "home": "Hogar",
+        "tools": "Herramientas",
+        "blog": "Blog",
+        "about": "Acerca de",
+        "tos": "Términos de servicio"
+      }
+    },
+    "banner": {
+      "title1": "Simplificación de tareas digitales",
+      "title2": "Aumento de la eficiencia",
+      "title3": "Maximizar la productividad",
+      "title4": "Optimización del flujo de trabajo",
+      "title5": "Trabajo digital rápido",
+      "desc1": "Bienvenido a",
+      "desc2": "su conjunto de herramientas definitivo para optimizar su flujo de trabajo digital. Descubra una gama de herramientas gratuitas de código abierto diseñadas para optimizar sus tareas digitales y mejorar su presencia en línea.",
+      "btn1": "Ver en",
+      "btn2": "Explora las herramientas"
+    },
+    "features": {
+      "topic1": "Funcionalidad eficiente del kit de herramientas",
+      "topic1_desc1": "Descubra una interfaz intuitiva y acceso multiplataforma para un rendimiento rápido.",
+      "topic1_desc2": "Acceda a guías completas y disfrute de actualizaciones periódicas para mejorar la eficiencia.",
+      "topic1_item1": "Interfaz fácil de usar",
+      "topic1_item2": "Compatibilidad multiplataforma",
+      "topic1_item3": "Rendimiento rápido y fiable",
+      "topic1_item4": "Documentación completa",
+      "topic1_item5": "Actualizaciones periódicas",
+      "topic2": "Soporte y seguridad robustos",
+      "topic2_desc1": "Disfrute de opciones personalizables y soporte receptivo para un uso escalable.",
+      "topic2_desc2": "Intégrese a la perfección con sólidas medidas de seguridad para garantizar la protección de datos.",
+      "topic2_item1": "Opciones de personalización",
+      "topic2_item2": "Soporte receptivo",
+      "topic2_item3": "Escalabilidad",
+      "topic2_item4": "Capacidades de integración",
+      "topic2_item5": "Medidas de seguridad"
+    },
+    "trusted": {
+      "text1": "De confianza en todo el mundo",
+      "text2": "Con la confianza de más de {users} usuarios y {teams} equipos",
+      "text3": "Nuestros rigurosos estándares de seguridad y cumplimiento están en el corazón de todo lo que hacemos. Trabajamos incansablemente para protegerlo a usted y a sus clientes.",
+      "text4": "Explora la Guía de Legalidad",
+      "text5": "Visite el Centro de confianza",
+      "text6": "{value}% de tiempo de actividad",
+      "text7": "Para {value}, sin tiempo de inactividad por mantenimiento",
+      "text8": "{value} Usuarios",
+      "text9": "Con la confianza de más de 600 millones de usuarios en todo el mundo",
+      "text10": "+100 países",
+      "text11": "Haber usado {value} para crear sitios web funcionales",
+      "text12": "{value} Millones",
+      "text13": "Acciones por día"
+    },
+    "questions": {
+      "text": "Preguntas frecuentes",
+      "title": "A la medida de cada esfuerzo",
+      "desc": "En {value}, nos especializamos en mercados donde la tecnología, la innovación y el capital convergen para desbloquear un valor duradero e impulsar el progreso económico.",
+      "question1": "¿Es {value} de uso gratuito?",
+      "answer1": "Sí, {value} ofrece una gama de herramientas gratuitas para el trabajo digital. Además, hay funciones premium disponibles para aquellos que requieren una funcionalidad avanzada.",
+      "question2": "¿Puedo usar {value} en dispositivos móviles?",
+      "answer2": "Sí, {value} está optimizado para su uso tanto en dispositivos móviles como de escritorio. Ya sea que esté en movimiento o en su escritorio, puede acceder al sitio web sin problemas desde cualquier dispositivo.",
+      "question3": "¿Con qué frecuencia se actualizan las herramientas?",
+      "answer3": "{value} actualiza regularmente sus herramientas para mejorar la funcionalidad y abordar los comentarios de los usuarios. Las actualizaciones se implementan mensualmente, lo que garantiza que siempre tenga acceso a las últimas funciones y mejoras.",
+      "question4": "¿Hay documentación disponible para las herramientas?",
+      "answer4": "Sí, se proporciona documentación completa para ayudar a los usuarios a utilizar las herramientas de manera efectiva. La documentación cubre todo, desde el uso básico hasta las funciones avanzadas, lo que facilita que los usuarios de todos los niveles de habilidad aprovechen al máximo {value}.",
+      "question5": "¿Es seguro usar las herramientas?",
+      "answer5": "{value} prioriza la seguridad y emplea medidas para proteger los datos y la privacidad de los usuarios. Utilizamos protocolos de encriptación estándar de la industria para salvaguardar su información y auditamos regularmente nuestros sistemas para garantizar el cumplimiento de los últimos estándares de seguridad."
+    }
+  }
+}

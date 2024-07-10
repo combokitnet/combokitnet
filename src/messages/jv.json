@@ -1,0 +1,76 @@
+{
+  "common": {
+    "welcome": "sugeng rawuh",
+    "welcome_user": "sugeng rawuh:{username}"
+  },
+  "home": {
+    "header": {
+      "nav": {
+        "home": "Ngarep",
+        "tools": "piranti",
+        "blog": "Blog",
+        "about": "Babagan",
+        "tos": "Katentuan Pangginaan supados langkung Service"
+      }
+    },
+    "banner": {
+      "title1": "Tugas Digital Nyederhanakake",
+      "title2": "Efisiensi ngedongkrak",
+      "title3": "Maksimalkan Produktivitas",
+      "title4": "Ngoptimalake alur kerja",
+      "title5": "Kerja Digital Cepet",
+      "desc1": "Welcome kanggo",
+      "desc2": "toolkit pokok kanggo ngoptimalake alur kerja digital. Temokake macem-macem alat sumber terbuka gratis sing dirancang kanggo nyepetake tugas digital lan ningkatake kehadiran online sampeyan.",
+      "btn1": "Lihat di",
+      "btn2": "Jelajahi alat"
+    },
+    "features": {
+      "topic1": "Fungsionalitas Toolkit yang Efisien",
+      "topic1_desc1": "Temukan antarmuka intuitif dan akses lintas platform untuk kinerja cepat.",
+      "topic1_desc2": "Akses panduan komprehensif dan nikmati pembaruan rutin untuk meningkatkan efisiensi.",
+      "topic1_item1": "Antarmuka yang ramah pengguna",
+      "topic1_item2": "Kompatibilitas Lintas Platform",
+      "topic1_item3": "Performa Cepat dan Andal",
+      "topic1_item4": "Dokumentasi Komprehensif",
+      "topic1_item5": "Pembaruan Rutin",
+      "topic2": "Dukungan & Keamanan yang Kuat",
+      "topic2_desc1": "Nikmati opsi yang dapat disesuaikan dan dukungan responsif untuk penggunaan yang dapat diskalakan.",
+      "topic2_desc2": "Terintegrasi secara mulus dengan langkah-langkah keamanan yang kuat untuk memastikan perlindungan data.",
+      "topic2_item1": "Opsi Kustomisasi",
+      "topic2_item2": "Dukungan Responsif",
+      "topic2_item3": "Skalabilitas",
+      "topic2_item4": "Kemampuan Integrasi",
+      "topic2_item5": "Langkah-langkah Keamanan"
+    },
+    "trusted": {
+      "text1": "Tepercaya di Seluruh Dunia",
+      "text2": "Dipercaya oleh lebih dari {users} pengguna dan {teams} tim",
+      "text3": "Standar keamanan dan kepatuhan kami yang ketat adalah inti dari semua yang kami lakukan. Kami bekerja tanpa lelah untuk, melindungi Anda dan pelanggan Anda.",
+      "text4": "Jelajahi Panduan Legalitas",
+      "text5": "Kunjungi Pusat Kepercayaan",
+      "text6": "Waktu aktif {value}%",
+      "text7": "Untuk {value}, tanpa waktu henti pemeliharaan",
+      "text8": "{value} Pengguna",
+      "text9": "Dipercaya oleh lebih dari 600 juta pengguna di seluruh dunia",
+      "text10": "100+ negara",
+      "text11": "Telah menggunakan {value} untuk membuat situs web fungsional",
+      "text12": "{value} Juta",
+      "text13": "Tindakan per hari"
+    },
+    "questions": {
+      "text": "Pertanyaan yang Sering Ditanyakan",
+      "title": "Disesuaikan untuk Setiap Usaha",
+      "desc": "Pada {value}, kami mengkhususkan diri di pasar di mana teknologi, inovasi, dan modal bertemu untuk membuka nilai abadi dan mendorong kemajuan ekonomi.",
+      "question1": "Apakah {value} gratis untuk digunakan?",
+      "answer1": "Ya, {value} menawarkan berbagai alat gratis untuk pekerjaan digital. Selain itu, ada fitur premium yang tersedia bagi mereka yang membutuhkan fungsionalitas tingkat lanjut.",
+      "question2": "Bisakah saya menggunakan {value} di perangkat seluler?",
+      "answer2": "Ya, {value} dioptimalkan untuk digunakan di desktop dan perangkat seluler. Baik saat bepergian atau di meja, Anda dapat mengakses situs web dengan lancar dari perangkat apa pun.",
+      "question3": "Seberapa sering alat diperbarui?",
+      "answer3": "{value} secara teratur memperbarui alat-alatnya untuk meningkatkan fungsionalitas dan mengatasi umpan balik pengguna. Pembaruan diluncurkan setiap bulan, memastikan bahwa Anda selalu memiliki akses ke fitur dan peningkatan terbaru.",
+      "question4": "Apakah ada dokumentasi yang tersedia untuk alat?",
+      "answer4": "Ya, dokumentasi komprehensif disediakan untuk membantu pengguna dalam memanfaatkan alat secara efektif. Dokumentasi mencakup semuanya, mulai dari penggunaan dasar hingga fitur lanjutan, sehingga memudahkan pengguna dari semua tingkat keahlian untuk mendapatkan hasil maksimal dari {value}.",
+      "question5": "Apakah alat ini aman digunakan?",
+      "answer5": "{value} memprioritaskan keamanan dan menggunakan langkah-langkah untuk melindungi data dan privasi pengguna. Kami menggunakan protokol enkripsi standar industri untuk melindungi informasi Anda dan secara teratur mengaudit sistem kami untuk memastikan kepatuhan dengan standar keamanan terbaru."
+    }
+  }
+}

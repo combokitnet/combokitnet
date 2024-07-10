@@ -1,0 +1,76 @@
+{
+  "common": {
+    "welcome": "Bem-vindo",
+    "welcome_user": "bem-vindo: {username}"
+  },
+  "home": {
+    "header": {
+      "nav": {
+        "home": "Lar",
+        "tools": "Ferramentas",
+        "blog": "Blogue",
+        "about": "Sobre",
+        "tos": "Termos de serviço"
+      }
+    },
+    "banner": {
+      "title1": "Simplificação de tarefas digitais",
+      "title2": "Aumento de eficiência",
+      "title3": "Maximize a produtividade",
+      "title4": "Otimização do fluxo de trabalho",
+      "title5": "Trabalho digital rápido",
+      "desc1": "Bem-vindo ao",
+      "desc2": "seu kit de ferramentas definitivo para otimizar seu fluxo de trabalho digital. Descubra uma variedade de ferramentas gratuitas e de código aberto projetadas para agilizar suas tarefas digitais e aprimorar sua presença online.",
+      "btn1": "Ver em",
+      "btn2": "Explore as ferramentas"
+    },
+    "features": {
+      "topic1": "Funcionalidade eficiente do kit de ferramentas",
+      "topic1_desc1": "Descubra uma interface intuitiva e acesso multiplataforma para um desempenho rápido.",
+      "topic1_desc2": "Acesse guias abrangentes e desfrute de atualizações regulares para aumentar a eficiência.",
+      "topic1_item1": "Interface amigável",
+      "topic1_item2": "Compatibilidade entre plataformas",
+      "topic1_item3": "Desempenho rápido e confiável",
+      "topic1_item4": "Documentação abrangente",
+      "topic1_item5": "Atualizações regulares",
+      "topic2": "Suporte robusto e segurança",
+      "topic2_desc1": "Desfrute de opções personalizáveis e suporte responsivo para uso escalável.",
+      "topic2_desc2": "Integre-se perfeitamente com fortes medidas de segurança para garantir a proteção de dados.",
+      "topic2_item1": "Opções de personalização",
+      "topic2_item2": "Suporte Responsivo",
+      "topic2_item3": "Escalabilidade",
+      "topic2_item4": "Recursos de integração",
+      "topic2_item5": "Medidas de Segurança"
+    },
+    "trusted": {
+      "text1": "Confiável em todo o mundo",
+      "text2": "Confiável por mais de {users} usuários e {teams} equipes",
+      "text3": "Nossos rigorosos padrões de segurança e conformidade estão no centro de tudo o que fazemos. Trabalhamos incansavelmente para proteger você e seus clientes.",
+      "text4": "Explore o Guia de Legalidade",
+      "text5": "Visite a Central de Confiabilidade",
+      "text6": "{value}% de tempo de atividade",
+      "text7": "Para {value}, com zero tempo de inatividade de manutenção",
+      "text8": "{value} Usuários",
+      "text9": "Confiável por mais de 600 milhões de usuários em todo o mundo",
+      "text10": "100+ países",
+      "text11": "Ter usado {value} para criar sites funcionais",
+      "text12": "{value} Milhões",
+      "text13": "Ações por dia"
+    },
+    "questions": {
+      "text": "Perguntas frequentes",
+      "title": "Feito sob medida para cada empreendimento",
+      "desc": "Na {value}, somos especializados em mercados onde tecnologia, inovação e capital convergem para desbloquear valor duradouro e impulsionar o progresso econômico.",
+      "question1": "O uso {value} é gratuito?",
+      "answer1": "Sim, {value} oferece uma gama de ferramentas gratuitas para o trabalho digital. Além disso, há recursos premium disponíveis para aqueles que exigem funcionalidade avançada.",
+      "question2": "Posso usar {value} em dispositivos móveis?",
+      "answer2": "Sim, {value} é otimizado para uso em desktop e dispositivos móveis. Quer esteja em viagem ou na sua secretária, pode aceder facilmente ao Web site a partir de qualquer dispositivo.",
+      "question3": "Com que frequência as ferramentas são atualizadas?",
+      "answer3": "{value} atualiza regularmente suas ferramentas para melhorar a funcionalidade e atender aos comentários dos usuários. As atualizações são lançadas mensalmente, garantindo que você sempre tenha acesso aos recursos e melhorias mais recentes.",
+      "question4": "Existe documentação disponível para as ferramentas?",
+      "answer4": "Sim, uma documentação abrangente é fornecida para ajudar os usuários a utilizar as ferramentas de forma eficaz. A documentação abrange tudo, desde o uso básico até recursos avançados, tornando mais fácil para usuários de todos os níveis de habilidade tirar o máximo proveito do {value}.",
+      "question5": "As ferramentas são seguras de usar?",
+      "answer5": "{value} prioriza a segurança e emprega medidas para proteger os dados e a privacidade dos usuários. Usamos protocolos de criptografia padrão do setor para proteger suas informações e auditamos regularmente nossos sistemas para garantir a conformidade com os mais recentes padrões de segurança."
+    }
+  }
+}

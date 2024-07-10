@@ -1,0 +1,76 @@
+{
+  "common": {
+    "welcome": "Chào mừng",
+    "welcome_user": "chào mừng: {username}"
+  },
+  "home": {
+    "header": {
+      "nav": {
+        "home": "Trang chủ",
+        "tools": "Công cụ",
+        "blog": "Blog",
+        "about": "Về",
+        "tos": "Điều khoản dịch vụ"
+      }
+    },
+    "banner": {
+      "title1": "Đơn giản hóa nhiệm vụ kỹ thuật số",
+      "title2": "Tăng cường hiệu quả",
+      "title3": "Tối đa hóa năng suất",
+      "title4": "Tối ưu hóa quy trình làm việc",
+      "title5": "Công việc kỹ thuật số nhanh chóng",
+      "desc1": "Chào mừng bạn đến",
+      "desc2": "bộ công cụ tối ưu để tối ưu hóa quy trình làm việc kỹ thuật số của bạn. Khám phá một loạt công cụ nguồn mở, miễn phí được thiết kế để hợp lý hóa các tác vụ kỹ thuật số và nâng cao sự hiện diện trực tuyến của bạn.",
+      "btn1": "Xem trên",
+      "btn2": "Khám phá các công cụ"
+    },
+    "features": {
+      "topic1": "Chức năng bộ công cụ hiệu quả",
+      "topic1_desc1": "Khám phá giao diện trực quan và quyền truy cập đa nền tảng để có hiệu suất nhanh.",
+      "topic1_desc2": "Truy cập các hướng dẫn toàn diện và tận hưởng các bản cập nhật thường xuyên để nâng cao hiệu quả.",
+      "topic1_item1": "Giao diện thân thiện với người dùng",
+      "topic1_item2": "Khả năng tương thích đa nền tảng",
+      "topic1_item3": "Hiệu suất nhanh và đáng tin cậy",
+      "topic1_item4": "Tài liệu toàn diện",
+      "topic1_item5": "Cập nhật thường xuyên",
+      "topic2": "Hỗ trợ & Bảo mật mạnh mẽ",
+      "topic2_desc1": "Tận hưởng các tùy chọn có thể tùy chỉnh và hỗ trợ đáp ứng để sử dụng có thể mở rộng.",
+      "topic2_desc2": "Tích hợp liền mạch với các biện pháp bảo mật mạnh mẽ để đảm bảo bảo vệ dữ liệu.",
+      "topic2_item1": "Tùy chọn tùy chỉnh",
+      "topic2_item2": "Hỗ trợ đáp ứng",
+      "topic2_item3": "Khả năng mở rộng",
+      "topic2_item4": "Khả năng tích hợp",
+      "topic2_item5": "Các biện pháp an ninh"
+    },
+    "trusted": {
+      "text1": "Đáng tin cậy trên toàn thế giới",
+      "text2": "Được tin cậy bởi hơn {users} người dùng và {teams} nhóm",
+      "text3": "Các tiêu chuẩn bảo mật và tuân thủ nghiêm ngặt của chúng tôi là trọng tâm của tất cả những gì chúng tôi làm. Chúng tôi làm việc không mệt mỏi để bảo vệ bạn và khách hàng của bạn.",
+      "text4": "Khám phá Hướng dẫn về tính hợp pháp",
+      "text5": "Truy cập Trung tâm Tin cậy",
+      "text6": "{value}% thời gian hoạt động",
+      "text7": "Đối với {value}, không có thời gian ngừng bảo trì",
+      "text8": "{value} Người dùng",
+      "text9": "Được tin cậy bởi hơn 600 triệu người dùng trên toàn thế giới",
+      "text10": "100+ quốc gia",
+      "text11": "Đã sử dụng {value} để tạo các trang web chức năng",
+      "text12": "{value} Triệu",
+      "text13": "Hành động mỗi ngày"
+    },
+    "questions": {
+      "text": "Câu hỏi thường gặp",
+      "title": "Được thiết kế riêng cho mọi nỗ lực",
+      "desc": "Tại {value}, chúng tôi chuyên về các thị trường nơi công nghệ, đổi mới và vốn hội tụ để mở khóa giá trị lâu dài và thúc đẩy tiến bộ kinh tế.",
+      "question1": "{value} có miễn phí sử dụng không?",
+      "answer1": "Có, {value} cung cấp một loạt các công cụ miễn phí cho công việc kỹ thuật số. Ngoài ra, có các tính năng cao cấp có sẵn cho những người yêu cầu chức năng nâng cao.",
+      "question2": "Tôi có thể sử dụng {value} trên thiết bị di động không?",
+      "answer2": "Có, {value} được tối ưu hóa để sử dụng trên cả máy tính để bàn và thiết bị di động. Cho dù bạn đang di chuyển hay tại bàn làm việc, bạn có thể truy cập trang web liền mạch từ mọi thiết bị.",
+      "question3": "Các công cụ được cập nhật bao lâu một lần?",
+      "answer3": "{value} thường xuyên cập nhật các công cụ của mình để cải thiện chức năng và giải quyết phản hồi của người dùng. Các bản cập nhật được triển khai hàng tháng, đảm bảo rằng bạn luôn có quyền truy cập vào các tính năng và cải tiến mới nhất.",
+      "question4": "Có tài liệu có sẵn cho các công cụ không?",
+      "answer4": "Có, tài liệu toàn diện được cung cấp để hỗ trợ người dùng sử dụng các công cụ một cách hiệu quả. Tài liệu bao gồm mọi thứ từ cách sử dụng cơ bản đến các tính năng nâng cao, giúp người dùng ở mọi cấp độ kỹ năng dễ dàng tận dụng tối đa {value}.",
+      "question5": "Các công cụ có an toàn để sử dụng không?",
+      "answer5": "{value} ưu tiên bảo mật và sử dụng các biện pháp để bảo vệ dữ liệu người dùng và quyền riêng tư. Chúng tôi sử dụng các giao thức mã hóa tiêu chuẩn ngành để bảo vệ thông tin của bạn và thường xuyên kiểm tra hệ thống của chúng tôi để đảm bảo tuân thủ các tiêu chuẩn bảo mật mới nhất."
+    }
+  }
+}

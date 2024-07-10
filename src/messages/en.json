@@ -1,0 +1,78 @@
+{
+  "common": {
+    "welcome": "welcome",
+    "welcome_user": "welcome: {username}"
+  },
+  "home": {
+    "header": {
+      "nav": {
+        "home": "Home",
+        "tools": "Tools",
+        "blog": "Blog",
+        "about": "About",
+        "tos": "Terms"
+      }
+    },
+    "banner": {
+      "title1": "Digital Task Simplify",
+      "title2": "Efficiency Boost",
+      "title3": "Maximize Productivity",
+      "title4": "Workflow Optimize",
+      "title5": "Digital Work Fast",
+      "desc1": "Welcome to",
+      "desc2": "your ultimate toolkit for optimizing your digital workflow. Discover a range of free, open-source tools designed to streamline your digital tasks and enhance your online presence.",
+      "btn1": "View on",
+      "btn2": "Explore tools"
+    },
+    "features": {
+      "topic1": "Efficient Toolkit Functionality",
+      "topic1_desc1": "Discover an intuitive interface and cross-platform access for fast performance.",
+      "topic1_desc2": "Access comprehensive guides and enjoy regular updates to enhance efficiency.",
+      "topic1_item1": "User-friendly Interface",
+      "topic1_item2": "Cross-Platform Compatibility",
+      "topic1_item3": "Fast and Reliable Performance",
+      "topic1_item4": "Comprehensive Documentation",
+      "topic1_item5": "Regular Updates",
+
+      "topic2": "Robust Support & Security",
+      "topic2_desc1": "Enjoy customizable options and responsive support for scalable usage.",
+      "topic2_desc2": "Seamlessly integrate with strong security measures to ensure data protection.",
+      "topic2_item1": "Customization Options",
+      "topic2_item2": "Responsive Support",
+      "topic2_item3": "Scalability",
+      "topic2_item4": "Integration Capabilities",
+      "topic2_item5": "Security Measures"
+    },
+    "trusted": {
+      "text1": "Trusted Worldwide",
+      "text2": "Trusted by over {users} users and {teams} teams",
+      "text3": "Our rigorous security and compliance standards are at the heart of all we do. We work tirelessly to ,protect you and your customers.",
+      "text4": "Explore Legality Guide",
+      "text5": "Visit the Trust Center",
+      "text6": "{value}% uptime",
+      "text7": "For {value}, with zero maintenance downtime",
+      "text8": "{value} Users",
+      "text9": "Trusted by over 600 milion users around the world",
+      "text10": "100+ countries",
+      "text11": "Have used {value} to create functional websites",
+      "text12": "{value} Million",
+      "text13": "Actions per day"
+    },
+    "questions": {
+      "text": "Frequently asked questions",
+      "title": "Tailored for Every Endeavor",
+      "desc": "At {value}, we specialize in markets where technology, innovation, and capital converge to unlock lasting value and fuel economic progress.",
+      "question1": "Is {value} free to use?",
+      "answer1": "Yes, {value} offers a range of free tools for digital work. Additionally, there are premium features available for those who require advanced functionality.",
+      "question2": "Can I use {value} on mobile devices?",
+      "answer2": "Yes, {value} is optimized for use on both desktop and mobile devices. Whether you're on the go or at your desk, you can access website seamlessly from any device.",
+      "question3": "How often are the tools updated?",
+      "answer3": "{value} regularly updates its tools to improve functionality and address user feedback. Updates are rolled out on a monthly basis, ensuring that you always have access to the latest features and improvements.",
+      "question4": "Is there documentation available for the tools?",
+      "answer4": "Yes, comprehensive documentation is provided to assist users in utilizing the tools effectively. The documentation covers everything from basic usage to advanced features, making it easy for users of all skill levels to get the most out of {value}.",
+      "question5": "Are the tools secure to use?",
+      "answer5": "{value} prioritizes security and employs measures to protect user data and privacy. We use industry-standard encryption protocols to safeguard your information and regularly audit our systems to ensure compliance with the latest security standards."
+    },
+    "footer": {}
+  }
+}

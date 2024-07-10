@@ -1,0 +1,76 @@
+{
+  "common": {
+    "welcome": "accueillir",
+    "welcome_user": "bienvenue : {username}"
+  },
+  "home": {
+    "header": {
+      "nav": {
+        "home": "Maison",
+        "tools": "Outils",
+        "blog": "Blog",
+        "about": "À propos",
+        "tos": "Conditions d'utilisation"
+      }
+    },
+    "banner": {
+      "title1": "Simplification des tâches numériques",
+      "title2": "Amélioration de l'efficacité",
+      "title3": "Maximiser la productivité",
+      "title4": "Optimisation du flux de travail",
+      "title5": "Travail numérique rapide",
+      "desc1": "Bienvenue à",
+      "desc2": "votre boîte à outils ultime pour optimiser votre flux de travail numérique. Découvrez une gamme d'outils gratuits et open source conçus pour rationaliser vos tâches numériques et améliorer votre présence en ligne.",
+      "btn1": "Voir sur",
+      "btn2": "Explorer les outils"
+    },
+    "features": {
+      "topic1": "Fonctionnalité efficace de la boîte à outils",
+      "topic1_desc1": "Découvrez une interface intuitive et un accès multiplateforme pour des performances rapides.",
+      "topic1_desc2": "Accédez à des guides complets et profitez de mises à jour régulières pour améliorer l’efficacité.",
+      "topic1_item1": "Interface conviviale",
+      "topic1_item2": "Compatibilité multiplateforme",
+      "topic1_item3": "Performances rapides et fiables",
+      "topic1_item4": "Documentation complète",
+      "topic1_item5": "Mises à jour régulières",
+      "topic2": "Support et sécurité robustes",
+      "topic2_desc1": "Profitez d’options personnalisables et d’un support réactif pour une utilisation évolutive.",
+      "topic2_desc2": "Intégrez de manière transparente des mesures de sécurité solides pour assurer la protection des données.",
+      "topic2_item1": "Options de personnalisation",
+      "topic2_item2": "Assistance réactive",
+      "topic2_item3": "Évolutivité",
+      "topic2_item4": "Capacités d’intégration",
+      "topic2_item5": "Mesures de sécurité"
+    },
+    "trusted": {
+      "text1": "Confiance dans le monde entier",
+      "text2": "Approuvé par plus de {users} utilisateurs et {teams} équipes",
+      "text3": "Nos normes rigoureuses de sécurité et de conformité sont au cœur de tout ce que nous faisons. Nous travaillons sans relâche pour vous protéger, vous et vos clients.",
+      "text4": "Explorez le guide de légalité",
+      "text5": "Visiter le Trust Center",
+      "text6": "{value}% de disponibilité",
+      "text7": "Pour {value}, sans temps d’arrêt pour maintenance",
+      "text8": "{value} Utilisateurs",
+      "text9": "Plus de 600 millions d’utilisateurs dans le monde entier nous font confiance",
+      "text10": "100+ pays",
+      "text11": "Avoir utilisé {value} pour créer des sites Web fonctionnels",
+      "text12": "{value} millions",
+      "text13": "Actions par jour"
+    },
+    "questions": {
+      "text": "Questions fréquentes",
+      "title": "Adapté à chaque effort",
+      "desc": "Chez {value}, nous nous spécialisons dans les marchés où la technologie, l’innovation et le capital convergent pour libérer une valeur durable et alimenter le progrès économique.",
+      "question1": "L’utilisation de {value} est-elle gratuite ?",
+      "answer1": "Oui, {value} propose une gamme d’outils gratuits pour le travail numérique. De plus, des fonctionnalités premium sont disponibles pour ceux qui ont besoin de fonctionnalités avancées.",
+      "question2": "Puis-je utiliser {value} sur des appareils mobiles ?",
+      "answer2": "Oui, {value} est optimisé pour une utilisation sur les ordinateurs de bureau et les appareils mobiles. Que vous soyez en déplacement ou à votre bureau, vous pouvez accéder au site Web de manière transparente depuis n’importe quel appareil.",
+      "question3": "À quelle fréquence les outils sont-ils mis à jour ?",
+      "answer3": "{value} met régulièrement à jour ses outils pour améliorer les fonctionnalités et répondre aux commentaires des utilisateurs. Les mises à jour sont déployées sur une base mensuelle, ce qui vous permet d’avoir toujours accès aux dernières fonctionnalités et améliorations.",
+      "question4": "Existe-t-il de la documentation pour les outils ?",
+      "answer4": "Oui, une documentation complète est fournie pour aider les utilisateurs à utiliser efficacement les outils. La documentation couvre tout, de l’utilisation de base aux fonctionnalités avancées, ce qui permet aux utilisateurs de tous niveaux de tirer le meilleur parti de {value}.",
+      "question5": "Les outils sont-ils sûrs à utiliser ?",
+      "answer5": "{value} donne la priorité à la sécurité et utilise des mesures pour protéger les données et la vie privée des utilisateurs. Nous utilisons des protocoles de cryptage standard pour protéger vos informations et auditons régulièrement nos systèmes pour garantir la conformité aux dernières normes de sécurité."
+    }
+  }
+}

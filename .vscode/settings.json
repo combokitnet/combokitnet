@@ -1,0 +1,23 @@
+{
+  "editor.codeActionsOnSave": {
+    "source.organizeImports": "explicit",
+    "source.fixAll": "explicit",
+    "prettier": "explicit"
+  },
+  "editor.formatOnSave": true,
+  "cSpell.words": ["comming", "nestjs", "TWCA", "webpush"],
+  "files.exclude": {
+    ".git": true,
+    "dist": true,
+    // ".next": true,
+    "node_modules": true,
+    ".build": true,
+    "**/.DS_Store": true,
+    "files.watcherExclude": {
+      "**/.git/objects/**": true,
+      "**/.git/subtree-cache/**": true,
+      "**/node_modules/**": true,
+      "**/.next/**": true
+    }
+  }
+}

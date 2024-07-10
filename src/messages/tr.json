@@ -1,0 +1,76 @@
+{
+  "common": {
+    "welcome": "Hoş geldin",
+    "welcome_user": "hoş geldiniz: {username}"
+  },
+  "home": {
+    "header": {
+      "nav": {
+        "home": "Ev",
+        "tools": "Aletler",
+        "blog": "Blog",
+        "about": "Hakkında",
+        "tos": "Kullanım Şartları"
+      }
+    },
+    "banner": {
+      "title1": "Dijital Görevi Kolaylaştırın",
+      "title2": "Verimlilik Artışı",
+      "title3": "Üretkenliği En Üst Düzeye Çıkarın",
+      "title4": "İş Akışı Optimize Etme",
+      "title5": "Dijital Çalışma Hızı",
+      "desc1": "Hoşgeldiniz",
+      "desc2": "dijital iş akışınızı optimize etmek için mükemmel araç setiniz. Dijital görevlerinizi kolaylaştırmak ve çevrimiçi varlığınızı geliştirmek için tasarlanmış bir dizi ücretsiz, açık kaynaklı aracı keşfedin.",
+      "btn1": "Şurada görüntüle",
+      "btn2": "Araçları keşfedin"
+    },
+    "features": {
+      "topic1": "Verimli Araç Kiti İşlevselliği",
+      "topic1_desc1": "Hızlı performans için sezgisel bir arayüzü ve platformlar arası erişimi keşfedin.",
+      "topic1_desc2": "Verimliliği artırmak için kapsamlı kılavuzlara erişin ve düzenli güncellemelerin keyfini çıkarın.",
+      "topic1_item1": "Kullanıcı dostu arayüz",
+      "topic1_item2": "Platformlar Arası Uyumluluk",
+      "topic1_item3": "Hızlı ve Güvenilir Performans",
+      "topic1_item4": "Kapsamlı Dokümantasyon",
+      "topic1_item5": "Düzenli Güncellemeler",
+      "topic2": "Sağlam Destek ve Güvenlik",
+      "topic2_desc1": "Ölçeklenebilir kullanım için özelleştirilebilir seçeneklerin ve duyarlı desteğin keyfini çıkarın.",
+      "topic2_desc2": "Veri korumasını sağlamak için güçlü güvenlik önlemleriyle sorunsuz bir şekilde entegre edin.",
+      "topic2_item1": "Özelleştirme Seçenekleri",
+      "topic2_item2": "Duyarlı Destek",
+      "topic2_item3": "Ölçeklenebilirlik",
+      "topic2_item4": "Entegrasyon Yetenekleri",
+      "topic2_item5": "Güvenlik Önlemleri"
+    },
+    "trusted": {
+      "text1": "Dünya Çapında Güvenilir",
+      "text2": "{users}'dan fazla kullanıcı ve {teams} ekip tarafından güvenilen",
+      "text3": "Sıkı güvenlik ve uyumluluk standartlarımız, yaptığımız her şeyin merkezinde yer alır. Sizi ve müşterilerinizi korumak için yorulmadan çalışıyoruz.",
+      "text4": "Yasallık Kılavuzunu Keşfedin",
+      "text5": "Güven Merkezi'ni ziyaret edin",
+      "text6": "{value}% çalışma süresi",
+      "text7": "{value} için, sıfır bakım kesintisi ile",
+      "text8": "{value} Kullanıcılar",
+      "text9": "Dünya çapında 600 milyondan fazla kullanıcı tarafından güvenilen",
+      "text10": "100+ ülke",
+      "text11": "İşlevsel web siteleri oluşturmak için {value} kullandınız",
+      "text12": "{value} Milyon",
+      "text13": "Günlük eylem sayısı"
+    },
+    "questions": {
+      "text": "Sıkça Sorulan Sorular",
+      "title": "Her Çaba İçin Uyarlanmış",
+      "desc": "{value} olarak, kalıcı değeri ortaya çıkarmak ve ekonomik ilerlemeyi hızlandırmak için teknoloji, inovasyon ve sermayenin birleştiği pazarlarda uzmanız.",
+      "question1": "{value} kullanımı ücretsiz mi?",
+      "answer1": "Evet, {value} dijital çalışma için bir dizi ücretsiz araç sunar. Ek olarak, gelişmiş işlevselliğe ihtiyaç duyanlar için premium özellikler mevcuttur.",
+      "question2": "{value} mobil cihazlarda kullanabilir miyim?",
+      "answer2": "Evet, {value} hem masaüstü hem de mobil cihazlarda kullanım için optimize edilmiştir. İster hareket halinde olun, ister masanızda, web sitesine herhangi bir cihazdan sorunsuz bir şekilde erişebilirsiniz.",
+      "question3": "Araçlar ne sıklıkla güncellenir?",
+      "answer3": "{value} işlevselliğini geliştirmek ve kullanıcı geri bildirimlerini ele almak için araçlarını düzenli olarak günceller. Güncellemeler aylık olarak kullanıma sunulur ve her zaman en son özelliklere ve iyileştirmelere erişmenizi sağlar.",
+      "question4": "Araçlar için belgeler var mı?",
+      "answer4": "Evet, kullanıcıların araçları etkin bir şekilde kullanmalarına yardımcı olmak için kapsamlı belgeler sağlanmıştır. Belgeler, temel kullanımdan gelişmiş özelliklere kadar her şeyi kapsar ve tüm beceri seviyelerindeki kullanıcıların {value}'dan en iyi şekilde yararlanmasını kolaylaştırır.",
+      "question5": "Araçların kullanımı güvenli mi?",
+      "answer5": "{value} güvenliğe öncelik verir ve kullanıcı verilerini ve gizliliğini korumak için önlemler alır. Bilgilerinizi korumak için endüstri standardı şifreleme protokolleri kullanıyoruz ve en son güvenlik standartlarına uygunluğu sağlamak için sistemlerimizi düzenli olarak denetliyoruz."
+    }
+  }
+}

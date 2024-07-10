@@ -1,0 +1,76 @@
+{
+  "common": {
+    "welcome": "Benvenuto",
+    "welcome_user": "benvenuto: {username}"
+  },
+  "home": {
+    "header": {
+      "nav": {
+        "home": "Casa",
+        "tools": "Utensili",
+        "blog": "Blog",
+        "about": "Di",
+        "tos": "Termini di servizio"
+      }
+    },
+    "banner": {
+      "title1": "Semplificazione delle attività digitali",
+      "title2": "Incremento dell'efficienza",
+      "title3": "Massimizza la produttività",
+      "title4": "Ottimizzazione del flusso di lavoro",
+      "title5": "Lavoro digitale veloce",
+      "desc1": "Benvenuto a",
+      "desc2": "il tuo toolkit definitivo per ottimizzare il tuo flusso di lavoro digitale. Scopri una gamma di strumenti gratuiti e open source progettati per semplificare le tue attività digitali e migliorare la tua presenza online.",
+      "btn1": "Vedi su",
+      "btn2": "Esplora gli strumenti"
+    },
+    "features": {
+      "topic1": "Funzionalità efficiente del toolkit",
+      "topic1_desc1": "Scopri un'interfaccia intuitiva e l'accesso multipiattaforma per prestazioni veloci.",
+      "topic1_desc2": "Accedi a guide complete e goditi aggiornamenti regolari per migliorare l'efficienza.",
+      "topic1_item1": "Interfaccia user-friendly",
+      "topic1_item2": "Compatibilità multipiattaforma",
+      "topic1_item3": "Prestazioni veloci e affidabili",
+      "topic1_item4": "Documentazione completa",
+      "topic1_item5": "Aggiornamenti regolari",
+      "topic2": "Supporto e sicurezza robusti",
+      "topic2_desc1": "Usufruisci di opzioni personalizzabili e di un supporto reattivo per un utilizzo scalabile.",
+      "topic2_desc2": "Integrazione perfetta con solide misure di sicurezza per garantire la protezione dei dati.",
+      "topic2_item1": "Opzioni di personalizzazione",
+      "topic2_item2": "Supporto reattivo",
+      "topic2_item3": "Scalabilità",
+      "topic2_item4": "Capacità di integrazione",
+      "topic2_item5": "Misure di sicurezza"
+    },
+    "trusted": {
+      "text1": "Affidabile in tutto il mondo",
+      "text2": "Scelto da oltre {users} utenti e {teams} team",
+      "text3": "I nostri rigorosi standard di sicurezza e conformità sono al centro di tutto ciò che facciamo. Lavoriamo instancabilmente per proteggere te e i tuoi clienti.",
+      "text4": "Esplora la guida alla legalità",
+      "text5": "Visita il Centro protezione",
+      "text6": "{value}% di uptime",
+      "text7": "Per {value}, senza tempi di fermo per manutenzione",
+      "text8": "{value} Utenti",
+      "text9": "Scelto da oltre 600 milioni di utenti in tutto il mondo",
+      "text10": "100+ paesi",
+      "text11": "Hanno utilizzato {value} per creare siti web funzionali",
+      "text12": "{value} Milioni",
+      "text13": "Azioni al giorno"
+    },
+    "questions": {
+      "text": "Domande frequenti",
+      "title": "Su misura per ogni attività",
+      "desc": "Noi di {value} siamo specializzati in mercati in cui tecnologia, innovazione e capitale convergono per sbloccare valore duraturo e alimentare il progresso economico.",
+      "question1": "{value} è gratuito?",
+      "answer1": "Sì, {value} offre una gamma di strumenti gratuiti per il lavoro digitale. Inoltre, sono disponibili funzionalità premium per coloro che richiedono funzionalità avanzate.",
+      "question2": "Posso usare {value} sui dispositivi mobili?",
+      "answer2": "Sì, {value} è ottimizzato per l'uso sia su desktop che su dispositivi mobili. Che tu sia in viaggio o alla tua scrivania, puoi accedere al sito Web senza problemi da qualsiasi dispositivo.",
+      "question3": "Con quale frequenza vengono aggiornati gli strumenti?",
+      "answer3": "{value} aggiorna regolarmente i suoi strumenti per migliorare la funzionalità e rispondere al feedback degli utenti. Gli aggiornamenti vengono implementati su base mensile, assicurandoti di avere sempre accesso alle funzionalità e ai miglioramenti più recenti.",
+      "question4": "È disponibile la documentazione per gli strumenti?",
+      "answer4": "Sì, viene fornita una documentazione completa per aiutare gli utenti a utilizzare gli strumenti in modo efficace. La documentazione copre tutto, dall'utilizzo di base alle funzionalità avanzate, rendendo facile per gli utenti di tutti i livelli di abilità ottenere il massimo da {value}.",
+      "question5": "Gli strumenti sono sicuri da usare?",
+      "answer5": "{value} dà priorità alla sicurezza e adotta misure per proteggere i dati e la privacy degli utenti. Utilizziamo protocolli di crittografia standard del settore per salvaguardare le tue informazioni e controlliamo regolarmente i nostri sistemi per garantire la conformità ai più recenti standard di sicurezza."
+    }
+  }
+}

@@ -1,13 +1,30 @@
 import { APP_DESC, APP_NAME } from "@/configs/const";
+import { request } from "@/configs/request";
+import Cookies from "js-cookie";
 import { Inter } from "next/font/google";
 import Head from "next/head";
-import { PropsWithChildren } from "react";
+import { PropsWithChildren, useEffect } from "react";
 import Footer from "./Footer";
 import Header from "./Header";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export default function AppLayout(props: PropsWithChildren) {
+  useEffect(() => {
+    const tokenType = Cookies.get("tokenType");
+    if (tokenType === "login") {
+      //TODO: auth with user info
+    } else {
+      request("/guest", { method: "POST" })
+        .then((res) => {
+          console.log(res);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  }, []);
+
   return (
     <main className={`${inter.className} h-full`}>
       <Head>

@@ -1,27 +1,45 @@
 import AppLayout from "@/components/AppLayout";
+import Breadcrumb from "@/components/Breadcrumb";
+import { TTool } from "../ToolPage/types";
 
-export default function ImageTinyPage() {
+export default function ImageTinyPage({ data }: { data: TTool }) {
   return (
     <AppLayout>
       <div className="pt-[60px]"></div>
       <div className="container mx-auto">
-        <div>breadcrum/breadcrum/</div>
+        <div>
+          <Breadcrumb
+            items={[
+              { label: "Home", href: "/" },
+              { label: "Tools", href: "/tools" },
+              { label: data?.name },
+            ]}
+          />
+        </div>
         <div className="relative">
-          <div className="">
-            <img src="" alt="" />
+          <div className="flex items-center">
+            <img
+              className="w-[50px] h-[50px]"
+              src={data?.iconUrl}
+              alt={data?.name}
+            />
             <div>
-              <h2>Name</h2>
-              <p>desc</p>
+              <h2>{data?.name}</h2>
+              <p>{data?.description}</p>
               <div>
                 <div>
-                  By <span>abc</span>
+                  By <span>{data?.author?.username}</span>
                 </div>
                 <div>star</div>
                 <div>used</div>
               </div>
             </div>
           </div>
-          <div className="absolute right-0">right</div>
+          <div className="absolute right-0">
+            <div>tim</div>
+            <div>vote</div>
+            <div>feedback</div>
+          </div>
         </div>
       </div>
       <div className="container mx-auto">body</div>

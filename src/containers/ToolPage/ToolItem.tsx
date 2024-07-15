@@ -1,10 +1,10 @@
+import DateFormat from "@/components/DateFormat";
 import NoSSR from "@/components/NoSSR";
 import useLocalStorage from "@/hooks/useLocalStorage";
-import { TTool, TToolTag } from "@/pages/api/tool";
 import Link from "next/link";
 import { useId, useMemo } from "react";
 import { FaHeart, FaRegHeart } from "react-icons/fa";
-import { getTagColor } from "./utils";
+import { TTool, TToolTag } from "./types";
 
 const ToolItem = ({
   data,
@@ -22,17 +22,14 @@ const ToolItem = ({
     <div className="flex bg-card h-44 flex-col rounded-lg border bg-card p-3 text-card-foreground hover:bg-muted">
       <div className="relative right-11 mb-[13px] ml-11 flex h-[20px] w-full items-center justify-between">
         <div className="flex gap-1">
-          {data?.tag?.map((tag, i) => (
+          {data?.tags?.map((tag, i) => (
             <button key={`${id}_${i}`}>
               <div
                 className="flex h-5 items-center justify-center rounded-sm bg-opacity-10 px-2"
                 style={{ backgroundColor: "rgb(245, 243, 255)" }}
               >
-                <span
-                  className="text-xs"
-                  style={{ color: getTagColor(toolTags, tag) }}
-                >
-                  <span className="line-clamp-1 max-w-[200px]">{tag}</span>
+                <span className="text-xs" style={{ color: tag.color }}>
+                  <span className="line-clamp-1 max-w-[200px]">{tag.name}</span>
                 </span>
               </div>
             </button>
@@ -69,7 +66,7 @@ const ToolItem = ({
             decoding="async"
             data-nimg={1}
             className="3xl rounded"
-            src={data?.icon}
+            src={data?.iconUrl}
             style={{ color: "transparent" }}
           />
         </div>
@@ -78,7 +75,7 @@ const ToolItem = ({
             <div className="flex items-center gap-1 pb-1">
               <Link
                 className="text-inherit hover:no-underline"
-                href={data?.link || "#"}
+                href={data?.pathUrl || "#"}
               >
                 <span className="line-clamp-1 truncate text-sm font-medium leading-tight text-card-primary ease-in-out group-hover/card:text-sky-500 group-hover/content:underline [&>em]:bg-blue-100 [&>em]:font-semibold">
                   {data?.name}
@@ -90,12 +87,17 @@ const ToolItem = ({
             </span>
           </div>
           <div className="flex items-center justify-between text-xs font-light leading-none text-gray-400 dark:text-gray-500">
-            <Link className="text-inherit" href={data?.authorUrl || "#"}>
+            <Link
+              className="text-inherit"
+              href={`/user/${data?.author?.id}` || "#"}
+            >
               <div className="mr-1 max-w-[100px] truncate">
-                By {data?.author}
+                By {data?.author?.username}
               </div>
             </Link>
-            <span className="truncate leading-4">Updated 2 months ago</span>
+            <span className="truncate leading-4">
+              Update at <DateFormat date={new Date(data?.updatedAt)} />
+            </span>
           </div>
 
           <div className="mt-auto flex items-center gap-1.5">

@@ -1,26 +1,23 @@
 import AppLayout from "@/components/AppLayout";
 import useSearchParams from "@/hooks/useSearchParams";
-import { TTool, TToolTag } from "@/pages/api/tool";
 import Fuse from "fuse.js";
 import { useEffect, useState } from "react";
 import { FaSearch } from "react-icons/fa";
 import ToolItem from "./ToolItem";
+import { TTool, TToolTag } from "./types";
 
 export default function ToolPage({
   toolData,
-  toolTags,
+  tags,
 }: {
   toolData: TTool[];
-  toolTags: {
-    tag: string;
-    tagColor: string;
-  }[];
+  tags: TToolTag[];
 }) {
   const fuse = new Fuse(toolData, {
     keys: ["name", "tag", "description", "author", "suggestData"],
     ignoreLocation: true,
   });
-
+  console.log("toolTags", tags);
   const [tag, setTag] = useState<string[]>([]);
   const [search, setSearch] = useState("");
   const [tools, setTools] = useState(toolData);
@@ -38,10 +35,11 @@ export default function ToolPage({
     if (search) {
       t = fuse.search(search).map((result) => result.item);
     }
+
     if (tag.length > 0) {
       let dataSetTag = new Set(tag);
       t = t.filter((m) => {
-        return m.tag.some((item) => dataSetTag.has(item));
+        return m.tags.some((item) => dataSetTag.has(item.name));
       });
     }
     setTools(t);
@@ -52,7 +50,7 @@ export default function ToolPage({
       <div className="container mx-auto pt-[200px]">
         <div className="flex justify-between mb-[18px] p-[0px_24px] flex-col md:flex-row gap-[12px]">
           <ListToolTag
-            toolTags={toolTags}
+            toolTags={tags}
             tag={tag}
             setTag={setTag}
             setSearchParam={setSearchParam}
@@ -79,7 +77,7 @@ export default function ToolPage({
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 p-[0px_24px]">
           {tools?.length > 0
             ? tools.map((m, i) => (
-                <ToolItem toolTags={toolTags} data={m} key={m.name} />
+                <ToolItem toolTags={tags} data={m} key={m.name} />
               ))
             : "No tool here"}
         </div>
@@ -102,17 +100,17 @@ const ListToolTag = ({
   return (
     <div className="flex gap-[8px] flex-wrap">
       {toolTags.map((m) => {
-        let isSelected = tag?.includes(m.tag);
+        let isSelected = tag?.includes(m.name);
         return (
           <div
-            key={m.tag}
+            key={m.slug}
             onClick={() => {
               let n = [];
-              if (tag?.includes(m.tag)) {
-                n = tag.filter((k) => k !== m.tag);
+              if (tag?.includes(m.name)) {
+                n = tag.filter((k) => k !== m.name);
               } else {
                 n = [...tag];
-                n.push(m.tag);
+                n.push(m.name);
               }
               setTag(n);
               setSearchParam("tag", n.toString());
@@ -128,7 +126,7 @@ const ListToolTag = ({
                 }`}
               >
                 <span className="text-md">
-                  <span className="line-clamp-1 max-w-[200px]">{m.tag}</span>
+                  <span className="line-clamp-1 max-w-[200px]">{m.name}</span>
                 </span>
               </div>
             </button>

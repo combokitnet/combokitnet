@@ -2,7 +2,8 @@ import AppLayout from "@/components/AppLayout";
 import Breadcrumb from "@/components/Breadcrumb";
 import { TTool } from "../ToolPage/types";
 
-export default function ImageTinyPage({ data }: { data: TTool }) {
+export default function ImageCompressionPage({ data }: { data: TTool }) {
+  console.log(data);
   return (
     <AppLayout>
       <div className="pt-[60px]"></div>

@@ -1,8 +1,6 @@
-import { APP_DESC, APP_NAME } from "@/configs/const";
 import { request } from "@/configs/request";
 import Cookies from "js-cookie";
 import { Inter } from "next/font/google";
-import Head from "next/head";
 import { PropsWithChildren, useEffect } from "react";
 import Footer from "./Footer";
 import Header from "./Header";
@@ -27,12 +25,12 @@ export default function AppLayout(props: PropsWithChildren) {
 
   return (
     <main className={`${inter.className} h-full`}>
-      <Head>
+      {/* <Head>
         <title>{`${APP_NAME} - ${APP_DESC}`}</title>
         <meta name="description" content={APP_DESC} />
         <meta name="author" content={`Team ${APP_NAME}`} />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      </Head>
+      </Head> */}
       <Header />
       <>{props.children}</>
       <br />

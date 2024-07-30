@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# ./git_push.sh --skip-build "update"
+
 # Check for --skip-build flag
 SKIP_BUILD=false
 for arg in "$@"; do

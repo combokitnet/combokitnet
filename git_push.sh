@@ -1,5 +1,6 @@
 #!/bin/bash
 
+# ./git_push.sh "update"
 # ./git_push.sh --skip-build "update"
 
 # Check for --skip-build flag

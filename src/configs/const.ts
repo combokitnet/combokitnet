@@ -10,3 +10,8 @@ export const APP_SOCIAL = {
   telegram: "https://t.me/combokit_net",
   gmail: 'combokitnet@gmail.com'
 };
+
+
+export const LOCAL_STORAGE = {
+  TOOLS_FAVORITES: '_app_favorites'
+}

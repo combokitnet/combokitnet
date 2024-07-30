@@ -1,22 +1,18 @@
 import DateFormat from "@/components/DateFormat";
 import NoSSR from "@/components/NoSSR";
+import { LOCAL_STORAGE } from "@/configs/const";
 import useLocalStorage from "@/hooks/useLocalStorage";
 import Link from "next/link";
 import { useId, useMemo } from "react";
 import { FaHeart, FaRegHeart } from "react-icons/fa";
 import { TTool, TToolTag } from "./types";
 
-const ToolItem = ({
-  data,
-  toolTags,
-}: {
-  data: TTool;
-  toolTags: TToolTag[];
-}) => {
+const ToolItem = ({ data }: { data: TTool; toolTags: TToolTag[] }) => {
   const id = useId();
-  const [favorites, setFavorites] = useLocalStorage("_app_favorites", "");
-
-  const isFav = favorites?.includes(data?.name) || false;
+  const [favorites, setFavorites] = useLocalStorage(
+    LOCAL_STORAGE.TOOLS_FAVORITES,
+    ""
+  );
 
   return (
     <div className="flex bg-card h-44 flex-col rounded-lg border bg-card p-3 text-card-foreground hover:bg-muted">
@@ -149,16 +145,32 @@ const ToolItem = ({
   );
 };
 
-const ItemFav = ({ data, favorites }: { data: TTool; favorites: string }) => {
+export const ItemFav = ({
+  data,
+  favorites,
+  size,
+}: {
+  data: TTool;
+  favorites: string;
+  size?: string;
+}) => {
   const isFav = useMemo(() => {
     return favorites?.includes(data?.name);
   }, [favorites]);
 
   if (isFav) {
-    return <FaHeart className={"text-red-600"} />;
+    return (
+      <NoSSR>
+        <FaHeart size={size || "18px"} className={"text-red-600"} />
+      </NoSSR>
+    );
   }
 
-  return <FaRegHeart />;
+  return (
+    <NoSSR>
+      <FaRegHeart size={size || "18px"} />
+    </NoSSR>
+  );
 };
 
 export default ToolItem;

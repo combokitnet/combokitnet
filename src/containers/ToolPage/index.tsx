@@ -3,6 +3,7 @@ import useSearchParams from "@/hooks/useSearchParams";
 import Fuse from "fuse.js";
 import { useEffect, useState } from "react";
 import { FaSearch } from "react-icons/fa";
+import ListTag from "./ListTag";
 import ToolItem from "./ToolItem";
 import { TTool, TToolTag } from "./types";
 
@@ -49,7 +50,7 @@ export default function ToolPage({
     <AppLayout>
       <div className="container mx-auto pt-[200px]">
         <div className="flex justify-between mb-[18px] p-[0px_24px] flex-col md:flex-row gap-[12px]">
-          <ListToolTag
+          <ListTag
             toolTags={tags}
             tag={tag}
             setTag={setTag}
@@ -85,55 +86,3 @@ export default function ToolPage({
     </AppLayout>
   );
 }
-
-const ListToolTag = ({
-  toolTags,
-  tag,
-  setTag,
-  setSearchParam,
-}: {
-  toolTags: TToolTag[];
-  tag: string[];
-  setTag: any;
-  setSearchParam: any;
-}) => {
-  return (
-    <div className="flex gap-[8px] flex-wrap">
-      {toolTags.map((m) => {
-        let isSelected = tag?.includes(m.name);
-        return (
-          <div
-            key={m.slug}
-            onClick={() => {
-              let n = [];
-              if (tag?.includes(m.name)) {
-                n = tag.filter((k) => k !== m.name);
-              } else {
-                n = [...tag];
-                n.push(m.name);
-              }
-              setTag(n);
-              setSearchParam("tag", n.toString());
-            }}
-            className="flex gap-1 cursor-pointer"
-          >
-            <button>
-              <div
-                className={`flex h-8 items-center justify-center rounded-lg px-2 ${
-                  isSelected
-                    ? "bg-slate-900 text-white"
-                    : "bg-gray-300 text-black"
-                }`}
-              >
-                <span className="text-md">
-                  <span className="line-clamp-1 max-w-[200px]">{m.name}</span>
-                </span>
-              </div>
-            </button>
-            <div className="flex flex-wrap items-center gap-1" />
-          </div>
-        );
-      })}
-    </div>
-  );
-};

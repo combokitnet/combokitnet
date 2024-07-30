@@ -11,9 +11,8 @@ import { MdAttachMoney, MdClose } from "react-icons/md";
 const navs = [
   { page: "home.header.nav.home", path: "/" },
   { page: "home.header.nav.tools", path: "/tools" },
-  { page: "home.header.nav.blog", path: "/blog" },
+  // { page: "home.header.nav.blog", path: "/blog" },
   { page: "home.header.nav.about", path: "/about" },
-  { page: "home.header.nav.tos", path: "/tos" },
 ];
 
 export default function Header() {

@@ -32,7 +32,7 @@ export default function AppLayout(props: PropsWithChildren) {
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       </Head> */}
       <Header />
-      <>{props.children}</>
+      <div className="p-[0_12px] sm:p-[0px]">{props.children}</div>
       <br />
       <Footer />
     </main>

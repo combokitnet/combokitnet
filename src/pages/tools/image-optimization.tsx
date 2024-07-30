@@ -1,8 +1,9 @@
 import { APP_DOMAIN, APP_NAME, APP_SOCIAL } from "@/configs/const";
-import ImageTinyPage from "@/containers/ImageCompressionPage";
+import ImageOptimizationPage from "@/containers/ImageOptimizationPage";
 import { TTool, TToolDetailRes } from "@/containers/ToolPage/types";
 import { GetServerSideProps } from "next";
 import { NextSeo } from "next-seo";
+import { fakeDataToolForDev } from ".";
 
 export default function ImageTiny({ tool }: { tool: TTool }) {
   return (
@@ -44,7 +45,7 @@ export default function ImageTiny({ tool }: { tool: TTool }) {
           },
         ]}
       />
-      <ImageTinyPage data={tool} />
+      <ImageOptimizationPage data={tool} />
     </>
   );
 }
@@ -64,51 +65,8 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
   } catch (error) {
     return {
       props: {
-        tool: fakeData,
+        tool: fakeDataToolForDev,
       },
     };
   }
-};
-
-const fakeData = {
-  id: "89aaa17c-eeb1-4ae0-a62e-b900c4bea133",
-  createdAt: "2024-07-14T10:10:08.294Z",
-  updatedAt: "2024-07-14T10:10:08.294Z",
-  name: "Image Compression",
-  pathUrl: "/tools/image-compression",
-  iconUrl: "/images/tools/image_compression.svg",
-  description: "WebP, PNG, JPEG, GIF and SVG Compression",
-  rate: 0,
-  usageCount: 0,
-  favoriteCount: 0,
-  isHot: false,
-  status: "active",
-  suggestData: [
-    "image",
-    "compression",
-    "tiny",
-    "webp",
-    "png",
-    "gif",
-    "svg",
-    "jpeg",
-    "optimize",
-    "reduce size",
-  ],
-  author: {
-    id: "79aec2ed-377a-46c8-9796-1002f0b225a2",
-    username: "ComboKit.Net",
-  },
-  tags: [
-    {
-      name: "utility",
-      slug: "utility",
-      color: "#ff0000",
-    },
-    {
-      name: "image",
-      slug: "image",
-      color: "#ffa133",
-    },
-  ],
 };

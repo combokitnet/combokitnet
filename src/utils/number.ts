@@ -22,4 +22,14 @@ function formatLargeNumber(x: number): string {
     return formattedNumber;
 }
 
-export { formatLargeNumber };
+const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
+const sizeFormat = (bytes: number): string => {
+    if (!bytes) return '';
+    const i = Math.floor(Math.log(bytes) / Math.log(1024));
+    const size = bytes / Math.pow(1024, i);
+    const formattedSize = size.toFixed(2).replace(/\.?0+$/, '');
+
+    return `${formattedSize} ${sizes[i]}`;
+};
+
+export { formatLargeNumber, sizeFormat };

@@ -9,7 +9,7 @@ export default function ImageTiny({ tool }: { tool: TTool }) {
   return (
     <>
       <NextSeo
-        title={tool?.name}
+        title={`${tool?.name} | ${tool?.description}`}
         description={tool?.description}
         canonical={`https://${APP_DOMAIN}${tool.pathUrl}`}
         openGraph={{

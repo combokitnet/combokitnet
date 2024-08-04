@@ -4,5 +4,5 @@ type Messages = typeof en;
 
 declare global {
   // for useTranslate
-  interface IntlMessages extends Messages {}
+  interface IntlMessages extends Messages { }
 }

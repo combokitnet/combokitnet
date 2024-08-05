@@ -1,10 +1,9 @@
 import useSearchParams from "@/hooks/useSearchParams";
 import { useEffect, useState } from "react";
-import { FaDownload } from "react-icons/fa";
 import { FiUploadCloud } from "react-icons/fi";
-import { IoMdRemoveCircle } from "react-icons/io";
 import { v4 as uuidv4 } from "uuid";
-import ImageProcess from "./ImageProcess";
+import ImageItemResult from "./ImageItemResult";
+import ImageStats from "./ImageStats";
 import useImageUpload from "./useImageUpload";
 
 export enum TInputType {
@@ -13,6 +12,7 @@ export enum TInputType {
 }
 
 export interface TImages {
+  timestamp: number;
   id: string;
   file: File;
   output?: {
@@ -46,7 +46,14 @@ export default function Main() {
         if (items[i].type.indexOf("image") !== -1) {
           const file = items[i].getAsFile();
           if (!file) return;
-          addImages([{ id: uuidv4(), file: file, status: "upload" }]);
+          addImages([
+            {
+              id: uuidv4(),
+              file: file,
+              status: "upload",
+              timestamp: Date.now(),
+            },
+          ]);
         }
       }
     };
@@ -59,11 +66,11 @@ export default function Main() {
   }, []);
 
   return (
-    <div>
+    <div className="container mx-auto">
       <div className="flex justify-end mb-1">
         <select
           id="inputType"
-          className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 w-[50%] max-w-[200px]"
+          className="bg-gray-50 px-2 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 w-[50%] max-w-[200px]"
           value={inputType}
           onChange={(e) => {
             setInputType(e?.target?.value as any);
@@ -112,6 +119,7 @@ export default function Main() {
                       id: uuidv4(),
                       file: file,
                       status: "upload",
+                      timestamp: Date.now(),
                     });
                   }
                 }
@@ -142,31 +150,18 @@ export default function Main() {
         )}
       </div>
 
-      <div>info</div>
-      <div className="flex justify-center gap-3 w-full mb-3">
-        <button
-          type="button"
-          className="capitalize gap-1 text-white bg-[#ea3b3b] hover:bg-[#ea3b3b]/80 focus:ring-4 focus:outline-none focus:ring-[#ea3b3b]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:hover:bg-[#ea3b3b]/80 dark:focus:ring-[#ea3b3b]/40 me-2 mb-2"
-        >
-          <IoMdRemoveCircle />
-          delete all
-        </button>
-        <button
-          type="button"
-          className="capitalize gap-1 text-white bg-[#1c941c] hover:bg-[#1c941c]/80 focus:ring-4 focus:outline-none focus:ring-[#1c941c]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:hover:bg-[#1c941c]/80 dark:focus:ring-[#1c941c]/40 me-2 mb-2"
-        >
-          <FaDownload />
-          download all
-        </button>
-      </div>
-      {Object.values(images).map((item) => (
-        <ImageProcess
-          key={item?.id}
-          image={item}
-          updateImage={updateImage}
-          deleteImage={deleteImage}
-        />
-      ))}
+      <ImageStats images={images} />
+
+      {Object.values(images)
+        .sort((a, b) => b.timestamp - a.timestamp)
+        .map((item) => (
+          <ImageItemResult
+            key={item?.id}
+            image={item}
+            updateImage={updateImage}
+            deleteImage={deleteImage}
+          />
+        ))}
     </div>
   );
 }

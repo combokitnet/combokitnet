@@ -1,6 +1,6 @@
 import { delayTPS } from "@/utils/time";
 import { useCallback, useEffect, useRef, useState } from "react";
-import { TImages } from "./Main";
+import { TImages } from "./ImageMain";
 import { apiImageCompress } from "./api";
 
 const useImageUpload = () => {
@@ -29,6 +29,8 @@ const useImageUpload = () => {
           try {
             updateImage(item.id, { status: "running" });
             console.log("start", item.file?.name, item.status);
+            // TODO: add check size bigger with api job -> max 60s will got timeout
+            // image size >= 10MB ?
             const res = await apiImageCompress({ file: item.file as File });
             updateImage(item.id, { status: "done", output: res?.data?.data });
           } catch (error) {

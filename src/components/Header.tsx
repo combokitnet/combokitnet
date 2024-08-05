@@ -23,7 +23,7 @@ export default function Header() {
 
   return (
     <header className="fixed w-full bg-white z-10">
-      <nav className="border-gray-200 py-2.5 dark:bg-gray-900">
+      <nav className="border-gray-200 py-2.5 dark:bg-gray-900 shadow-[0_-6px_10px_5px_rgba(0,0,0,0.5)]">
         <div className="flex flex-wrap items-center justify-between max-w-screen-xl px-4 mx-auto">
           <Link href="/" className="flex items-center">
             <img

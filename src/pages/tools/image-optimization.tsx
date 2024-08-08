@@ -5,6 +5,10 @@ import { GetServerSideProps } from "next";
 import { NextSeo } from "next-seo";
 import { fakeDataToolForDev } from ".";
 
+export const config = {
+  runtime: "experimental-edge",
+};
+
 export default function ImageTiny({ tool }: { tool: TTool }) {
   return (
     <>

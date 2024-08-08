@@ -1,6 +1,5 @@
 import { sizeFormat } from "@/utils/number";
 import { maxLength } from "@/utils/string";
-import { saveAs } from "file-saver";
 import { FaArrowRight, FaDownload } from "react-icons/fa";
 import { MdRemoveRedEye } from "react-icons/md";
 import { RiDeleteBin6Fill } from "react-icons/ri";
@@ -78,10 +77,7 @@ export default function ImageItemResult({
 
         <button
           onClick={() => {
-            saveAs(
-              `${image?.output?.baseUrl}/${image?.output?.url}?down=true&filename=${image.file.name}`,
-              image?.file?.name
-            );
+            // TODO: save file
           }}
           className="flex gap-[6px] h-[32px] items-center justify-center w-full p-[5px] text-sm font-medium text-center text-gray-900 border border-gray-200 rounded-lg sm:w-auto hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 dark:text-white dark:border-gray-700 dark:hover:bg-gray-700 dark:focus:ring-gray-800"
         >

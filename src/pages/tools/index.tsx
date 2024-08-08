@@ -2,6 +2,10 @@ import ToolPage from "@/containers/ToolPage";
 import { TTool, TToolTag } from "@/containers/ToolPage/types";
 import { GetServerSideProps } from "next";
 
+export const config = {
+  runtime: "experimental-edge",
+};
+
 export const fakeDataToolForDev = {
   id: "89aaa17c-eeb1-4ae0-a62e-b900c4bea133",
   createdAt: "2024-07-14T10:10:08.294Z",

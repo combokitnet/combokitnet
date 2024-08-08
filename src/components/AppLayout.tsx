@@ -25,12 +25,6 @@ export default function AppLayout(props: PropsWithChildren) {
 
   return (
     <main className={`${inter.className} h-full`}>
-      {/* <Head>
-        <title>{`${APP_NAME} - ${APP_DESC}`}</title>
-        <meta name="description" content={APP_DESC} />
-        <meta name="author" content={`Team ${APP_NAME}`} />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      </Head> */}
       <Header />
       <div className="p-[0_12px] sm:p-[0px]">{props.children}</div>
       <br />

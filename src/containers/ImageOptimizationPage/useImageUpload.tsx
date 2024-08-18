@@ -33,9 +33,13 @@ const useImageUpload = () => {
             // image size >= 10MB ?
             const res = await apiImageCompress({ file: item.file as File });
             updateImage(item.id, { status: "done", output: res?.data?.data });
-          } catch (error) {
-            console.error("Upload error:", error); // Improved error logging
-            updateImage(item.id, { status: "error" });
+          } catch (error: any) {
+            console.error("Upload error:", error);
+            // TODO: Improved error logging
+            updateImage(item.id, {
+              status: "error",
+              error: error?.response?.data,
+            });
           }
           await delayTPS(10);
         }

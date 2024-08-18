@@ -1,5 +1,6 @@
 import { sizeFormat } from "@/utils/number";
 import { timeFormat } from "@/utils/time";
+import JSZip from "jszip";
 import { useMemo } from "react";
 import { FaArrowDown, FaArrowUp, FaDownload } from "react-icons/fa";
 import { IoMdRemoveCircle } from "react-icons/io";
@@ -113,7 +114,7 @@ export default function ImageStats({
       <div className="flex justify-center gap-3 w-full mb-3">
         <button
           onClick={() => {
-            //
+            // TODO: delete all
           }}
           type="button"
           className="capitalize gap-1 text-white bg-[#ea3b3b] hover:bg-[#ea3b3b]/80 focus:ring-4 focus:outline-none focus:ring-[#ea3b3b]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:hover:bg-[#ea3b3b]/80 dark:focus:ring-[#ea3b3b]/40 me-2 mb-2"
@@ -122,14 +123,33 @@ export default function ImageStats({
           delete all
         </button>
         <button
-          onClick={() => {
-            //
+          onClick={async () => {
+            const zip = new JSZip();
+            await Promise.all(
+              Object.values(images).map(async (u) => {
+                try {
+                  if (u.status == "done") {
+                    const response = await fetch(`${u?.output?.url}`);
+                    const blob = await response.blob();
+                    zip.file(u.file.name, blob);
+                  }
+                } catch (error) {}
+              })
+            );
+
+            zip.generateAsync({ type: "blob" }).then((content) => {
+              const link = document.createElement("a");
+              link.href = URL.createObjectURL(content);
+              link.download = `combokitnet_image-optimization_${Date.now()}.zip`;
+              link.click();
+            });
           }}
           type="button"
           className="capitalize gap-1 text-white bg-[#1c941c] hover:bg-[#1c941c]/80 focus:ring-4 focus:outline-none focus:ring-[#1c941c]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:hover:bg-[#1c941c]/80 dark:focus:ring-[#1c941c]/40 me-2 mb-2"
         >
           <FaDownload />
-          download all ({Object.keys(images).length})
+          download all (
+          {Object.values(images).filter((m) => m.status === "done").length})
         </button>
       </div>
     </div>

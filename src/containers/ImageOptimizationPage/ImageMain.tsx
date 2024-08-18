@@ -8,6 +8,7 @@ import useImageUpload from "./useImageUpload";
 
 export enum TInputType {
   FILE,
+  FOLDER,
   URL,
 }
 
@@ -16,7 +17,6 @@ export interface TImages {
   id: string;
   file: File;
   output?: {
-    baseUrl: string;
     url: string;
     fileName: string;
     ext: string;
@@ -28,6 +28,10 @@ export interface TImages {
     timeUnit: string;
   };
   status: "upload" | "running" | "done" | "cancel" | "error" | "delete";
+  error?: {
+    errorCode: string;
+    message: string;
+  };
 }
 
 const MAX_FILES = 100;
@@ -77,7 +81,8 @@ export default function Main() {
             setSearchParam("inputType", e?.target?.value);
           }}
         >
-          <option value={TInputType.FILE}>Upload from device</option>
+          <option value={TInputType.FILE}>Upload files from device</option>
+          <option value={TInputType.FOLDER}>Upload folder from device</option>
           <option disabled value={TInputType.URL}>
             Upload from Link, URL
           </option>
@@ -98,7 +103,7 @@ export default function Main() {
                 </span>
               </p>
               <p className="text-xs text-gray-500 dark:text-gray-400">
-                SVG, PNG, JPG, GIF, JPEG
+                SVG, PNG, JPG, GIF, JPEG, WebP
               </p>
               <p className="text-xs text-gray-500 dark:text-gray-400">
                 Max {MAX_FILES} files one time
@@ -127,7 +132,7 @@ export default function Main() {
               }}
               type="file"
               className="hidden"
-              accept=".svg,.png,.jpg,.jpeg,.gif"
+              accept=".svg,.png,.jpg,.jpeg,.gif,.webp"
               multiple
               // webkitdirectory={""}
               // mozdirectory={true}
@@ -154,8 +159,9 @@ export default function Main() {
 
       {Object.values(images)
         .sort((a, b) => b.timestamp - a.timestamp)
-        .map((item) => (
+        .map((item, index) => (
           <ImageItemResult
+            index={index}
             key={item?.id}
             image={item}
             updateImage={updateImage}

@@ -1,3 +1,4 @@
+import Modal from "@/components/Modal";
 import { sizeFormat } from "@/utils/number";
 import { maxLength } from "@/utils/string";
 import { FaArrowRight, FaDownload } from "react-icons/fa";
@@ -6,9 +7,11 @@ import { RiDeleteBin6Fill } from "react-icons/ri";
 import { TImages } from "./ImageMain";
 
 export default function ImageItemResult({
+  index,
   image,
   deleteImage,
 }: {
+  index: number;
   image: TImages;
   updateImage: (id: string, updatedImage: Partial<TImages>) => void;
   deleteImage: (id: string) => void;
@@ -23,7 +26,9 @@ export default function ImageItemResult({
         />
 
         <div className="flex flex-col">
-          <span>{maxLength(image?.file?.name, 22)}</span>
+          <span>
+            {`${index + 1}. `} {maxLength(image?.file?.name, 22)}
+          </span>
           <span>{image?.file?.type}</span>
         </div>
       </div>
@@ -57,14 +62,27 @@ export default function ImageItemResult({
             </span>
           </div>
         </div>
+      ) : image.status === "error" && image.error ? (
+        <div className="flex flex-col text-center justify-center items-center">
+          <div className="flex flex-row items-center gap-2">
+            <span>{sizeFormat(image?.file?.size)}</span>
+          </div>
+          <div>
+            <span>{image?.error?.message}</span>
+          </div>
+        </div>
       ) : (
         <div className="flex flex-row items-center justify-center">fail</div>
       )}
 
       <div className="flex w-full flex-row gap-3 items-center justify-end">
-        <button className="flex gap-[6px] h-[32px] items-center justify-center w-full p-[5px] text-sm font-medium text-center text-gray-900 border border-gray-200 rounded-lg sm:w-auto hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 dark:text-white dark:border-gray-700 dark:hover:bg-gray-700 dark:focus:ring-gray-800">
-          <MdRemoveRedEye className="text-black-500" size={16} />
-        </button>
+        {image?.status == "done" ? (
+          <button className="flex gap-[6px] h-[32px] items-center justify-center w-full p-[5px] text-sm font-medium text-center text-gray-900 border border-gray-200 rounded-lg sm:w-auto hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 dark:text-white dark:border-gray-700 dark:hover:bg-gray-700 dark:focus:ring-gray-800">
+            <MdRemoveRedEye className="text-black-500" size={16} />
+          </button>
+        ) : (
+          ""
+        )}
 
         <button
           onClick={() => {
@@ -74,16 +92,26 @@ export default function ImageItemResult({
         >
           <RiDeleteBin6Fill className="text-red-500" size={16} />
         </button>
-
-        <button
-          onClick={() => {
-            // TODO: save file
-          }}
-          className="flex gap-[6px] h-[32px] items-center justify-center w-full p-[5px] text-sm font-medium text-center text-gray-900 border border-gray-200 rounded-lg sm:w-auto hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 dark:text-white dark:border-gray-700 dark:hover:bg-gray-700 dark:focus:ring-gray-800"
-        >
-          <FaDownload className="text-green-700" size={16} />
-        </button>
+        {image?.status == "done" ? (
+          <button
+            onClick={async () => {
+              window.open(
+                `${image?.output?.url}?down=true&filename=${image?.file?.name}`,
+                "__blank"
+              );
+            }}
+            className="flex gap-[6px] h-[32px] items-center justify-center w-full p-[5px] text-sm font-medium text-center text-gray-900 border border-gray-200 rounded-lg sm:w-auto hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 dark:text-white dark:border-gray-700 dark:hover:bg-gray-700 dark:focus:ring-gray-800"
+          >
+            <FaDownload className="text-green-700" size={16} />
+          </button>
+        ) : (
+          ""
+        )}
       </div>
+
+      <Modal isOpen={true} onClose={() => {}} title="123">
+        <p>123</p>
+      </Modal>
     </div>
   );
 }

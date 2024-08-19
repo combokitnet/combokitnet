@@ -8,7 +8,10 @@ const Breadcrumb: React.FC<BreadcrumbProps> = ({ items }) => {
   return (
     <ol className="flex items-center whitespace-nowrap p-[0_12px] sm:p-[0px]">
       {items.map((item, index) => (
-        <li key={index} className="inline-flex items-center">
+        <li
+          key={`${item?.label}_${index}`}
+          className="inline-flex items-center"
+        >
           {item.href ? (
             <a
               href={item.href}

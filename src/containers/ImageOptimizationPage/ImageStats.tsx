@@ -1,5 +1,6 @@
 import { sizeFormat } from "@/utils/number";
-import { timeFormat } from "@/utils/time";
+import { delay, timeFormat } from "@/utils/time";
+import axios from "axios";
 import JSZip from "jszip";
 import { useMemo } from "react";
 import { FaArrowDown, FaArrowUp, FaDownload } from "react-icons/fa";
@@ -114,7 +115,7 @@ export default function ImageStats({
       <div className="flex justify-center gap-3 w-full mb-3">
         <button
           onClick={() => {
-            // TODO: delete all
+            // TODO: ask cf and delete all
           }}
           type="button"
           className="capitalize gap-1 text-white bg-[#ea3b3b] hover:bg-[#ea3b3b]/80 focus:ring-4 focus:outline-none focus:ring-[#ea3b3b]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:hover:bg-[#ea3b3b]/80 dark:focus:ring-[#ea3b3b]/40 me-2 mb-2"
@@ -125,17 +126,21 @@ export default function ImageStats({
         <button
           onClick={async () => {
             const zip = new JSZip();
-            await Promise.all(
-              Object.values(images).map(async (u) => {
-                try {
-                  if (u.status == "done") {
-                    const response = await fetch(`${u?.output?.url}`);
-                    const blob = await response.blob();
-                    zip.file(u.file.name, blob);
-                  }
-                } catch (error) {}
-              })
-            );
+            const arrs = Object.values(images);
+            for (let index = 0; index < arrs.length; index++) {
+              const u = arrs[index];
+              try {
+                if (u.status == "done") {
+                  const blob = await axios.get(`${u?.output?.url}`, {
+                    responseType: "blob",
+                  });
+                  zip.file(u.file.name, blob.data);
+                  await delay(10);
+                }
+              } catch (error) {
+                console.error("zip", u?.output?.url);
+              }
+            }
 
             zip.generateAsync({ type: "blob" }).then((content) => {
               const link = document.createElement("a");
@@ -148,8 +153,9 @@ export default function ImageStats({
           className="capitalize gap-1 text-white bg-[#1c941c] hover:bg-[#1c941c]/80 focus:ring-4 focus:outline-none focus:ring-[#1c941c]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:hover:bg-[#1c941c]/80 dark:focus:ring-[#1c941c]/40 me-2 mb-2"
         >
           <FaDownload />
-          download all (
-          {Object.values(images).filter((m) => m.status === "done").length})
+          download (
+          {Object.values(images).filter((m) => m.status === "done").length}/
+          {Object.values(images).length})
         </button>
       </div>
     </div>

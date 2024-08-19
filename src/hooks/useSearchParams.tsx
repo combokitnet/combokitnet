@@ -6,6 +6,15 @@ const useSearchParams = () => {
   const [searchParams, setSearchParams] = useState<URLSearchParams>(
     new URLSearchParams()
   );
+  const [initSearchParams, setInitSearchParams] = useState<URLSearchParams>(
+    new URLSearchParams()
+  );
+
+  useEffect(() => {
+    const currentSearchParams = new URLSearchParams(window?.location?.search);
+    setSearchParams(currentSearchParams);
+    setInitSearchParams(new URLSearchParams(currentSearchParams));
+  }, []); // Run only once on component mount
 
   useEffect(() => {
     setSearchParams(new URLSearchParams(window?.location?.search));
@@ -50,7 +59,13 @@ const useSearchParams = () => {
     );
   }, [router, searchParams]);
 
-  return { getSearchParam, setSearchParam, deleteSearchParam, searchParams };
+  return {
+    getSearchParam,
+    setSearchParam,
+    deleteSearchParam,
+    searchParams,
+    initSearchParams,
+  };
 };
 
 export default useSearchParams;

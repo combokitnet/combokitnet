@@ -16,7 +16,7 @@ export default function TitleTool({ data }: { data: TTool }) {
     ""
   );
   const router = useRouter();
-
+  console.log("data?.tags", data?.tags);
   return (
     <div>
       <div className="pt-[80px]"></div>
@@ -26,7 +26,7 @@ export default function TitleTool({ data }: { data: TTool }) {
             items={[
               { label: "Home", href: "/" },
               { label: "Tools", href: "/tools" },
-              { label: data?.name },
+              { label: data?.name, href: "#" },
             ]}
           />
         </div>
@@ -45,6 +45,7 @@ export default function TitleTool({ data }: { data: TTool }) {
                 <ul className="flex gap-[5px]">
                   {data?.tags?.map((tag) => (
                     <li
+                      key={tag?.id + tag.name}
                       onClick={() => {
                         router.push(`/tools?tag=${tag.name}`, {
                           scroll: true,
@@ -52,7 +53,6 @@ export default function TitleTool({ data }: { data: TTool }) {
                       }}
                       className="text-[12px] p-[0_6px] rounded-[12px] cursor-pointer"
                       style={{ color: tag.color, background: "#def4ff" }}
-                      key={tag.id}
                     >
                       {tag.name}
                     </li>

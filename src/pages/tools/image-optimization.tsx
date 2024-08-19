@@ -15,7 +15,7 @@ export default function ImageTiny({ tool }: { tool: TTool }) {
       <NextSeo
         title={`${tool?.name} | ${tool?.description}`}
         description={tool?.description}
-        canonical={`https://${APP_DOMAIN}${tool.pathUrl}`}
+        canonical={`https://${APP_DOMAIN}${tool?.pathUrl}`}
         openGraph={{
           url: `https://${APP_DOMAIN}${tool.pathUrl}`,
           title: tool?.name,
@@ -56,8 +56,10 @@ export default function ImageTiny({ tool }: { tool: TTool }) {
 
 export const getServerSideProps: GetServerSideProps = async ({ req }) => {
   try {
+    const url = new URL(req?.url!);
+    console.log("getServerSideProps", url);
     const res = await fetch(
-      `${process.env.NEXT_PUBLIC_API_URL}/tool-detail?path=${req?.url}`
+      `${process.env.NEXT_PUBLIC_API_URL}/tool-detail?path=${url.pathname}`
     );
     const data: TToolDetailRes = await res.json();
 

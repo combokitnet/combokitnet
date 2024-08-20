@@ -1,9 +1,11 @@
+// TODO: show download all process
+
 import { sizeFormat } from "@/utils/number";
 import { delay, timeFormat } from "@/utils/time";
 import axios from "axios";
 import JSZip from "jszip";
-import { useMemo } from "react";
-import { FaArrowDown, FaArrowUp, FaDownload } from "react-icons/fa";
+import { useMemo, useRef, useState } from "react";
+import { FaArrowDown, FaArrowUp, FaDownload, FaSpinner } from "react-icons/fa";
 import { IoMdRemoveCircle } from "react-icons/io";
 import { TImages } from "./ImageMain";
 
@@ -13,10 +15,16 @@ const bytesPerMegabit = 125000; // 1 megabit = 125,000 bytes
 
 export default function ImageStats({
   images,
+  total,
+  totalError,
+  totalSuccess,
 }: {
   images: {
     [key: string]: TImages;
   };
+  total: number;
+  totalError: number;
+  totalSuccess: number;
 }) {
   const {
     totalSizeBefore,
@@ -71,7 +79,7 @@ export default function ImageStats({
           <div className="flex text-center items-center justify-center gap-2 border-b border-stroke pb-5 dark:border-strokedark xl:border-b-0 xl:border-r xl:pb-0">
             <div>
               <h4 className="mb-0.5 text-xl font-semibold text-black dark:text-white md:text-title-lg">
-                {sizeFormat(totalSizeBefore)}
+                {sizeFormat(totalSizeBefore) || 0}
               </h4>
               <p className="text-sm font-medium">Size Before</p>
             </div>
@@ -80,7 +88,7 @@ export default function ImageStats({
           <div className="flex text-center items-center justify-center gap-2 border-b border-stroke pb-5 dark:border-strokedark xl:border-b-0 xl:border-r xl:pb-0">
             <div>
               <h4 className="mb-0.5 text-xl font-semibold text-black dark:text-white md:text-title-lg">
-                {sizeFormat(totalSizeAfter)}
+                {sizeFormat(totalSizeAfter) || 0}
               </h4>
               <p className="text-sm font-medium">Size After</p>
             </div>
@@ -92,10 +100,13 @@ export default function ImageStats({
 
           <div className="flex items-center text-center justify-center gap-2 border-b border-stroke pb-5 dark:border-strokedark sm:border-b-0 sm:pb-0 xl:border-r">
             <div>
-              <h4 className="mb-0.5 text-xl font-semibold text-black dark:text-white md:text-title-lg">
-                {timeFormat(totalOptimizationTime)}
+              <h4 className="gap-[3px] flex flex-row justify-evenly mb-0.5 text-xl font-semibold text-black dark:text-white md:text-title-lg">
+                <span>{totalError}</span> / <span>{totalSuccess}</span> /{" "}
+                <span>{total}</span>
               </h4>
-              <p className="text-sm font-medium">Optimization Time</p>
+              <p className="gap-[3px] flex flex-row justify-evenly text-sm font-medium">
+                <span>Error</span> / <span>Success</span> / <span>Total</span>
+              </p>
             </div>
           </div>
 
@@ -123,41 +134,66 @@ export default function ImageStats({
           <IoMdRemoveCircle />
           delete all
         </button>
-        <button
-          onClick={async () => {
-            const zip = new JSZip();
-            const arrs = Object.values(images);
-            for (let index = 0; index < arrs.length; index++) {
-              const u = arrs[index];
-              try {
-                if (u.status == "done") {
-                  const blob = await axios.get(`${u?.output?.url}`, {
-                    responseType: "blob",
-                  });
-                  zip.file(u.file.name, blob.data);
-                  await delay(10);
-                }
-              } catch (error) {
-                console.error("zip", u?.output?.url);
-              }
-            }
-
-            zip.generateAsync({ type: "blob" }).then((content) => {
-              const link = document.createElement("a");
-              link.href = URL.createObjectURL(content);
-              link.download = `combokitnet_image-optimization_${Date.now()}.zip`;
-              link.click();
-            });
-          }}
-          type="button"
-          className="capitalize gap-1 text-white bg-[#1c941c] hover:bg-[#1c941c]/80 focus:ring-4 focus:outline-none focus:ring-[#1c941c]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:hover:bg-[#1c941c]/80 dark:focus:ring-[#1c941c]/40 me-2 mb-2"
-        >
-          <FaDownload />
-          download (
-          {Object.values(images).filter((m) => m.status === "done").length}/
-          {Object.values(images).length})
-        </button>
+        <BtnDownloadAll images={images} total={total} />
       </div>
     </div>
   );
 }
+
+const BtnDownloadAll = ({
+  images,
+  total,
+}: {
+  images: {
+    [key: string]: TImages;
+  };
+  total: number;
+}) => {
+  const [isDownload, setIsDownload] = useState(false);
+  const [_, setRefesh] = useState(false);
+  const downloadCount = useRef(0);
+
+  return (
+    <button
+      disabled={isDownload}
+      onClick={async () => {
+        setIsDownload(true);
+        downloadCount.current = 0;
+
+        const zip = new JSZip();
+        const arrs = Object.values(images);
+        for (let index = 0; index < arrs.length; index++) {
+          const u = arrs[index];
+          try {
+            if (u.status == "done") {
+              const blob = await axios.get(`${u?.output?.url}`, {
+                responseType: "blob",
+              });
+              zip.file(u.file.name, blob.data);
+              downloadCount.current += 1;
+              setRefesh((m) => !m);
+              await delay(1);
+            }
+          } catch (error) {
+            console.error("error zip", u?.output?.url);
+          }
+        }
+
+        zip.generateAsync({ type: "blob" }).then((content) => {
+          const link = document.createElement("a");
+          link.href = URL.createObjectURL(content);
+          link.download = `combokitnet_image-optimization_${Date.now()}.zip`;
+          link.click();
+        });
+
+        setIsDownload(false);
+      }}
+      type="button"
+      className="capitalize gap-1 text-white bg-[#1c941c] hover:bg-[#1c941c]/80 focus:ring-4 focus:outline-none focus:ring-[#1c941c]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:hover:bg-[#1c941c]/80 dark:focus:ring-[#1c941c]/40 me-2 mb-2"
+    >
+      {isDownload ? <FaSpinner className="animate-spin" /> : <FaDownload />}
+      download
+      {isDownload ? `(${downloadCount.current}/${total})` : ""}
+    </button>
+  );
+};

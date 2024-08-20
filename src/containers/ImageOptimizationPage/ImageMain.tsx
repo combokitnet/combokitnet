@@ -44,9 +44,17 @@ export interface TImages {
 const MAX_FILES = 100;
 
 export default function Main() {
-  const { searchParams, setSearchParam, initSearchParams } = useSearchParams();
+  const { setSearchParam, initSearchParams } = useSearchParams();
   const [inputType, setInputType] = useState(TInputType.FILE);
-  const { images, addImages, updateImage, deleteImage } = useImageUpload();
+  const {
+    images,
+    addImages,
+    updateImage,
+    deleteImage,
+    total,
+    totalError,
+    totalSuccess,
+  } = useImageUpload();
 
   useEffect(() => {
     const handlePaste = (event: ClipboardEvent) => {
@@ -115,9 +123,7 @@ export default function Main() {
             <div className="flex flex-col items-center justify-center pt-5 pb-6">
               <FiUploadCloud size={32} />
               <p className="mb-2 text-sm text-gray-500 dark:text-gray-400">
-                <span className="font-semibold">
-                  Upload, Drag Drop, Paste image here
-                </span>
+                <span className="font-semibold">Select an folder</span>
               </p>
               <p className="text-xs text-gray-500 dark:text-gray-400">
                 SVG, PNG, JPG, GIF, JPEG, WebP
@@ -235,13 +241,18 @@ export default function Main() {
         )}
       </div>
 
-      <ImageStats images={images} />
+      <ImageStats
+        images={images}
+        total={total}
+        totalError={totalError}
+        totalSuccess={totalSuccess}
+      />
 
       {Object.values(images)
         .sort((a, b) => b.timestamp - a.timestamp)
         .map((item, index) => (
           <ImageItemResult
-            index={index}
+            index={total - index - 1}
             key={item?.id}
             image={item}
             updateImage={updateImage}

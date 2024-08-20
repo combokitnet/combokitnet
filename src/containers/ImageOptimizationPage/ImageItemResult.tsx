@@ -9,7 +9,7 @@ import { sizeFormat } from "@/utils/number";
 import { maxLength } from "@/utils/string";
 import { useState } from "react";
 import ReactCompareImage from "react-compare-image";
-import { FaArrowRight, FaDownload } from "react-icons/fa";
+import { FaArrowRight, FaDownload, FaSpinner } from "react-icons/fa";
 import { MdRemoveRedEye } from "react-icons/md";
 import { RiDeleteBin6Fill } from "react-icons/ri";
 import { VscLoading } from "react-icons/vsc";
@@ -86,6 +86,12 @@ export default function ImageItemResult({
       )}
 
       <div className="flex w-full flex-row gap-3 items-center justify-end">
+        {image.status === "running" ? (
+          <FaSpinner className="animate-spin" />
+        ) : (
+          ""
+        )}
+
         {image?.status == "done" ? (
           <button
             onClick={() => {
@@ -99,15 +105,22 @@ export default function ImageItemResult({
           ""
         )}
 
-        <button
-          onClick={() => {
-            URL.revokeObjectURL(image.blobUrl);
-            deleteImage(image?.id);
-          }}
-          className="flex gap-[6px] h-[32px] items-center justify-center w-full p-[5px] text-sm font-medium text-center text-gray-900 border border-gray-200 rounded-lg sm:w-auto hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 dark:text-white dark:border-gray-700 dark:hover:bg-gray-700 dark:focus:ring-gray-800"
-        >
-          <RiDeleteBin6Fill className="text-red-500" size={16} />
-        </button>
+        {image?.status === "done" ||
+        image?.status === "error" ||
+        image.status === "cancel" ? (
+          <button
+            onClick={() => {
+              URL.revokeObjectURL(image.blobUrl);
+              deleteImage(image?.id);
+            }}
+            className="flex gap-[6px] h-[32px] items-center justify-center w-full p-[5px] text-sm font-medium text-center text-gray-900 border border-gray-200 rounded-lg sm:w-auto hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 dark:text-white dark:border-gray-700 dark:hover:bg-gray-700 dark:focus:ring-gray-800"
+          >
+            <RiDeleteBin6Fill className="text-red-500" size={16} />
+          </button>
+        ) : (
+          ""
+        )}
+
         {image?.status == "done" ? (
           <button
             onClick={async () => {
@@ -133,6 +146,7 @@ export default function ImageItemResult({
         title="Compare Image"
       >
         <div className="max-h-[500px] overflow-auto">
+          {/* // TODO: improve modal preview */}
           <ReactCompareImage
             aspectRatio="wider"
             leftImage={URL.createObjectURL(image.file)}

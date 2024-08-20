@@ -1,5 +1,5 @@
 import { delayTPS } from "@/utils/time";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { TImages } from "./ImageMain";
 import { apiImageCompress } from "./api";
 
@@ -68,6 +68,19 @@ const useImageUpload = () => {
     };
   }, [images, uploadImages]);
 
+  const stats = useMemo(() => {
+    const arr = Object.values(images);
+    const total = arr.length || 0;
+    const totalSuccess = arr.filter((m) => m.status === "done").length || 0;
+    const totalError = arr.filter((m) => m.status === "error").length || 0;
+
+    return {
+      total,
+      totalSuccess,
+      totalError,
+    };
+  }, [images]);
+
   return {
     images,
     addImages: (newImages: TImages[]) => {
@@ -88,6 +101,7 @@ const useImageUpload = () => {
     deleteAllImage: () => {
       setImages({});
     },
+    ...stats,
   };
 };
 

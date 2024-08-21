@@ -1,5 +1,5 @@
 import { APP_DOMAIN, APP_NAME, APP_SOCIAL } from "@/configs/const";
-import ImageOptimizationPage from "@/containers/ImageOptimizationPage";
+import PasswordGeneratorPage from "@/containers/PasswordGeneratorPage";
 import { TTool, TToolDetailRes } from "@/containers/ToolPage/types";
 import axios from "axios";
 import { GetServerSideProps } from "next";
@@ -7,10 +7,10 @@ import { NextSeo } from "next-seo";
 import { fakeDataToolForDev } from ".";
 
 export const config = {
-  runtime: "experimental-edge",
+  runtime: "experimental-edge", // nodejs, experimental-edge
 };
 
-export default function ImageTiny({ tool }: { tool: TTool }) {
+export default function PasswordGenerator({ tool }: { tool: TTool }) {
   return (
     <>
       <NextSeo
@@ -50,7 +50,7 @@ export default function ImageTiny({ tool }: { tool: TTool }) {
           },
         ]}
       />
-      <ImageOptimizationPage data={tool} />
+      <PasswordGeneratorPage data={tool} />
     </>
   );
 }
@@ -58,7 +58,7 @@ export default function ImageTiny({ tool }: { tool: TTool }) {
 export const getServerSideProps: GetServerSideProps = async ({ req }) => {
   try {
     const res = await axios.get(
-      `${process.env.NEXT_PUBLIC_API_URL}/tool-detail?path=/tools/image-optimization`
+      `${process.env.NEXT_PUBLIC_API_URL}/tool-detail?path=/tools/password-generator`
     );
     const data: TToolDetailRes = res.data;
 
@@ -68,6 +68,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
       },
     };
   } catch (error) {
+    console.log("Get detail error, using fake data", error);
     return {
       props: {
         tool: fakeDataToolForDev,

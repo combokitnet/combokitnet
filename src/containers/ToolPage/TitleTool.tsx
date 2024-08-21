@@ -16,7 +16,6 @@ export default function TitleTool({ data }: { data: TTool }) {
     ""
   );
   const router = useRouter();
-  console.log("data?.tags", data?.tags);
   return (
     <div>
       <div className="pt-[80px]"></div>

@@ -2,6 +2,7 @@ import { request } from "@/configs/request";
 import Cookies from "js-cookie";
 import { Inter } from "next/font/google";
 import { PropsWithChildren, useEffect } from "react";
+import { Toaster } from "react-hot-toast";
 import Footer from "./Footer";
 import Header from "./Header";
 
@@ -29,6 +30,7 @@ export default function AppLayout(props: PropsWithChildren) {
       <div className="p-[0_12px] sm:p-[0px]">{props.children}</div>
       <br />
       <Footer />
+      <Toaster />
     </main>
   );
 }

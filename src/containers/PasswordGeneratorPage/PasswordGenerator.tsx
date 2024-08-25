@@ -67,7 +67,9 @@ const PasswordGenerator: React.FC = () => {
           {Array(25)
             .fill(0)
             .map((_, i) => (
-              <option value={i + 1}>Generator {i + 1} password</option>
+              <option key={i} value={i + 1}>
+                Generator {i + 1} password
+              </option>
             ))}
         </select>
       </div>

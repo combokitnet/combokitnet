@@ -1,9 +1,22 @@
+// TODO: share to social
+// TODO: feedback form
+
 import Breadcrumb from "@/components/Breadcrumb";
+import { DropDown } from "@/components/DropDown";
 import { LOCAL_STORAGE } from "@/configs/const";
 import useLocalStorage from "@/hooks/useLocalStorage";
 import { formatLargeNumber } from "@/utils/number";
+import { handleShare, SocialPlatform } from "@/utils/social";
 import { useRouter } from "next/navigation";
-import { FaHeart, FaShare } from "react-icons/fa";
+import {
+  FaCopy,
+  FaFacebook,
+  FaHeart,
+  FaShare,
+  FaTelegram,
+  FaTwitter,
+  FaWhatsapp,
+} from "react-icons/fa";
 import { GoStarFill } from "react-icons/go";
 import { IoEye } from "react-icons/io5";
 import { MdFeedback } from "react-icons/md";
@@ -113,15 +126,74 @@ export default function TitleTool({ data }: { data: TTool }) {
             >
               <MdFeedback size={"18px"} />
             </button>
-            <button
-              title="Share to your friend"
-              className="flex gap-[6px] items-center justify-center w-full p-[5px] text-sm font-medium text-center text-gray-900 border border-gray-200 rounded-lg sm:w-auto hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 dark:text-white dark:border-gray-700 dark:hover:bg-gray-700 dark:focus:ring-gray-800"
-            >
-              <FaShare size={"18px"} />
-            </button>
+
+            <ShareSocial data={data} />
           </div>
         </div>
       </div>
     </div>
   );
 }
+
+const ShareSocial = ({ data }: { data: TTool }) => {
+  const name = data?.name;
+  const description = data?.description;
+  const author = data?.author.username;
+
+  return (
+    <DropDown
+      items={[
+        {
+          label: "Share on Facebook",
+          onClick: () => {
+            handleShare(
+              SocialPlatform.Facebook,
+              `https://beta.combokit.net/tools/image-optimization`,
+              description
+            );
+          },
+          icon: <FaFacebook size={"18px"} />,
+        },
+        {
+          label: "Share on Twitter/X",
+          onClick: () => {
+            // Add Twitter/X sharing logic here
+            window.open(
+              "https://twitter.com/intent/tweet?text=<your_content_text>&url=<your_content_url>"
+            );
+          },
+          icon: <FaTwitter size={"18px"} />,
+        },
+        {
+          label: "Share on Telegram",
+          onClick: () => {
+            // Add Telegram sharing logic here
+            window.open("https://t.me/share/url?url=<your_content_url>");
+          },
+          icon: <FaTelegram size={"18px"} />,
+        },
+        {
+          label: "Share on WhatsApp",
+          onClick: () => {
+            // Add WhatsApp sharing logic here
+            window.open(
+              "https://wa.me/share?text=<your_content_text>&url=<your_content_url>"
+            );
+          },
+          icon: <FaWhatsapp size={"18px"} />,
+        },
+        {
+          label: "Copy link",
+          onClick: () => {
+            // Add copy
+          },
+          icon: <FaCopy size={"18px"} />,
+        },
+      ]}
+    >
+      <button className="flex gap-[6px] items-center justify-center w-full p-[5px] text-sm font-medium text-center text-gray-900 border border-gray-200 rounded-lg sm:w-auto hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 dark:text-white dark:border-gray-700 dark:hover:bg-gray-700 dark:focus:ring-gray-800">
+        <FaShare size={"18px"} />
+      </button>
+    </DropDown>
+  );
+};

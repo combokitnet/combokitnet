@@ -1,4 +1,6 @@
 // TODO: add sample try: file, folder, url
+// TODO: add copy image
+// TODO: get image info like: meta data comment, author,...
 
 import useSearchParams from "@/hooks/useSearchParams";
 import { useEffect, useState } from "react";

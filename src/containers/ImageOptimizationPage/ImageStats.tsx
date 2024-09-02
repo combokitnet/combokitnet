@@ -1,5 +1,3 @@
-// TODO: show download all process
-
 import { sizeFormat } from "@/utils/number";
 import { delay, timeFormat } from "@/utils/time";
 import axios from "axios";

@@ -32,7 +32,7 @@ export default function TitleTool({ data }: { data: TTool }) {
   return (
     <div>
       <div className="pt-[80px]"></div>
-      <div className="container mx-auto">
+      <div id="tool_head" className="container mx-auto p-3">
         <div>
           <Breadcrumb
             items={[

@@ -1,8 +1,69 @@
 import { APP_NAME } from "@/configs/const";
+import { request } from "@/configs/request";
+import { useLoading } from "@/hooks/useLoading";
 import Link from "next/link";
+import { useState } from "react";
+import toast from "react-hot-toast";
 import { IoIosMailUnread } from "react-icons/io";
 
+const validateEmail = (email: string): boolean => {
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return emailRegex.test(email);
+};
+const commonDomains = [
+  "gmail.com",
+  "yahoo.com",
+  "hotmail.com",
+  "outlook.com",
+  "icloud.com",
+];
+const isCommonDomain = (email: string): boolean => {
+  const domain = email.split("@")[1];
+  return commonDomains.includes(domain);
+};
+
 export default function Subscribing() {
+  const [email, setEmail] = useState("");
+  const [error, setError] = useState("");
+
+  const { loading, startLoading, stopLoading } = useLoading();
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    if (!validateEmail(email)) {
+      setError("Please enter a valid email address.");
+      return;
+    }
+
+    if (!isCommonDomain(email)) {
+      setError(
+        "Please enter an email address with a common domain: " +
+          commonDomains.join(", ")
+      );
+      return;
+    }
+
+    setError("");
+    startLoading();
+    try {
+      await request(`/sub-email`, {
+        method: "POST",
+        body: { email },
+      });
+
+      toast.success("Subscribed successfully.");
+    } catch (error: any) {
+      console.log(error?.response);
+      setError(
+        `Subscribe failed: ${error?.response?.data?.message}` ||
+          "Subscribe failed."
+      );
+    } finally {
+      stopLoading();
+    }
+  };
+
   return (
     <div className="flex p-[12px] items-center justify-center">
       <aside className="p-4 my-8 max-w-[700px] bg-white border border-gray-200 rounded-lg shadow-md sm:p-6 lg:p-8 dark:bg-gray-800 dark:border-gray-700">
@@ -16,18 +77,10 @@ export default function Subscribing() {
           find out about new features, components, versions, and tools.
         </p>
 
-        <form
-          onSubmit={(e) => {
-            console.log(e.target);
-            //TODO: add send sub email to api
-          }}
-        >
+        <form onSubmit={handleSubmit}>
+          {error && <span className="text-red-500 text-[13px]">{error}</span>}
+
           <div data-style="clean" className="flex items-end mb-3">
-            <ul
-              className="formkit-alert formkit-alert-error"
-              data-element="errors"
-              data-group="alert"
-            />
             <div
               data-element="fields"
               data-stacked="false"
@@ -50,16 +103,24 @@ export default function Subscribing() {
                   placeholder="Your email address..."
                   required={true}
                   type="email"
+                  value={email}
+                  onChange={(e) => {
+                    setEmail(e.target.value);
+                  }}
                 />
               </div>
-              <button data-element="submit" className="formkit-submit">
+              <button
+                disabled={loading}
+                data-element="submit"
+                className="formkit-submit"
+              >
                 <div className="formkit-spinner">
                   <div />
                   <div />
                   <div />
                 </div>
                 <span className="px-5 py-3 text-sm font-medium text-center text-white bg-purple-700 rounded-lg cursor-pointer hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-800">
-                  Subscribe
+                  {loading ? "loading..." : "Subscribe"}
                 </span>
               </button>
             </div>

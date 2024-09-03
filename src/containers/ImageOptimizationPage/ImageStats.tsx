@@ -153,6 +153,7 @@ const BtnDownloadAll = ({
 
   return (
     <button
+      id="image-compression-btn-download"
       disabled={isDownload}
       onClick={async () => {
         setIsDownload(true);

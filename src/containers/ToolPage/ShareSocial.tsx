@@ -1,5 +1,9 @@
+// TODO: add get content share from api include: random content, hashtag
+"use client";
+
 import { DropDown } from "@/components/DropDown";
 import { handleShare, SocialPlatform } from "@/utils/social";
+import { useEffect, useState } from "react";
 import {
   FaCopy,
   FaFacebook,
@@ -16,55 +20,59 @@ import { TTool } from "./types";
 
 export default function ShareSocial({ data }: { data: TTool }) {
   const content = `${data?.name} | ${data?.description}`.trim();
-  const currentUrl = window.location.origin;
+  const [currentUrl, setCurrentUrl] = useState("");
+
+  useEffect(() => {
+    setCurrentUrl(window?.location?.origin);
+  }, []);
 
   return (
     <DropDown
       items={[
         {
-          label: "Share on Facebook",
+          label: "Facebook",
           onClick: () =>
             handleShare(SocialPlatform.Facebook, currentUrl, content),
           icon: <FaFacebook size={"18px"} color="#3b5998" />,
         },
         {
-          label: "Share on Twitter/X",
+          label: "Twitter/X",
           onClick: () =>
             handleShare(SocialPlatform.Twitter, currentUrl, content),
           icon: <FaTwitter size={"18px"} color="#1DA1F2" />,
         },
         {
-          label: "Share on Telegram",
+          label: "Telegram",
           onClick: () =>
             handleShare(SocialPlatform.Telegram, currentUrl, content),
           icon: <FaTelegram size={"18px"} color="#0088cc" />,
         },
         {
-          label: "Share on WhatsApp",
+          label: "WhatsApp",
           onClick: () =>
             handleShare(SocialPlatform.WhatsApp, currentUrl, content),
           icon: <FaWhatsapp size={"18px"} color="#25D366" />,
         },
         {
-          label: "Share on LinkedIn",
+          label: "LinkedIn",
           onClick: () =>
             handleShare(SocialPlatform.LinkedIn, currentUrl, content),
           icon: <FaLinkedin size={"18px"} color="#0077b5" />,
         },
         {
-          label: "Share on Pinterest",
+          label: "Pinterest",
           onClick: () =>
             handleShare(SocialPlatform.Pinterest, currentUrl, content),
           icon: <FaPinterest size={"18px"} color="#bd081c" />,
         },
         {
-          label: "Share on Reddit",
+          label: "Reddit",
           onClick: () =>
             handleShare(SocialPlatform.Reddit, currentUrl, content),
           icon: <FaReddit size={"18px"} color="#ff4500" />,
         },
         {
-          label: "Share on Tumblr",
+          label: "Tumblr",
           onClick: () =>
             handleShare(SocialPlatform.Tumblr, currentUrl, content),
           icon: <FaTumblr size={"18px"} color="#35465C" />,

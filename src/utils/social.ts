@@ -62,6 +62,8 @@ export function handleShare(
       url
     )}&title=${encodeURIComponent(text || "")}`,
   };
+
+  window.open(shareOptions[platform], "_blank");
 }
 
 // {

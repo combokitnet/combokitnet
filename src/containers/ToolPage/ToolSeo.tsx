@@ -5,7 +5,7 @@ import { TTool } from "./types";
 export default function ToolSeo({ tool }: { tool: TTool }) {
   return (
     <NextSeo
-      title={`${tool?.name} | ${tool?.description}`}
+      title={`${tool?.name} | ${APP_NAME} | ${tool?.description}`}
       description={tool?.description}
       canonical={`https://${APP_DOMAIN}${tool?.pathUrl}`}
       openGraph={{

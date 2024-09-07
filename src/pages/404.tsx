@@ -1,6 +1,7 @@
 // TODO: add suggest tools
 
 import AppLayout from "@/components/AppLayout";
+import Link from "next/link";
 
 export default function Page404() {
   return (
@@ -15,12 +16,12 @@ export default function Page404() {
         <p className="mt-2 text-gray-500">
           Please check the URL and try again, or return to the homepage.
         </p>
-        <a
+        <Link
           href="/"
           className="mt-6 px-4 py-2 text-white bg-blue-500 rounded hover:bg-blue-600"
         >
           Go Back to Homepage
-        </a>
+        </Link>
       </div>
     </AppLayout>
   );

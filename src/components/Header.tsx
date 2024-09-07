@@ -4,15 +4,23 @@ import useWindowSize from "@/hooks/useWindowSize";
 import Cookies from "js-cookie";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { HTMLAttributeAnchorTarget, useState } from "react";
 import { BsList } from "react-icons/bs";
 import { MdClose } from "react-icons/md";
 
-const navs = [
-  { page: "home.header.nav.home", path: "/" },
-  { page: "home.header.nav.tools", path: "/tools" },
-  // { page: "home.header.nav.blog", path: "/blog" },
-  { page: "home.header.nav.about", path: "/about" },
+const navs: {
+  page: string;
+  path: string;
+  target: HTMLAttributeAnchorTarget;
+}[] = [
+  { page: "home.header.nav.home", path: "/", target: "_self" },
+  { page: "home.header.nav.tools", path: "/tools", target: "_self" },
+  {
+    page: "home.header.nav.blog",
+    path: "https://blog.combokit.net",
+    target: "_blank",
+  },
+  { page: "home.header.nav.about", path: "/about", target: "_self" },
 ];
 
 export default function Header() {
@@ -87,6 +95,7 @@ export default function Header() {
               {navs.map((n, i) => (
                 <li key={`nav_${i}`}>
                   <Link
+                    target={n.target}
                     href={n.path}
                     className={`${
                       n.path === router.pathname

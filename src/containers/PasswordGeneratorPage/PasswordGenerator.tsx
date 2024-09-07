@@ -117,8 +117,8 @@ const PasswordGenerator: React.FC = () => {
             />
           </div>
 
-          <div className="flex gap-5">
-            <div className="mb-4">
+          <div className="flex gap-5 flex-wrap mb-4">
+            <div className="">
               <label className="flex items-center">
                 <input
                   type="checkbox"
@@ -126,11 +126,11 @@ const PasswordGenerator: React.FC = () => {
                   onChange={() => setIncludeLowercase(!includeLowercase)}
                   className="mr-2"
                 />
-                Lowercase Letters
+                lowercase
               </label>
             </div>
 
-            <div className="mb-4">
+            <div className="">
               <label className="flex items-center">
                 <input
                   type="checkbox"
@@ -138,11 +138,11 @@ const PasswordGenerator: React.FC = () => {
                   onChange={() => setIncludeUppercase(!includeUppercase)}
                   className="mr-2"
                 />
-                Uppercase Letters
+                UPPERCASE
               </label>
             </div>
 
-            <div className="mb-4">
+            <div className="">
               <label className="flex items-center">
                 <input
                   type="checkbox"
@@ -154,7 +154,7 @@ const PasswordGenerator: React.FC = () => {
               </label>
             </div>
 
-            <div className="mb-4">
+            <div className="">
               <label className="flex items-center">
                 <input
                   type="checkbox"

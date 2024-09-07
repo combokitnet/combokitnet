@@ -18,7 +18,7 @@ export default function ToolPage({
     keys: ["name", "tag", "description", "author", "suggestData"],
     ignoreLocation: true,
   });
-  console.log("toolTags", tags);
+
   const [tag, setTag] = useState<string[]>([]);
   const [search, setSearch] = useState("");
   const [tools, setTools] = useState(toolData);
@@ -26,8 +26,12 @@ export default function ToolPage({
 
   useEffect(() => {
     const t = getSearchParam("tag");
+    const s = getSearchParam("search");
     if (t && t?.length > 0) {
       setTag(t.split(","));
+    }
+    if (s) {
+      setSearch(s);
     }
   }, [searchParams]);
 
@@ -35,6 +39,7 @@ export default function ToolPage({
     let t = [...toolData];
     if (search) {
       t = fuse.search(search).map((result) => result.item);
+      setSearchParam("search", search);
     }
 
     if (tag.length > 0) {
@@ -70,6 +75,7 @@ export default function ToolPage({
               onChange={(e) => {
                 setSearch(e.target.value);
               }}
+              value={search}
             />
           </div>
         </div>

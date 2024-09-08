@@ -11,7 +11,7 @@ export default function ToolKeyWord({ data }: { data: TTool }) {
             <li className="text-red-400 hover:text-black" key={i}>
               <Link
                 target="_self"
-                href={`/tools?search=${encodeURIComponent(t)}`}
+                href={`/tools?search=${encodeURIComponent(t.trim())}`}
                 aria-label={`Keyword: ${t}`}
               >
                 #{t.trim()}

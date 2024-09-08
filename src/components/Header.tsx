@@ -104,7 +104,7 @@ export default function Header() {
                     }`}
                     aria-current="page"
                   >
-                    {t(n.page)}
+                    {n.page?.includes("tool") ? "⚡️" : ""} {t(n.page)}
                   </Link>
                 </li>
               ))}

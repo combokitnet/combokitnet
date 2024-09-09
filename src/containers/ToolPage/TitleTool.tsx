@@ -9,7 +9,7 @@ import { useRouter } from "next/navigation";
 import { FaHeart } from "react-icons/fa";
 import { GoStarFill } from "react-icons/go";
 import { IoEye } from "react-icons/io5";
-import { MdFeedback } from "react-icons/md";
+import Feedback from "./Feedback";
 import ShareSocial from "./ShareSocial";
 import { ItemFav } from "./ToolItem";
 import { TTool } from "./types";
@@ -111,13 +111,7 @@ export default function TitleTool({ data }: { data: TTool }) {
               <ItemFav data={data} favorites={favorites} />
             </button>
 
-            <button
-              title="Feedback"
-              className="flex gap-[6px] items-center justify-center w-full p-[5px] text-sm font-medium text-center text-gray-900 border border-gray-200 rounded-lg sm:w-auto hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 dark:text-white dark:border-gray-700 dark:hover:bg-gray-700 dark:focus:ring-gray-800"
-            >
-              <MdFeedback size={"18px"} />
-            </button>
-
+            <Feedback />
             <ShareSocial data={data} />
           </div>
         </div>

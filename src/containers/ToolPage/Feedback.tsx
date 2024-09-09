@@ -1,9 +1,38 @@
 import Modal from "@/components/Modal";
 import React, { useState } from "react";
-import { MdFeedback } from "react-icons/md";
+import { MdFeedback, MdStar } from "react-icons/md";
 
 const Feedback: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [rating, setRating] = useState(0);
+  const [formData, setFormData] = useState({
+    fullName: "",
+    role: "",
+    company: "",
+    profileLink: "",
+    avatar: null as File | null,
+    recommendation: "",
+  });
+
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    const { id, value } = e.target;
+    setFormData({ ...formData, [id]: value });
+  };
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files[0]) {
+      setFormData({ ...formData, avatar: e.target.files[0] });
+    }
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    console.log("Form Data: ", formData);
+    console.log("Rating: ", rating);
+    setIsModalOpen(false);
+  };
 
   return (
     <div>
@@ -17,39 +46,44 @@ const Feedback: React.FC = () => {
 
       <Modal
         isOpen={isModalOpen}
-        onClose={() => {
-          setIsModalOpen(false);
-        }}
-        title="Post a comment"
+        onClose={() => setIsModalOpen(false)}
+        title="Share Your Vision, Guide Our Future!"
       >
-        <form>
+        <form onSubmit={handleSubmit}>
           <div className="grid gap-6 mb-6 md:grid-cols-2">
             <div>
               <label
-                htmlFor="first_name"
+                htmlFor="firstName"
                 className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
               >
-                First name
+                Full Name
               </label>
               <input
                 type="text"
-                id="first_name"
+                id="fullName"
+                value={formData.fullName}
+                onChange={handleChange}
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                placeholder="John"
+                placeholder="John ABC"
+                required
               />
             </div>
+
             <div>
               <label
-                htmlFor="last_name"
+                htmlFor="role"
                 className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
               >
-                Last name
+                Role
               </label>
               <input
                 type="text"
-                id="last_name"
+                id="role"
+                value={formData.role}
+                onChange={handleChange}
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                placeholder="Doe"
+                placeholder="Designer"
+                required
               />
             </div>
             <div>
@@ -62,119 +96,84 @@ const Feedback: React.FC = () => {
               <input
                 type="text"
                 id="company"
+                value={formData.company}
+                onChange={handleChange}
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 placeholder="Flowbite"
               />
             </div>
             <div>
               <label
-                htmlFor="phone"
+                htmlFor="profileLink"
                 className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
               >
-                Phone number
-              </label>
-              <input
-                type="tel"
-                id="phone"
-                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                placeholder="123-45-678"
-                pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}"
-              />
-            </div>
-            <div>
-              <label
-                htmlFor="website"
-                className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-              >
-                Website URL
+                Profile Link
               </label>
               <input
                 type="url"
-                id="website"
+                id="profileLink"
+                value={formData.profileLink}
+                onChange={handleChange}
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                placeholder="flowbite.com"
+                placeholder="https://profile.com"
+                required
               />
             </div>
             <div>
               <label
-                htmlFor="visitors"
+                htmlFor="avatar"
                 className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
               >
-                Unique visitors (per month)
+                Avatar
               </label>
               <input
-                type="number"
-                id="visitors"
-                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                placeholder=""
+                type="file"
+                id="avatar"
+                onChange={handleFileChange}
+                className="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+                accept="image/*"
               />
             </div>
           </div>
+
           <div className="mb-6">
             <label
-              htmlFor="email"
+              htmlFor="rating"
               className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
             >
-              Email address
+              Rate us (1-5 stars)
             </label>
-            <input
-              type="email"
-              id="email"
-              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-              placeholder="john.doe@company.com"
-            />
-          </div>
-          <div className="mb-6">
-            <label
-              htmlFor="password"
-              className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-            >
-              Password
-            </label>
-            <input
-              type="password"
-              id="password"
-              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-              placeholder="•••••••••"
-            />
-          </div>
-          <div className="mb-6">
-            <label
-              htmlFor="confirm_password"
-              className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-            >
-              Confirm password
-            </label>
-            <input
-              type="password"
-              id="confirm_password"
-              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-              placeholder="•••••••••"
-            />
-          </div>
-          <div className="flex items-start mb-6">
-            <div className="flex items-center h-5">
-              <input
-                id="remember"
-                type="checkbox"
-                defaultValue=""
-                className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800"
-              />
+            <div className="flex items-center">
+              {[1, 2, 3, 4, 5].map((star) => (
+                <MdStar
+                  key={star}
+                  size={24}
+                  onClick={() => setRating(star)}
+                  className={`cursor-pointer ${
+                    star <= rating ? "text-yellow-400" : "text-gray-300"
+                  }`}
+                />
+              ))}
             </div>
-            <label
-              htmlFor="remember"
-              className="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-            >
-              I agree with the{" "}
-              <a
-                href="#"
-                className="text-blue-600 hover:underline dark:text-blue-500"
-              >
-                terms and conditions
-              </a>
-              .
-            </label>
           </div>
+
+          <div className="mb-6">
+            <label
+              htmlFor="recommendation"
+              className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+            >
+              Recommendations or new feature suggestions
+            </label>
+            <textarea
+              id="recommendation"
+              value={formData.recommendation}
+              onChange={handleChange}
+              rows={4}
+              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              placeholder="Share your thoughts"
+            />
+          </div>
+
           <button
             type="submit"
             className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"

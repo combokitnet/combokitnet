@@ -1,4 +1,5 @@
 import { APP_DESC, APP_DOMAIN, APP_NAME, APP_SOCIAL } from "@/configs/const";
+import { AppProvider } from "@/contexts/AppContext";
 import "@/styles/globals.css";
 import { DefaultSeo } from "next-seo";
 
@@ -27,7 +28,9 @@ export default function App({ Component, pageProps }: AppProps) {
           },
         ]}
       />
-      <Component {...pageProps} />
+      <AppProvider>
+        <Component {...pageProps} />
+      </AppProvider>
     </>
   );
 }

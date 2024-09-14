@@ -1,18 +1,25 @@
 import Modal from "@/components/Modal";
-import React, { useState } from "react";
+import { useAppContext } from "@/contexts/AppContext";
+import { useRequest } from "@/hooks/useRequest";
+import { cleanObject } from "@/utils/object";
+import React, { useEffect, useState } from "react";
+import toast from "react-hot-toast";
 import { MdFeedback, MdStar } from "react-icons/md";
 
-const Feedback: React.FC = () => {
+const Feedback = ({ serviceId }: { serviceId: string }) => {
+  const { tools, fetchTools } = useAppContext();
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [rating, setRating] = useState(0);
+  const [rating, setRating] = useState(5);
   const [formData, setFormData] = useState({
-    fullName: "",
+    fullName: "123",
     role: "",
     company: "",
     profileLink: "",
-    avatar: null as File | null,
-    recommendation: "",
+    recommendation: "123",
+    toolId: serviceId || "all",
+    type: "feedback",
   });
+  const { request, loading } = useRequest();
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -21,18 +28,37 @@ const Feedback: React.FC = () => {
     setFormData({ ...formData, [id]: value });
   };
 
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files && e.target.files[0]) {
-      setFormData({ ...formData, avatar: e.target.files[0] });
-    }
-  };
-
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     console.log("Form Data: ", formData);
     console.log("Rating: ", rating);
-    setIsModalOpen(false);
+    try {
+      await request(`/feedback`, {
+        method: "POST",
+        body: cleanObject({
+          name: formData?.fullName || "",
+          rate: rating,
+          toolId: formData?.toolId,
+          text: formData?.recommendation,
+          type: formData?.type,
+          role: formData?.role,
+          company: formData?.company,
+          profileLink: formData?.profileLink,
+        }),
+      });
+      toast.success("Thank you!");
+      setIsModalOpen(false);
+    } catch (error: any) {
+      toast.error(error?.response?.message || "Submit form error.");
+      console.log(error);
+    }
   };
+
+  useEffect(() => {
+    if (tools.length < 1) {
+      fetchTools();
+    }
+  }, [fetchTools, tools]);
 
   return (
     <div>
@@ -56,7 +82,52 @@ const Feedback: React.FC = () => {
                 htmlFor="firstName"
                 className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
               >
-                Full Name
+                Service <span className="text-red-400">*</span>
+              </label>
+
+              <select
+                onChange={(e) => {
+                  setFormData({ ...formData, toolId: e.target.value });
+                }}
+                defaultValue={formData?.toolId}
+                id="toolId"
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              >
+                {[{ name: "All service", id: "all" }, ...tools].map((m, i) => (
+                  <option key={`tool_${m.name}`} value={m.id}>
+                    {m.name}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            <div className="mb-6">
+              <label
+                htmlFor="rating"
+                className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+              >
+                Rate us (1-5 stars) <span className="text-red-400">*</span>
+              </label>
+              <div className="flex items-center">
+                {[1, 2, 3, 4, 5].map((star) => (
+                  <MdStar
+                    key={star}
+                    size={24}
+                    onClick={() => setRating(star)}
+                    className={`cursor-pointer ${
+                      star <= rating ? "text-yellow-400" : "text-gray-300"
+                    }`}
+                  />
+                ))}
+              </div>
+            </div>
+
+            <div>
+              <label
+                htmlFor="firstName"
+                className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+              >
+                Full Name <span className="text-red-400">*</span>
               </label>
               <input
                 type="text"
@@ -83,9 +154,9 @@ const Feedback: React.FC = () => {
                 onChange={handleChange}
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 placeholder="Designer"
-                required
               />
             </div>
+
             <div>
               <label
                 htmlFor="company"
@@ -102,6 +173,7 @@ const Feedback: React.FC = () => {
                 placeholder="Flowbite"
               />
             </div>
+
             <div>
               <label
                 htmlFor="profileLink"
@@ -116,45 +188,40 @@ const Feedback: React.FC = () => {
                 onChange={handleChange}
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 placeholder="https://profile.com"
-                required
-              />
-            </div>
-            <div>
-              <label
-                htmlFor="avatar"
-                className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-              >
-                Avatar
-              </label>
-              <input
-                type="file"
-                id="avatar"
-                onChange={handleFileChange}
-                className="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
-                accept="image/*"
               />
             </div>
           </div>
 
-          <div className="mb-6">
+          <div className="mb-2">
             <label
-              htmlFor="rating"
+              htmlFor="firstName"
               className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
             >
-              Rate us (1-5 stars)
+              Type <span className="text-red-400">*</span>
             </label>
-            <div className="flex items-center">
-              {[1, 2, 3, 4, 5].map((star) => (
-                <MdStar
-                  key={star}
-                  size={24}
-                  onClick={() => setRating(star)}
-                  className={`cursor-pointer ${
-                    star <= rating ? "text-yellow-400" : "text-gray-300"
-                  }`}
-                />
-              ))}
-            </div>
+
+            <select
+              required
+              onChange={(e) => {
+                setFormData({ ...formData, type: e.target.value });
+              }}
+              defaultValue={"feedback"}
+              id="type"
+              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            >
+              <option key={`type_feedback`} value={`feedback`}>
+                Feedback
+              </option>
+              <option key={`type_report_bug`} value={`report_bug`}>
+                Report bug
+              </option>
+              <option key={`type_request_feature`} value={`request_feature`}>
+                Request feature
+              </option>
+              <option key={`type_other`} value={`other`}>
+                Other
+              </option>
+            </select>
           </div>
 
           <div className="mb-6">
@@ -162,13 +229,14 @@ const Feedback: React.FC = () => {
               htmlFor="recommendation"
               className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
             >
-              Recommendations or new feature suggestions
+              Share your thoughts <span className="text-red-400">*</span>
             </label>
             <textarea
               id="recommendation"
               value={formData.recommendation}
               onChange={handleChange}
               rows={4}
+              required
               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               placeholder="Share your thoughts"
             />
@@ -178,7 +246,7 @@ const Feedback: React.FC = () => {
             type="submit"
             className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
           >
-            Submit
+            {loading ? "Loading..." : "Submit"}
           </button>
         </form>
       </Modal>

@@ -20,6 +20,7 @@ interface UseRequestResult<T> {
   loading: boolean;
   error: string | null;
   cancel: () => void;
+  requestCount: number; // New property for tracking request calls
 }
 
 export function useRequest<T>({
@@ -30,6 +31,7 @@ export function useRequest<T>({
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState<T | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [requestCount, setRequestCount] = useState(0);
 
   const cancelSourceRef = useRef<CancelTokenSource | null>(null);
 
@@ -58,14 +60,20 @@ export function useRequest<T>({
 
       setLoading(true);
       setError(null);
-      if (onStart) onStart();
+      if (onStart) {
+        onStart();
+      }
 
       try {
         const response = await axios.request<T>(config);
-        setData(response.data);
+        console.log(1);
+        setData(response?.data);
         setLoading(false);
-        if (onSuccess) onSuccess(response.data);
-        return response.data;
+        setRequestCount((prevCount) => prevCount + 1);
+        if (onSuccess) {
+          onSuccess(response?.data);
+        }
+        return response?.data;
       } catch (err: any) {
         setLoading(false);
         setError(err?.message || "Something went wrong");
@@ -76,5 +84,5 @@ export function useRequest<T>({
     [onStart, onSuccess, onError]
   );
 
-  return { request, response: data, loading, error, cancel };
+  return { request, response: data, loading, error, cancel, requestCount }; // Return requestCount
 }

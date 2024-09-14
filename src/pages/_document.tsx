@@ -4,31 +4,38 @@ export default function Document() {
   return (
     <Html>
       <Head>
-        {/* GA4 */}
-        <script
-          async
-          src="https://www.googletagmanager.com/gtag/js?id=G-9N1Z6FQVL0"
-        ></script>
+        {/* GA4 and GTM Scripts */}
         <script
           dangerouslySetInnerHTML={{
             __html: `
-              window.dataLayer = window.dataLayer || [];
-              function gtag(){dataLayer.push(arguments);}
-              gtag('js', new Date());
-              gtag('config', 'G-9N1Z6FQVL0');
-            `,
-          }}
-        />
+              (function() {
+              
+                var hostname = window.location.hostname;
+                // Only initialize GA and GTM if not on localhost
 
-        {/* Google Tag Manager */}
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-              (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-              new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-              j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-              'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-              })(window,document,'script','dataLayer','GTM-N6LN3959');
+                if (hostname !== 'localhost') {
+                  // Google Analytics (GA4)
+                  var gtagScript = document.createElement('script');
+                  gtagScript.async = true;
+                  gtagScript.src = 'https://www.googletagmanager.com/gtag/js?id=G-9N1Z6FQVL0';
+                  document.head.appendChild(gtagScript);
+
+                  gtagScript.onload = function() {
+                    window.dataLayer = window.dataLayer || [];
+                    function gtag(){dataLayer.push(arguments);}
+                    gtag('js', new Date());
+                    gtag('config', 'G-9N1Z6FQVL0');
+                  };
+
+                  // Google Tag Manager (GTM)
+                  (function(w,d,s,l,i){
+                    w[l]=w[l]||[];w[l].push({'gtm.start': new Date().getTime(), event:'gtm.js'});
+                    var f=d.getElementsByTagName(s)[0], j=d.createElement(s), dl=l!='dataLayer'?'&l='+l:'';
+                    j.async=true; j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;
+                    f.parentNode.insertBefore(j,f);
+                  })(window,document,'script','dataLayer','GTM-N6LN3959');
+                }
+              })();
             `,
           }}
         />

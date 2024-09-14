@@ -11,11 +11,11 @@ const Feedback = ({ serviceId }: { serviceId: string }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [rating, setRating] = useState(5);
   const [formData, setFormData] = useState({
-    fullName: "123",
+    fullName: "",
     role: "",
     company: "",
     profileLink: "",
-    recommendation: "123",
+    recommendation: "",
     toolId: serviceId || "all",
     type: "feedback",
   });

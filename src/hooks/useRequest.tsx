@@ -66,7 +66,7 @@ export function useRequest<T>({
 
       try {
         const response = await axios.request<T>(config);
-        console.log(1);
+        //console.log(1);
         setData(response?.data);
         setLoading(false);
         setRequestCount((prevCount) => prevCount + 1);

@@ -21,9 +21,9 @@ export default function useWindowSize() {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  const isMobile = windowSize.width <= 768;
-  const isTablet = windowSize.width > 768 && windowSize.width <= 1024;
-  const isDesktop = windowSize.width > 1024;
+  const isMobile = windowSize?.width <= 768;
+  const isTablet = windowSize?.width > 768 && windowSize?.width <= 1024;
+  const isDesktop = windowSize?.width > 1024;
 
   return {
     ...windowSize,

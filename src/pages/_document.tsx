@@ -1,59 +1,11 @@
+import { APP_DESC, APP_NAME } from "@/configs/const";
 import { Head, Html, Main, NextScript } from "next/document";
+import Script from "next/script";
 
 export default function Document() {
   return (
     <Html>
-      <Head>
-        {/* GA4 and GTM Scripts */}
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-              (function() {
-              
-                var hostname = window.location.hostname;
-                // Only initialize GA and GTM if not on localhost
-
-                if (hostname !== 'localhost') {
-                  // Google Analytics (GA4)
-                  var gtagScript = document.createElement('script');
-                  gtagScript.async = true;
-                  gtagScript.src = 'https://www.googletagmanager.com/gtag/js?id=G-9N1Z6FQVL0';
-                  document.head.appendChild(gtagScript);
-
-                  gtagScript.onload = function() {
-                    window.dataLayer = window.dataLayer || [];
-                    function gtag(){dataLayer.push(arguments);}
-                    gtag('js', new Date());
-                    gtag('config', 'G-9N1Z6FQVL0');
-                  };
-
-                  // Google Tag Manager (GTM)
-                  (function(w,d,s,l,i){
-                    w[l]=w[l]||[];w[l].push({'gtm.start': new Date().getTime(), event:'gtm.js'});
-                    var f=d.getElementsByTagName(s)[0], j=d.createElement(s), dl=l!='dataLayer'?'&l='+l:'';
-                    j.async=true; j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;
-                    f.parentNode.insertBefore(j,f);
-                  })(window,document,'script','dataLayer','GTM-N6LN3959');
-                }
-              })();
-            `,
-          }}
-        />
-
-        {/* Conditional Eruda Script for Debugging */}
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-              (function () {
-                if (!/debug=true/.test(window.location.search)) return;
-                var src = '//cdn.jsdelivr.net/npm/eruda';
-                document.write('<scr' + 'ipt src="' + src + '"></scr' + 'ipt>');
-                document.write('<scr' + 'ipt>eruda.init();</scr' + 'ipt>');
-              })();
-            `,
-          }}
-        />
-      </Head>
+      <Head></Head>
 
       <body>
         <noscript>
@@ -64,7 +16,40 @@ export default function Document() {
             style={{ display: "none", visibility: "hidden" }}
           ></iframe>
         </noscript>
+
+        {/* Static Loading Spinner */}
+        <div
+          id="globalLoader"
+          style={{
+            position: "fixed",
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            backgroundColor: "rgba(255, 255, 255, 0.99)",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            zIndex: 9999999,
+            width: "100vw",
+            height: "100vh",
+            color: "black",
+            flexDirection: "column",
+          }}
+        >
+          <img
+            src="/favicon.ico"
+            className="h-6 mr-3 sm:h-9"
+            alt={`${APP_NAME} Logo`}
+          />
+          <p className="self-center text-xl font-semibold whitespace-nowrap dark:text-white">
+            {APP_NAME}
+          </p>
+          <p>{APP_DESC}</p>
+        </div>
+
         <Main />
+        <Script src="/js/my_main.js" strategy="beforeInteractive" />
         <NextScript />
       </body>
     </Html>

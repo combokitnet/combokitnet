@@ -35,6 +35,7 @@ export default function Document() {
             height: "100vh",
             color: "black",
             flexDirection: "column",
+            padding: "32px",
           }}
         >
           <img

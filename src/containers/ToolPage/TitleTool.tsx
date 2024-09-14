@@ -1,4 +1,4 @@
-// TODO: share to social + get random desc share from api
+// TODO: share to social + get random desc share from api, navigator.share(data)
 // TODO: feedback form
 
 import Breadcrumb from "@/components/Breadcrumb";

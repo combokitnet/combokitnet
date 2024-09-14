@@ -1,12 +1,23 @@
 (() => {
+  let startAt = new Date();
   console.log(new Date(), "page load");
 
   // loading screen
+  const minLoadTime = 1000; // x seconds in milliseconds
   window.addEventListener("load", function () {
-    var loader = document.getElementById("globalLoader");
+    const loader = document.getElementById("globalLoader");
+    const loadAt = new Date();
+    console.log(loadAt, "load");
+
     if (loader) {
-      console.log(new Date(), "load");
-      loader.style.display = "none";
+      const elapsed = loadAt - startAt;
+      if (elapsed < minLoadTime) {
+        setTimeout(() => {
+          loader.style.display = "none";
+        }, minLoadTime - elapsed);
+      } else {
+        loader.style.display = "none";
+      }
     }
   });
 

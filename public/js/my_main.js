@@ -10,10 +10,11 @@
     console.log(loadAt, "load");
 
     if (loader) {
-      const elapsed = loadAt - startAt;
+      const elapsed = loadAt.getTime() - startAt.getTime();
       if (elapsed < minLoadTime) {
         setTimeout(() => {
           loader.style.display = "none";
+          console.log(new Date(), "off loading");
         }, minLoadTime - elapsed);
       } else {
         loader.style.display = "none";

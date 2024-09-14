@@ -40,17 +40,41 @@ export default function Document() {
         >
           <img
             src="/favicon.ico"
-            className="h-6 mr-3 sm:h-9"
-            alt={`${APP_NAME} Logo`}
+            alt="App Logo"
+            style={{
+              height: "24px",
+              marginRight: "12px",
+            }}
           />
-          <p className="self-center text-xl font-semibold whitespace-nowrap dark:text-white">
+          <p
+            style={{
+              fontSize: "1.25rem",
+              fontWeight: "600",
+              whiteSpace: "nowrap",
+              color: "black",
+              textAlign: "center",
+            }}
+          >
             {APP_NAME}
           </p>
-          <p>{APP_DESC}</p>
+          <p
+            style={{
+              fontSize: "1rem",
+              textAlign: "center",
+              fontWeight: "600",
+              whiteSpace: "nowrap",
+              color: "black",
+            }}
+          >
+            {APP_DESC}
+          </p>
         </div>
 
         <Main />
-        <Script src="/js/my_main.js" strategy="beforeInteractive" />
+        <Script
+          src={`/js/my_main.js?v=${Date.now()}`}
+          strategy="beforeInteractive"
+        />
         <NextScript />
       </body>
     </Html>

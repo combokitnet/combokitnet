@@ -3,7 +3,7 @@
   console.log(new Date(), "page load");
 
   // loading screen
-  const minLoadTime = 1000; // x seconds in milliseconds
+  const minLoadTime = 1250; // x seconds in milliseconds
   window.addEventListener("load", function () {
     const loader = document.getElementById("globalLoader");
     const loadAt = new Date();
@@ -24,9 +24,12 @@
 
   // eruda debug
   if (/debug=true/.test(window.location.search)) {
-    var src = "//cdn.jsdelivr.net/npm/eruda";
-    document.write("<scr" + 'ipt src="' + src + '"></scr' + "ipt>");
-    document.write("<scr" + "ipt>eruda.init();</scr" + "ipt>");
+    var script = document.createElement("script");
+    script.src = "//cdn.jsdelivr.net/npm/eruda";
+    script.onload = function () {
+      eruda.init();
+    };
+    document.body.appendChild(script);
   }
 
   var hostname = window.location.hostname;

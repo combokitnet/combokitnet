@@ -63,4 +63,26 @@
   } else {
     console.log("On localhost GA and GTM will be not load.");
   }
+
+  const originalOnError = window.onerror;
+
+  // Error handler
+  window.onerror = function (message, source, lineno, colno, error) {
+    console.log("Error Handler: ", {
+      message,
+      source,
+      lineno,
+      colno,
+      error,
+    });
+
+    // Send error details to the server, log, or handle as needed
+    // sendErrorToServer({ message, source, lineno, colno, error });
+
+    // call original onerror
+    if (originalOnError) {
+      return originalOnError(message, source, lineno, colno, error);
+    }
+    return false;
+  };
 })();

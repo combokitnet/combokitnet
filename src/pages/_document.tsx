@@ -1,4 +1,4 @@
-import { APP_DESC, APP_NAME } from "@/configs/const";
+import { APP_DESC_LOADING, APP_NAME } from "@/configs/const";
 import { Head, Html, Main, NextScript } from "next/document";
 import Script from "next/script";
 
@@ -49,7 +49,7 @@ export default function Document() {
           <p
             style={{
               fontSize: "1.25rem",
-              fontWeight: "600",
+              fontWeight: "800",
               whiteSpace: "nowrap",
               color: "black",
               textAlign: "center",
@@ -66,7 +66,7 @@ export default function Document() {
               color: "black",
             }}
           >
-            {APP_DESC}
+            {APP_DESC_LOADING}
           </p>
         </div>
 

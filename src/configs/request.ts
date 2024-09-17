@@ -24,8 +24,8 @@ export async function request<T>(
   };
 
   try {
-    const response = await axios.request<T>(config);
-    return response.data;
+    const response = await axios?.request<T>(config);
+    return response?.data;
   } catch (error: any) {
     console.error("Error calling API:", error?.message || error);
     throw error;

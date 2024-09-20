@@ -80,7 +80,7 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 
 ## Contact
 
-If you have any questions or need assistance, feel free to reach out to us at [support@combokit.net](mailto:support@combokit.net).
+If you have any questions or need assistance, feel free to reach out to us at [contact@combokit.net](mailto:contact@combokit.net).
 
 ---
 

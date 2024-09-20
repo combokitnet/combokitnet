@@ -10,7 +10,7 @@ import { Router, useRouter } from "next/router";
 import { useEffect } from "react";
 
 export default function App({ Component, pageProps }: AppProps) {
-  // const router = useRouter();
+  const router = useRouter();
 
   // useEffect(() => {
   //   const handleRouteStart = () => NProgress.start();

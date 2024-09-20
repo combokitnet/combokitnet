@@ -2,6 +2,9 @@
 User-agent: *
 Allow: /
 
+# Disallow search query parameter
+Disallow: /*?search=
+
 # Host
 Host: https://combokit.net
 

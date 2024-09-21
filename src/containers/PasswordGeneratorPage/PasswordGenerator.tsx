@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
+import { FaClipboard, FaKey } from "react-icons/fa";
 import { calculateHackTime } from "./utils";
 
 const lowercase = "abcdefghijklmnopqrstuvwxyz";
@@ -170,9 +171,17 @@ const PasswordGenerator: React.FC = () => {
           <div className="flex space-x-4">
             <button
               onClick={generatePassword}
-              className="bg-blue-500 w-full text-white px-4 py-2 rounded"
+              className="bg-blue-500 w-full text-white px-4 py-2 rounded flex items-center justify-center"
             >
-              Generate Passwords
+              <FaKey className="mr-2" /> Generate Passwords
+            </button>
+            <button
+              onClick={() => {
+                copyToClipboard(passwords.join("\n"));
+              }}
+              className="bg-blue-500 w-full text-white px-4 py-2 rounded flex items-center justify-center"
+            >
+              <FaClipboard className="mr-2" /> Copy all
             </button>
           </div>
         </div>

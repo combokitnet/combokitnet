@@ -1,12 +1,35 @@
 import Modal from "@/components/Modal";
+import { APP_SOCIAL } from "@/configs/const";
 import { useAppContext } from "@/contexts/AppContext";
 import { useRequest } from "@/hooks/useRequest";
 import { cleanObject } from "@/utils/object";
-import React, { useEffect, useState } from "react";
+import React, {
+  cloneElement,
+  isValidElement,
+  ReactNode,
+  useEffect,
+  useState,
+} from "react";
 import toast from "react-hot-toast";
+import { FaEnvelope, FaTelegramPlane, FaTwitter } from "react-icons/fa";
 import { MdFeedback, MdStar } from "react-icons/md";
 
-const Feedback = ({ serviceId }: { serviceId: string }) => {
+export enum FeedbackType {
+  feedback = "feedback",
+  report_bug = "report_bug",
+  request_feature = "request_feature",
+  other = "other",
+}
+
+const Feedback = ({
+  serviceId,
+  type,
+  render,
+}: {
+  serviceId?: string | "all";
+  type?: FeedbackType;
+  render?: ReactNode;
+}) => {
   const { tools, fetchTools } = useAppContext();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [rating, setRating] = useState(5);
@@ -17,7 +40,7 @@ const Feedback = ({ serviceId }: { serviceId: string }) => {
     profileLink: "",
     recommendation: "",
     toolId: serviceId || "all",
-    type: "feedback",
+    type: type || "feedback",
   });
   const { request, loading } = useRequest();
 
@@ -32,6 +55,7 @@ const Feedback = ({ serviceId }: { serviceId: string }) => {
     e.preventDefault();
     console.log("Form Data: ", formData);
     console.log("Rating: ", rating);
+
     try {
       await request(`/feedback`, {
         method: "POST",
@@ -60,26 +84,36 @@ const Feedback = ({ serviceId }: { serviceId: string }) => {
     }
   }, [fetchTools, tools]);
 
+  let child = (
+    <button
+      onClick={() => setIsModalOpen(true)}
+      title="Feedback"
+      className="flex gap-[6px] items-center justify-center w-full p-[5px] text-sm font-medium text-center text-gray-900 border border-gray-200 rounded-lg sm:w-auto hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 dark:text-white dark:border-gray-700 dark:hover:bg-gray-700 dark:focus:ring-gray-800"
+    >
+      <MdFeedback size={"18px"} />
+    </button>
+  );
+
+  if (render && isValidElement(render)) {
+    child = cloneElement(render, {
+      onClick: () => setIsModalOpen(true),
+    } as any);
+  }
+
   return (
-    <div>
-      <button
-        onClick={() => setIsModalOpen(true)}
-        title="Feedback"
-        className="flex gap-[6px] items-center justify-center w-full p-[5px] text-sm font-medium text-center text-gray-900 border border-gray-200 rounded-lg sm:w-auto hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 dark:text-white dark:border-gray-700 dark:hover:bg-gray-700 dark:focus:ring-gray-800"
-      >
-        <MdFeedback size={"18px"} />
-      </button>
+    <>
+      {child}
 
       <Modal
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
         title="Share Your Vision, Guide Our Future!"
       >
-        <form onSubmit={handleSubmit}>
+        <form className="text-left" onSubmit={handleSubmit}>
           <div className="grid gap-6 mb-6 md:grid-cols-2">
             <div>
               <label
-                htmlFor="firstName"
+                htmlFor="toolId"
                 className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
               >
                 Service <span className="text-red-400">*</span>
@@ -124,7 +158,7 @@ const Feedback = ({ serviceId }: { serviceId: string }) => {
 
             <div>
               <label
-                htmlFor="firstName"
+                htmlFor="fullName"
                 className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
               >
                 Full Name <span className="text-red-400">*</span>
@@ -135,7 +169,7 @@ const Feedback = ({ serviceId }: { serviceId: string }) => {
                 value={formData.fullName}
                 onChange={handleChange}
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                placeholder="John"
+                placeholder="John Doe"
                 required
               />
             </div>
@@ -194,7 +228,7 @@ const Feedback = ({ serviceId }: { serviceId: string }) => {
 
           <div className="mb-2">
             <label
-              htmlFor="firstName"
+              htmlFor="type"
               className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
             >
               Type <span className="text-red-400">*</span>
@@ -203,9 +237,9 @@ const Feedback = ({ serviceId }: { serviceId: string }) => {
             <select
               required
               onChange={(e) => {
-                setFormData({ ...formData, type: e.target.value });
+                setFormData({ ...formData, type: e.target.value as any });
               }}
-              defaultValue={"feedback"}
+              defaultValue={formData?.type}
               id="type"
               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
             >
@@ -242,15 +276,46 @@ const Feedback = ({ serviceId }: { serviceId: string }) => {
             />
           </div>
 
+          <p className="text-gray-700 dark:text-gray-300 mb-4 flex gap-3 ">
+            <span>You can reach us via:</span>{" "}
+            <div className="flex justify-start gap-6">
+              <a
+                href={APP_SOCIAL.telegram}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-gray-700 dark:text-gray-300 hover:text-blue-500 dark:hover:text-blue-400"
+              >
+                <FaTelegramPlane size={24} />
+                <span className="sr-only">Telegram</span>
+              </a>
+              <a
+                href={APP_SOCIAL.twitter}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-gray-700 dark:text-gray-300 hover:text-blue-400 dark:hover:text-blue-300"
+              >
+                <FaTwitter size={24} />
+                <span className="sr-only">Twitter</span>
+              </a>
+              <a
+                href={`mailto:${APP_SOCIAL.gmail}`}
+                className="text-gray-700 dark:text-gray-300 hover:text-red-500 dark:hover:text-red-400"
+              >
+                <FaEnvelope size={24} />
+                <span className="sr-only">Mail</span>
+              </a>
+            </div>
+          </p>
+
           <button
             type="submit"
-            className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+            className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
           >
             {loading ? "Loading..." : "Submit"}
           </button>
         </form>
       </Modal>
-    </div>
+    </>
   );
 };
 

@@ -3,6 +3,7 @@ import useSearchParams from "@/hooks/useSearchParams";
 import Fuse from "fuse.js";
 import { useEffect, useState } from "react";
 import { FaSearch } from "react-icons/fa";
+import Feedback, { FeedbackType } from "./Feedback";
 import ListTag from "./ListTag";
 import ToolItem from "./ToolItem";
 import { TTool, TToolTag } from "./types";
@@ -22,18 +23,23 @@ export default function ToolPage({
   const [tag, setTag] = useState<string[]>([]);
   const [search, setSearch] = useState("");
   const [tools, setTools] = useState(toolData);
-  const { getSearchParam, setSearchParam, searchParams } = useSearchParams();
+  const { getSearchParam, setSearchParam, initSearchParams } =
+    useSearchParams();
 
   useEffect(() => {
+    if (initSearchParams.size < 1) return;
+
     const t = getSearchParam("tag");
     const s = getSearchParam("search");
+
     if (t && t?.length > 0) {
       setTag(t.split(","));
     }
+
     if (s) {
       setSearch(s);
     }
-  }, [searchParams]);
+  }, [initSearchParams]);
 
   useEffect(() => {
     let t = [...toolData];
@@ -81,14 +87,36 @@ export default function ToolPage({
         </div>
 
         {/* list tools  */}
-        <div className="grid grid-cols-1 gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 p-[0px_24px]">
-          {tools?.length > 0
-            ? tools.map((m, i) => (
-                <ToolItem toolTags={tags} data={m} key={m.name} />
-              ))
-            : "No tool here"}
-        </div>
+        {tools?.length > 0 ? (
+          <div className="grid grid-cols-1 gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 p-[0px_24px]">
+            {tools.map((m, i) => (
+              <ToolItem toolTags={tags} data={m} key={m.name} />
+            ))}
+          </div>
+        ) : (
+          <NotFoundTool />
+        )}
       </div>
     </AppLayout>
   );
 }
+
+const NotFoundTool = () => {
+  return (
+    <div className="p-4">
+      <h2 className="text-center  text-xl font-bold mb-4">No Tool Found</h2>
+      <p className="mb-4">
+        Sorry, we couldn't find the tool you're searching for. Let us know what
+        you're looking for by filling out{" "}
+        <Feedback
+          serviceId={"all"}
+          type={FeedbackType.request_feature}
+          render={
+            <button className="text-blue-500 underline">this quick form</button>
+          }
+        />
+        , and we'll consider adding it!
+      </p>
+    </div>
+  );
+};

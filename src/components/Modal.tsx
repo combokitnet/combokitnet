@@ -48,7 +48,9 @@ const Modal: React.FC<ModalProps> = ({
       <div className="relative w-full  bg-white rounded-lg shadow-lg transform transition-all duration-300 ease-out scale-95 translate-y-4 ">
         <div className="opacity-100 scale-100 translate-y-0 transition-all duration-300 ease-out">
           <div className="flex justify-between items-center border-b p-4">
-            {title && <h3 className="text-xl font-semibold">{title}</h3>}
+            {title && (
+              <h3 className="text-xl font-semibold text-black">{title}</h3>
+            )}
             <button
               onClick={onClose}
               className="text-gray-500 hover:text-gray-700"

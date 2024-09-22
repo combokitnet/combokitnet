@@ -1,6 +1,6 @@
 import AppLayout from "@/components/AppLayout";
 import { APP_NAME } from "@/configs/const";
-import Link from "next/link";
+import Feedback, { FeedbackType } from "@/containers/ToolPage/Feedback";
 import { MdOutlineLightbulb } from "react-icons/md";
 
 export default function About() {
@@ -27,12 +27,15 @@ export default function About() {
           We&#39;re not just about providing toolkits; we&#39;re committed to
           building a collaborative community. Your feedback is invaluable in
           shaping our offerings.{" "}
-          <a
-            className="underline text-green-600"
-            href="https://forms.gle/ZjPaiWV1BL5hm6sJ7"
-          >
-            Forms here
-          </a>
+          <Feedback
+            serviceId={"all"}
+            type={FeedbackType.feedback}
+            render={
+              <button className="underline text-green-600">
+                this quick form
+              </button>
+            }
+          />
         </p>
         <p className="text-lg mt-4">
           Join us on this journey towards{" "}
@@ -52,14 +55,17 @@ export default function About() {
           create toolkits tailored to your needs!
         </p>
         <br />
-        <Link
-          target="_blank"
-          href={`https://forms.gle/VBG32kTUUATUtwq16`}
-          className="flex gap-[6px] items-center justify-center w-full px-5 py-3 text-sm font-medium text-center text-gray-900 border border-gray-200 rounded-lg sm:w-auto hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 dark:text-white dark:border-gray-700 dark:hover:bg-gray-700 dark:focus:ring-gray-800"
-        >
-          <MdOutlineLightbulb className="w-4 h-4 mr-2 " />{" "}
-          <span>Submit your idea</span>
-        </Link>
+
+        <Feedback
+          serviceId={"all"}
+          type={FeedbackType.request_feature}
+          render={
+            <button className="flex gap-[6px] items-center justify-center w-full px-5 py-3 text-sm font-medium text-center text-gray-900 border border-gray-200 rounded-lg sm:w-auto hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 dark:text-white dark:border-gray-700 dark:hover:bg-gray-700 dark:focus:ring-gray-800">
+              <MdOutlineLightbulb className="w-4 h-4 mr-2 " />{" "}
+              <span>Submit your idea</span>
+            </button>
+          }
+        />
       </div>
     </AppLayout>
   );

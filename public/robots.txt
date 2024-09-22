@@ -2,13 +2,6 @@
 User-agent: *
 Allow: /
 
-# Disallow search query parameter
-Disallow: /*?search=
-
-# Disallow API domains
-Disallow: https://api.combokit.net/
-Disallow: https://api_v2.combokit.net/
-
 # Host
 Host: https://combokit.net
 

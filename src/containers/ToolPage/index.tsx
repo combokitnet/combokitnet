@@ -104,8 +104,8 @@ export default function ToolPage({
 const NotFoundTool = () => {
   return (
     <div className="p-4">
-      <h2 className="text-center  text-xl font-bold mb-4">No Tool Found</h2>
-      <p className="mb-4">
+      <h2 className="text-center text-xl font-bold mb-4">No Tool Found</h2>
+      <p className="mb-4 text">
         Sorry, we couldn't find the tool you're searching for. Let us know what
         you're looking for by filling out{" "}
         <Feedback
@@ -117,6 +117,41 @@ const NotFoundTool = () => {
         />
         , and we'll consider adding it!
       </p>
+
+      <div className="mt-6 text-center">
+        <p className="mb-4">
+          Are you a developer or interested in contributing? Help us improve and
+          create new tools by contributing to our open-source project on{" "}
+          <a
+            href="https://github.com/combokitnet/combokitnet"
+            className="text-blue-500 underline"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            GitHub
+          </a>
+          !
+        </p>
+
+        {/* buttons  */}
+        <div className="flex gap-3 items-center justify-center">
+          <button className="inline-block bg-blue-500 text-white px-4 py-2 rounded">
+            <Feedback
+              serviceId={"all"}
+              type={FeedbackType.request_feature}
+              render={<span className="capitalize">This quick form</span>}
+            />
+          </button>
+          <a
+            href="https://github.com/combokitnet/combokitnet"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-block bg-blue-500 text-white px-4 py-2 rounded capitalize"
+          >
+            Contribute on GitHub
+          </a>
+        </div>
+      </div>
     </div>
   );
 };

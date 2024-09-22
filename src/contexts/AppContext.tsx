@@ -1,7 +1,7 @@
 import { TTool } from "@/containers/ToolPage/types";
 import { useRequest } from "@/hooks/useRequest";
 import { AxiosResponse } from "axios";
-import { createContext, ReactNode, useContext, useState } from "react";
+import { createContext, ReactNode, useContext, useRef, useState } from "react";
 
 interface AppContextProps {
   user: string | null;
@@ -17,9 +17,13 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
   const { request, requestCount } = useRequest();
   const [user, setUser] = useState<string | null>(null);
   const [tools, setTools] = useState<TTool[]>([]);
+  const getToolCount = useRef<number>(0);
 
   const fetchTools = async () => {
-    if (tools.length < 1 && requestCount < 1) {
+    getToolCount.current += 1;
+
+    console.log("fetchTools", tools.length, requestCount, getToolCount.current);
+    if (getToolCount.current < 2) {
       try {
         const response = (await request(`/tool`)) as AxiosResponse;
         const data: TTool[] = response?.data?.tools || [];

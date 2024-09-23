@@ -1,13 +1,13 @@
+import CookieBanner from "@/components/CookieBanner";
 import { APP_DESC, APP_DOMAIN, APP_NAME, APP_SOCIAL } from "@/configs/const";
 import { AppProvider } from "@/contexts/AppContext";
 import "@/styles/globals.css";
 import { DefaultSeo } from "next-seo";
 
 import type { AppProps } from "next/app";
-import { Router, useRouter } from "next/router";
+import { useRouter } from "next/router";
 // import NProgress from "nprogress";
 // import "nprogress/nprogress.css";
-import { useEffect } from "react";
 
 export default function App({ Component, pageProps }: AppProps) {
   const router = useRouter();
@@ -52,6 +52,7 @@ export default function App({ Component, pageProps }: AppProps) {
       <AppProvider>
         <Component {...pageProps} />
       </AppProvider>
+      <CookieBanner />
     </>
   );
 }

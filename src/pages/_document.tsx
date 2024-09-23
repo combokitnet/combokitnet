@@ -5,7 +5,13 @@ import Script from "next/script";
 export default function Document() {
   return (
     <Html>
-      <Head></Head>
+      <Head>
+        <script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9445342853950859"
+          crossOrigin="anonymous"
+        ></script>
+      </Head>
 
       <body>
         <noscript>

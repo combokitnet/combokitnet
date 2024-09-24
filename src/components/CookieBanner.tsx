@@ -36,12 +36,12 @@ const CookieBanner: React.FC = () => {
           >
             Accept
           </button>
-          <button
+          {/* <button
             onClick={handleReject}
             className="bg-red-500 text-white py-2 px-4 rounded"
           >
             Reject
-          </button>
+          </button> */}
         </div>
       </div>
     )

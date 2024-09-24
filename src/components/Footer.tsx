@@ -16,7 +16,7 @@ export default function Footer() {
                   About
                 </Link>
               </li>
-              <li className="mb-4">
+              {/* <li className="mb-4">
                 <Link href="#" className="hover:underline">
                   Careers
                 </Link>
@@ -25,9 +25,12 @@ export default function Footer() {
                 <Link href="#" className="hover:underline">
                   Brand Center
                 </Link>
-              </li>
+              </li> */}
               <li className="mb-4">
-                <Link href="#" className="hover:underline">
+                <Link
+                  href="https://blog.combokit.net/"
+                  className="hover:underline"
+                >
                   Blog
                 </Link>
               </li>
@@ -87,7 +90,7 @@ export default function Footer() {
                   Privacy Policy
                 </Link>
               </li>
-              <li className="mb-4">
+              {/* <li className="mb-4">
                 <Link href="/tos" className="hover:underline">
                   Licensing
                 </Link>
@@ -96,11 +99,11 @@ export default function Footer() {
                 <Link href="/tos" className="hover:underline">
                   Terms
                 </Link>
-              </li>
+              </li> */}
             </ul>
           </div>
 
-          <div>
+          {/* <div>
             <h3 className="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">
               Download
             </h3>
@@ -126,7 +129,7 @@ export default function Footer() {
                 </Link>
               </li>
             </ul>
-          </div>
+          </div> */}
         </div>
 
         <hr className="my-6 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-8" />

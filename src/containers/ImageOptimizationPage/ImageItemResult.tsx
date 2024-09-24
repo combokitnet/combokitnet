@@ -14,16 +14,19 @@ import { MdRemoveRedEye } from "react-icons/md";
 import { RiDeleteBin6Fill } from "react-icons/ri";
 import { VscLoading } from "react-icons/vsc";
 import { TImages } from "./ImageMain";
+import { reNameFile } from "./utils";
 
 export default function ImageItemResult({
   index,
   image,
   deleteImage,
+  nameFormats,
 }: {
   index: number;
   image: TImages;
   updateImage: (id: string, updatedImage: Partial<TImages>) => void;
   deleteImage: (id: string) => void;
+  nameFormats: string[];
 }) {
   const [modalCompare, setModalCompare] = useState(false);
   return (
@@ -125,7 +128,10 @@ export default function ImageItemResult({
           <button
             onClick={async () => {
               window.open(
-                `${image?.output?.url}?down=true&filename=${image?.file?.name}`,
+                `${image?.output?.url}?down=true&filename=${reNameFile(
+                  image?.file,
+                  nameFormats
+                )}`,
                 "__blank"
               );
             }}

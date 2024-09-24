@@ -6,6 +6,7 @@ import useSearchParams from "@/hooks/useSearchParams";
 import { useEffect, useState } from "react";
 import { FiUploadCloud } from "react-icons/fi";
 import { v4 as uuidv4 } from "uuid";
+import FileNameFormat from "./FileNameFormat";
 import ImageItemResult from "./ImageItemResult";
 import ImageStats from "./ImageStats";
 import useImageUpload from "./useImageUpload";
@@ -58,6 +59,8 @@ export default function Main() {
     totalSuccess,
   } = useImageUpload();
 
+  const [selectedOptions, setSelectedOptions] = useState<string[]>([]);
+
   useEffect(() => {
     const handlePaste = (event: ClipboardEvent) => {
       const items = event.clipboardData?.items;
@@ -100,7 +103,11 @@ export default function Main() {
 
   return (
     <div className="container mx-auto">
-      <div className="flex justify-end mb-1">
+      {/* <p className="break-words">{JSON.stringify(selectedOptions)}</p> */}
+
+      <div className="flex gap-3 justify-end mb-1">
+        <FileNameFormat setMainSelectedOptions={setSelectedOptions} />
+
         <select
           id="inputType"
           className="bg-gray-50 px-2 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 w-[50%] max-w-[200px]"
@@ -259,6 +266,7 @@ export default function Main() {
             image={item}
             updateImage={updateImage}
             deleteImage={deleteImage}
+            nameFormats={selectedOptions}
           />
         ))}
     </div>

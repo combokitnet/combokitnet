@@ -1,3 +1,4 @@
+import useLocalStorage from "@/hooks/useLocalStorage";
 import { sizeFormat } from "@/utils/number";
 import { delay, timeFormat } from "@/utils/time";
 import axios from "axios";
@@ -5,7 +6,9 @@ import JSZip from "jszip";
 import { useMemo, useRef, useState } from "react";
 import { FaArrowDown, FaArrowUp, FaDownload, FaSpinner } from "react-icons/fa";
 import { IoMdRemoveCircle } from "react-icons/io";
+import { IMAGE_FILENAME_OPTIONS } from "./FileNameFormat";
 import { TImages } from "./ImageMain";
+import { reNameFile } from "./utils";
 
 // Assuming internet speed is 10 Mbps
 const internetSpeedMbps = 10;
@@ -147,6 +150,10 @@ const BtnDownloadAll = ({
   };
   total: number;
 }) => {
+  const { value: fileNameFormats } = useLocalStorage<string[]>(
+    IMAGE_FILENAME_OPTIONS
+  );
+
   const [isDownload, setIsDownload] = useState(false);
   const [_, setRefesh] = useState(false);
   const downloadCount = useRef(0);
@@ -168,7 +175,7 @@ const BtnDownloadAll = ({
               const blob = await axios.get(`${u?.output?.url}`, {
                 responseType: "blob",
               });
-              zip.file(u.file.name, blob.data);
+              zip.file(reNameFile(u.file, fileNameFormats), blob.data);
               downloadCount.current += 1;
               setRefesh((m) => !m);
               await delay(1);

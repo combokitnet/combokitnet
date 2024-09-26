@@ -16,10 +16,11 @@ import { ItemFav } from "./ToolItem";
 import { TTool } from "./types";
 
 export default function TitleTool({ data }: { data: TTool }) {
-  const [favorites, setFavorites] = useLocalStorage(
-    LOCAL_STORAGE.TOOLS_FAVORITES,
-    ""
-  );
+  // favorites, setFavorites
+  const { value: favorites, setValue: setFavorites } = useLocalStorage({
+    key: LOCAL_STORAGE.TOOLS_FAVORITES,
+    defaultValue: "",
+  });
   const router = useRouter();
   const { isDesktop } = useWindowSize();
 
@@ -92,7 +93,7 @@ export default function TitleTool({ data }: { data: TTool }) {
               </div>
             </div>
 
-            <div className="flex flex-row items-center justify-around h-full gap-[8px] mt-2">
+            <div className="flex flex-row items-center justify-end h-full gap-5 mt-2">
               <span
                 title={`${data?.rate} rate`}
                 className="flex flex-row items-center justify-center gap-[3px] capitalize"

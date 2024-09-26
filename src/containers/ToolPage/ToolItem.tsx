@@ -9,10 +9,10 @@ import { TTool, TToolTag } from "./types";
 
 const ToolItem = ({ data }: { data: TTool; toolTags: TToolTag[] }) => {
   const id = useId();
-  const [favorites, setFavorites] = useLocalStorage(
-    LOCAL_STORAGE.TOOLS_FAVORITES,
-    ""
-  );
+  const { value: favorites, setValue: setFavorites } = useLocalStorage({
+    key: LOCAL_STORAGE.TOOLS_FAVORITES,
+    defaultValue: "",
+  });
 
   return (
     <div className="flex bg-card h-44 flex-col rounded-lg border bg-card p-3 text-card-foreground hover:bg-muted">

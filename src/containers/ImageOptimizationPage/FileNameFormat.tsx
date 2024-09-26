@@ -1,4 +1,7 @@
 import Modal from "@/components/Modal";
+import { LOCAL_STORAGE } from "@/configs/const";
+import useLocalStorage from "@/hooks/useLocalStorage";
+import { maxLength } from "@/utils/string";
 import React, { PropsWithChildren, useEffect, useState } from "react";
 import {
   conflictResolution,
@@ -11,7 +14,22 @@ interface FileNameFormatProps extends PropsWithChildren {
   setMainSelectedOptions: (data: any) => void;
 }
 
+export const IMAGE_FILENAME_OPTIONS = {
+  key: LOCAL_STORAGE.IMAGE_FILENAME_OPTIONS,
+  defaultValue: [],
+  decodeFunc: (value: string) => {
+    return value?.split(",");
+  },
+  encodeFunc: (value: string[]) => {
+    return value.join(",");
+  },
+};
+
 const FileNameFormat = ({ setMainSelectedOptions }: FileNameFormatProps) => {
+  const { setValue: setLocalData, oldValue } = useLocalStorage<string[]>(
+    IMAGE_FILENAME_OPTIONS
+  );
+
   const [selectedOptions, setSelectedOptions] = useState<string[]>([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [originalFileName, setOriginalFileName] = useState(
@@ -47,19 +65,36 @@ const FileNameFormat = ({ setMainSelectedOptions }: FileNameFormatProps) => {
   };
 
   useEffect(() => {
+    if (oldValue) {
+      setMainSelectedOptions(oldValue);
+      setSelectedOptions(oldValue);
+    }
+  }, [oldValue]);
+
+  useEffect(() => {
     setMainSelectedOptions(selectedOptions);
+
+    if (selectedOptions.length > 0) {
+      setLocalData(selectedOptions);
+    }
   }, [selectedOptions]);
 
   const selectReals = selectedOptions.filter((m) => m !== "no_change");
+  const selectName = selectReals.map((m) => m.split("_").join(" ")).join(", ");
+
   return (
     <>
       <button
-        className=""
         onClick={() => {
           setIsModalOpen(true);
         }}
+        className="capitalize bg-gray-50 px-2 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 w-[50%] max-w-[200px]"
+        type="button"
+        title={selectName}
       >
-        Custom Name {selectReals.length > 0 ? `(${selectReals.length})` : ""}
+        {selectReals.length > 0
+          ? `${maxLength(selectName, 25, "end")}`
+          : "Custom Name"}
       </button>
 
       <Modal
@@ -68,7 +103,10 @@ const FileNameFormat = ({ setMainSelectedOptions }: FileNameFormatProps) => {
         title="Customize the Output File Name"
       >
         <div className="mb-4">
-          <label htmlFor="originalFileName" className="block mb-2">
+          <label
+            htmlFor="originalFileName"
+            className="block font-semibold mb-2"
+          >
             Original File Name:
           </label>
           <input
@@ -83,7 +121,15 @@ const FileNameFormat = ({ setMainSelectedOptions }: FileNameFormatProps) => {
         <div>
           <h3 className="font-semibold">Formatted File Name:</h3>
           <p className="text-gray-700 break-words">
-            {reNameFile(new File([], originalFileName), selectedOptions)}
+            <input
+              type="text"
+              disabled
+              value={reNameFile(
+                new File([], originalFileName),
+                selectedOptions
+              )}
+              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white"
+            />
           </p>
         </div>
         <br />
@@ -97,18 +143,22 @@ const FileNameFormat = ({ setMainSelectedOptions }: FileNameFormatProps) => {
               return (
                 <label
                   key={item.key}
-                  className={`flex items-center ${
+                  className={`flex flex-col ${
                     isDisable ? "text-gray-400" : ""
-                  }`}
+                  } mb-3`}
                 >
-                  <input
-                    type="checkbox"
-                    value={item.key}
-                    onChange={handleCheckboxChange}
-                    className="mr-2"
-                    disabled={isDisable}
-                  />
-                  <span className="font-bold">{item.name}</span>: {item.desc}
+                  <p className="font-bold">
+                    <input
+                      type="checkbox"
+                      value={item.key}
+                      onChange={handleCheckboxChange}
+                      className="mr-2"
+                      disabled={isDisable}
+                      checked={selectedOptions?.includes(item?.key)}
+                    />{" "}
+                    {item.name}
+                  </p>
+                  <p>{item.desc}</p>
                 </label>
               );
             })}

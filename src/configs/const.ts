@@ -13,5 +13,8 @@ export const APP_SOCIAL = {
 };
 
 export const LOCAL_STORAGE = {
+  // for global app
   TOOLS_FAVORITES: "_app_favorites",
+  // for image tool
+  IMAGE_FILENAME_OPTIONS: "IMAGE_FILENAME_OPTIONS",
 };

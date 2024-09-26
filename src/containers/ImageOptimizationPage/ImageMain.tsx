@@ -1,6 +1,7 @@
 // TODO: add sample try: file, folder, url
 // TODO: add copy image
 // TODO: get image info like: meta data comment, author,...
+// TODO: add watermark: text, image
 
 import useSearchParams from "@/hooks/useSearchParams";
 import { useEffect, useState } from "react";
@@ -95,7 +96,6 @@ export default function Main() {
     if (initSearchParams.size > 0) {
       let inputType = initSearchParams.get("inputType");
       if (isTInputType(inputType)) {
-        console.log("isTInputType", isTInputType, inputType);
         setInputType(inputType);
       }
     }

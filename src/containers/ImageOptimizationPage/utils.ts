@@ -8,6 +8,8 @@ export interface FileNameType {
 export const conflictResolution = {
   lowercase: ["uppercase"],
   uppercase: ["lowercase"],
+  slug: ["remove_special_characters"],
+  remove_special_characters: ["slug"],
 };
 
 export const fileNameTypes: FileNameType[] = [
@@ -121,7 +123,7 @@ export const reNameFile = (file: File, options: string[]): string => {
   const optionFunctions: {
     [key: string]: (name: string, file?: File) => string;
   } = {
-    slug: applySlug,
+    slug: (name: string) => applySlug(removeSpecialCharacters(name)),
     lowercase: applyLowercase,
     uppercase: applyUppercase,
     remove_spaces: removeSpaces,
@@ -148,3 +150,26 @@ export const reNameFile = (file: File, options: string[]): string => {
     ? fileName
     : `${fileName}.${extension}`;
 };
+
+export async function copyImageToClipboard(imageUrl: string): Promise<void> {
+  try {
+    // Fetch the image as a Blob
+    const response = await fetch(imageUrl);
+    const blob = await response.blob();
+
+    // Ensure ClipboardItem is available in the current environment
+    if (!navigator.clipboard || !window.ClipboardItem) {
+      throw new Error("Clipboard API or ClipboardItem is not supported.");
+    }
+
+    // Create a clipboard item with the image blob and its MIME type
+    const clipboardItem = new ClipboardItem({ [blob.type]: blob });
+
+    // Copy the image to the clipboard
+    await navigator.clipboard.write([clipboardItem]);
+
+    console.log("Image copied to clipboard!");
+  } catch (error) {
+    console.error("Failed to copy image to clipboard:", error);
+  }
+}

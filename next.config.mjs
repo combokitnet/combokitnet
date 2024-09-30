@@ -85,11 +85,25 @@ const nextConfig = {
       "/xml-to-json",
       "/yaml-to-json",
       "/yaml-to-toml",
-    ].map((m) => ({
-      source: m,
-      destination: "/",
-      permanent: true,
-    }));
+    ].map((m) => {
+      let destination = "/";
+
+      if (
+        m === "/tiny-gif" ||
+        m === "/tiny-jpg" ||
+        m === "/tiny-png" ||
+        m === "/tiny-svg" ||
+        m === "/tiny-webp"
+      ) {
+        destination = "/tools/image-optimization";
+      }
+
+      return {
+        source: m,
+        destination: destination,
+        permanent: true,
+      };
+    });
   },
 };
 

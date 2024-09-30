@@ -85,6 +85,7 @@ const nextConfig = {
       "/xml-to-json",
       "/yaml-to-json",
       "/yaml-to-toml",
+      "/ads.txt",
     ].map((m) => {
       let destination = "/";
 
@@ -96,6 +97,11 @@ const nextConfig = {
         m === "/tiny-webp"
       ) {
         destination = "/tools/image-optimization";
+      }
+      if (
+        m === "/ads.txt"
+      ) {
+        destination = "https://srv.adstxtmanager.com/19390/combokit.net";
       }
 
       return {

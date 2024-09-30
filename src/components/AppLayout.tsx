@@ -27,7 +27,7 @@ export default function AppLayout(props: PropsWithChildren) {
   return (
     <main className={`${inter.className} h-full`}>
       <Header />
-      <div className="p-[0_12px] sm:p-[0px]">{props.children}</div>
+      <div className="p-[0_12px] sm:p-[0_18px]">{props.children}</div>
       <br />
       <Footer />
       <Toaster />

@@ -10,7 +10,9 @@ import { v4 as uuidv4 } from "uuid";
 import FileNameFormat from "./FileNameFormat";
 import ImageItemResult from "./ImageItemResult";
 import ImageStats from "./ImageStats";
+import ImageViewer from "./ImageViewer";
 import useImageUpload from "./useImageUpload";
+import { getImageMetaData, ImageMetaData } from "./utils";
 
 export enum TInputType {
   FILE = "FILES",
@@ -43,6 +45,7 @@ export interface TImages {
     errorCode: string;
     message: string;
   };
+  metaData?: ImageMetaData;
 }
 
 const MAX_FILES = 100;
@@ -59,6 +62,8 @@ export default function Main() {
     totalError,
     totalSuccess,
   } = useImageUpload();
+
+  const [modalCompare, setModalCompare] = useState<TImages>();
 
   const [selectedOptions, setSelectedOptions] = useState<string[]>([]);
 
@@ -143,7 +148,7 @@ export default function Main() {
             </div>
             <input
               id="dropzone-file"
-              onChange={(e) => {
+              onChange={async (e) => {
                 console.log(e.target.files);
                 if (!e.target.files) {
                   return;
@@ -158,6 +163,7 @@ export default function Main() {
                       status: "upload",
                       timestamp: Date.now(),
                       blobUrl: URL.createObjectURL(file),
+                      metaData: await getImageMetaData(file),
                     });
                   }
                 }
@@ -199,7 +205,7 @@ export default function Main() {
             </div>
             <input
               id="dropzone-file"
-              onChange={(e) => {
+              onChange={async (e) => {
                 console.log(e.target.files);
                 if (!e.target.files) {
                   return;
@@ -214,6 +220,7 @@ export default function Main() {
                       status: "upload",
                       timestamp: Date.now(),
                       blobUrl: URL.createObjectURL(file),
+                      metaData: await getImageMetaData(file),
                     });
                   }
                 }
@@ -267,8 +274,18 @@ export default function Main() {
             updateImage={updateImage}
             deleteImage={deleteImage}
             nameFormats={selectedOptions}
+            setModalCompare={setModalCompare}
           />
         ))}
+
+      {modalCompare ? (
+        <ImageViewer
+          image={modalCompare}
+          onClose={() => setModalCompare(undefined)}
+        />
+      ) : (
+        ""
+      )}
     </div>
   );
 }

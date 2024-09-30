@@ -3,16 +3,15 @@
 // TODO: handle with big file (bigger than 15MB)
 // TODO: rm all error file
 // TODO: show process
+// TODO: add btn retry when got fail,...
 
-import Modal from "@/components/Modal";
+import useWindowSize from "@/hooks/useWindowSize";
 import { sizeFormat } from "@/utils/number";
 import { maxLength } from "@/utils/string";
-import { useState } from "react";
-import ReactCompareImage from "react-compare-image";
+import { Dispatch, SetStateAction } from "react";
 import { FaArrowRight, FaDownload, FaSpinner } from "react-icons/fa";
 import { MdRemoveRedEye } from "react-icons/md";
 import { RiDeleteBin6Fill } from "react-icons/ri";
-import { VscLoading } from "react-icons/vsc";
 import { TImages } from "./ImageMain";
 import { reNameFile } from "./utils";
 
@@ -21,17 +20,20 @@ export default function ImageItemResult({
   image,
   deleteImage,
   nameFormats,
+  setModalCompare,
 }: {
   index: number;
   image: TImages;
   updateImage: (id: string, updatedImage: Partial<TImages>) => void;
   deleteImage: (id: string) => void;
   nameFormats: string[];
+  setModalCompare: Dispatch<SetStateAction<TImages | undefined>>;
 }) {
-  const [modalCompare, setModalCompare] = useState(false);
+  const { isDesktop } = useWindowSize();
+
   return (
-    <div className="mb-[12px] w-full grid grid-cols-3 gap-4">
-      <div className="flex flex-row gap-2 ">
+    <div className="mb-[12px] grid w-full grid-cols-3 gap-6">
+      <div className="flex flex-row gap-2">
         <img
           className="w-[50px] h-[50px] object-contain rounded-sm border-gray-400 border-[1px]"
           src={image?.blobUrl}
@@ -40,13 +42,14 @@ export default function ImageItemResult({
 
         <div title={image?.file?.name} className="flex flex-col">
           <span className="whitespace-nowrap">
-            {`${index + 1}. `} {maxLength(image?.file?.name, 22)}
+            {`${index + 1}. `}{" "}
+            {maxLength(image?.file?.name, isDesktop ? 42 : 10, "start")}
           </span>
           <span>{image?.file?.type}</span>
         </div>
       </div>
 
-      {image.status === "upload" ? (
+      {/* {image.status === "upload" ? (
         <div className="flex  flex-col items-center">
           <span>{sizeFormat(image?.file?.size)}</span>
         </div>
@@ -86,7 +89,54 @@ export default function ImageItemResult({
         </div>
       ) : (
         <div className="flex flex-row items-center justify-center">fail</div>
-      )}
+      )} */}
+
+      <div className="flex flex-col items-center text-center justify-center">
+        {image.status === "done" && image.output ? (
+          ""
+        ) : (
+          <span>{sizeFormat(image?.file?.size)}</span>
+        )}
+
+        {(() => {
+          if (image.status === "upload") {
+            return <span>Uploading...</span>;
+          }
+
+          if (image.status === "running") {
+            return <span>Optimization...</span>;
+          }
+
+          if (image.status === "done" && image.output) {
+            return (
+              <>
+                <div className="flex flex-row items-center gap-2">
+                  <span>{sizeFormat(image?.file?.size)}</span>
+                  <FaArrowRight />
+                  <span>{sizeFormat(image?.output?.sizeAfter || 0)}</span>
+                </div>
+                <span>
+                  {`- ${sizeFormat(
+                    image?.output?.sizeBefore - image?.output?.sizeAfter
+                  )} (${
+                    100 -
+                    Math.floor(
+                      (image?.output?.sizeAfter * 100) /
+                        image?.output?.sizeBefore
+                    )
+                  }%)`}
+                </span>
+              </>
+            );
+          }
+
+          if (image.status === "error" && image.error) {
+            return <span>{image?.error?.message}</span>;
+          }
+
+          return <span>Failed</span>;
+        })()}
+      </div>
 
       <div className="flex w-full flex-row gap-3 items-center justify-end">
         {image.status === "running" ? (
@@ -98,7 +148,7 @@ export default function ImageItemResult({
         {image?.status == "done" ? (
           <button
             onClick={() => {
-              setModalCompare(true);
+              setModalCompare(image);
             }}
             className="flex gap-[6px] h-[32px] items-center justify-center w-full p-[5px] text-sm font-medium text-center text-gray-900 border border-gray-200 rounded-lg sm:w-auto hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 dark:text-white dark:border-gray-700 dark:hover:bg-gray-700 dark:focus:ring-gray-800"
           >
@@ -143,34 +193,6 @@ export default function ImageItemResult({
           ""
         )}
       </div>
-
-      <Modal
-        isOpen={modalCompare}
-        onClose={() => {
-          setModalCompare(false);
-        }}
-        title="Compare Image"
-      >
-        <div className="max-h-[500px] overflow-auto">
-          {/* // TODO: improve modal preview */}
-          <ReactCompareImage
-            aspectRatio="wider"
-            leftImage={URL.createObjectURL(image.file)}
-            leftImageLabel={`origin - ${sizeFormat(image.file.size)}`}
-            rightImage={image?.output?.url!}
-            rightImageLabel={`new - ${sizeFormat(
-              image.output?.sizeAfter || 0
-            )}`}
-            skeleton={<VscLoading color="Background" />}
-            rightImageCss={{
-              objectFit: "cover",
-            }}
-            leftImageCss={{
-              objectFit: "cover",
-            }}
-          />
-        </div>
-      </Modal>
     </div>
   );
 }

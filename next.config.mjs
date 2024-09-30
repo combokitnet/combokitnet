@@ -85,11 +85,31 @@ const nextConfig = {
       "/xml-to-json",
       "/yaml-to-json",
       "/yaml-to-toml",
-    ].map((m) => ({
-      source: m,
-      destination: "/",
-      permanent: true,
-    }));
+      "/ads.txt",
+    ].map((m) => {
+      let destination = "/";
+
+      if (
+        m === "/tiny-gif" ||
+        m === "/tiny-jpg" ||
+        m === "/tiny-png" ||
+        m === "/tiny-svg" ||
+        m === "/tiny-webp"
+      ) {
+        destination = "/tools/image-optimization";
+      }
+      if (
+        m === "/ads.txt"
+      ) {
+        destination = "https://srv.adstxtmanager.com/19390/combokit.net";
+      }
+
+      return {
+        source: m,
+        destination: destination,
+        permanent: true,
+      };
+    });
   },
 };
 

@@ -68,6 +68,17 @@ export default function Tos() {
           the importance of your time and productivity, and our commitment to
           service availability aligns with creating a reliable and user-friendly
           environment for all our valued users.
+          
+          <li className="font-semibold">3.2 CCPA Compliance </li>
+          <p class="text-gray-700 mt-2">
+            As required by our advertising provider, and in accordance with the California Consumer Privacy Act (CCPA), we are providing the following link for transparency regarding data requests:
+          </p>
+          <a href="http://g.ezoic.net/privacy/combokit.net/annualRequestSummary" class="text-blue-600 underline mt-2 inline-block">
+            http://g.ezoic.net/privacy/combokit.net/annualRequestSummary
+          </a>
+          <p class="text-gray-700 mt-2">
+            Please ensure this is referenced in our Privacy Policy for compliance.
+          </p>
         </ul>
         <h2 className="mb-2 text-lg font-semibold text-gray-900 dark:text-white">
           4. User Accounts and Conduct

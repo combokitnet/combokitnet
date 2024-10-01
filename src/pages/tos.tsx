@@ -13,14 +13,17 @@ export default function Tos() {
         document, the Terms of Service (&quot;Terms&quot;), serves as a
         comprehensive guide to the rules and regulations governing the
         utilization of ComboKit.net&#39;s website and services. <br />{" "}
-        Accessible via
-        <a href="https://combokit.net"> website</a>, your engagement with this
-        website implies your acceptance of these Terms. It is important that you
-        carefully review and understand the content herein. If, for any reason,
-        you do not agree with any part of these Terms, we kindly request that
-        you refrain from continuing to use ComboKit.net. Your satisfaction and
-        understanding of our terms are crucial as you embark on a journey toward
-        more efficient and collaborative work practices with ComboKit.net.
+        Accessible via{" "}
+        <a className="text-blue-600" href="https://combokit.net">
+          website
+        </a>
+        , your engagement with this website implies your acceptance of these
+        Terms. It is important that you carefully review and understand the
+        content herein. If, for any reason, you do not agree with any part of
+        these Terms, we kindly request that you refrain from continuing to use
+        ComboKit.net. Your satisfaction and understanding of our terms are
+        crucial as you embark on a journey toward more efficient and
+        collaborative work practices with ComboKit.net.
         <h2 className="mb-2 text-lg font-semibold text-gray-900 dark:text-white">
           2. Acceptance of Terms
         </h2>
@@ -68,17 +71,46 @@ export default function Tos() {
           the importance of your time and productivity, and our commitment to
           service availability aligns with creating a reliable and user-friendly
           environment for all our valued users.
-          
-          <li className="font-semibold">3.2 CCPA Compliance </li>
-          <p class="text-gray-700 mt-2">
-            As required by our advertising provider, and in accordance with the California Consumer Privacy Act (CCPA), we are providing the following link for transparency regarding data requests:
-          </p>
-          <a href="http://g.ezoic.net/privacy/combokit.net/annualRequestSummary" class="text-blue-600 underline mt-2 inline-block">
-            http://g.ezoic.net/privacy/combokit.net/annualRequestSummary
-          </a>
-          <p class="text-gray-700 mt-2">
-            Please ensure this is referenced in our Privacy Policy for compliance.
-          </p>
+          <li className="font-semibold">
+            3.2 Privacy Policy & CCPA Compliance{" "}
+          </li>
+          <div>
+            <p>
+              In accordance with the California Consumer Privacy Act (CCPA) and
+              our ad provider's requirements.
+            </p>
+            <p>You can view our Ezoic-generated privacy policy here:</p>
+            <ul>
+              <li>
+                <a
+                  className="text-blue-600"
+                  href="https://g.ezoic.net/privacy/combokit.net"
+                >
+                  https://g.ezoic.net/privacy/combokit.net
+                </a>
+              </li>
+              <li>
+                <a
+                  className="text-blue-600"
+                  href="http://g.ezoic.net/privacy/combokit.net"
+                >
+                  http://g.ezoic.net/privacy/combokit.net
+                </a>{" "}
+                (for http)
+              </li>
+            </ul>
+
+            <p>
+              To comply with CCPA regulations, please also include this link in
+              your privacy policy for annual data request summaries:
+            </p>
+            <a
+              className="text-blue-600"
+              href="http://g.ezoic.net/privacy/combokit.net/annualRequestSummary"
+            >
+              http://g.ezoic.net/privacy/combokit.net/annualRequestSummary
+            </a>
+          </div>
         </ul>
         <h2 className="mb-2 text-lg font-semibold text-gray-900 dark:text-white">
           4. User Accounts and Conduct

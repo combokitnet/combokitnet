@@ -6,10 +6,10 @@ export default function Document() {
   return (
     <Html>
       <Head>
-        <script
+        <Script
           src="https://the.gatekeeperconsent.com/cmp.min.js"
           data-cfasync="false"
-        ></script>
+        ></Script>
         <script async src="//www.ezojs.com/ezoic/sa.min.js"></script>
         <script>
           {`

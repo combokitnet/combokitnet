@@ -7,10 +7,20 @@ export default function Document() {
     <Html>
       <Head>
         <script
-          async
-          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6104924216434838"
-          crossOrigin="anonymous"
+          src="https://the.gatekeeperconsent.com/cmp.min.js"
+          data-cfasync="false"
         ></script>
+        <script async src="//www.ezojs.com/ezoic/sa.min.js"></script>
+        <script>
+          {`
+          try {
+            window.ezstandalone = window.ezstandalone || {}; 
+            ezstandalone.cmd = ezstandalone.cmd || [];
+          } catch (error) {
+            console.log(error)
+          }
+        `}
+        </script>
       </Head>
 
       <body>

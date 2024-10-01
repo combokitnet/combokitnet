@@ -98,9 +98,8 @@ const nextConfig = {
       ) {
         destination = "/tools/image-optimization";
       }
-      if (
-        m === "/ads.txt"
-      ) {
+
+      if (m === "/ads.txt") {
         destination = "https://srv.adstxtmanager.com/19390/combokit.net";
       }
 

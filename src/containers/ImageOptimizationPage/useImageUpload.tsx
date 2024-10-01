@@ -93,14 +93,16 @@ const useImageUpload = () => {
       });
     },
     updateImage,
-    deleteImage: (id: string) => {
+    deleteImage: (ids: string[]) => {
+      console.log("deleteImage start", ids);
       const obj = { ...images };
-      delete obj[id];
+      for (let index = 0; index < ids.length; index++) {
+        delete obj[ids[index]];
+      }
       setImages(obj);
+      console.log("deleteImage end", ids);
     },
-    deleteAllImage: () => {
-      setImages({});
-    },
+
     ...stats,
   };
 };

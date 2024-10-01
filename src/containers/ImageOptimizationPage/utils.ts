@@ -195,7 +195,9 @@ export interface ImageMetaData {
   exifData?: Record<string, any>; // All EXIF metadata
 }
 
-export const getImageMetaData = (image: File): Promise<ImageMetaData> => {
+export const getImageMetaData = (
+  image: File
+): Promise<ImageMetaData | undefined> => {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
 
@@ -245,12 +247,16 @@ export const getImageMetaData = (image: File): Promise<ImageMetaData> => {
       };
 
       img.onerror = () => {
-        reject(new Error("Failed to load image"));
+        // reject(new Error("Failed to load image"));
+        resolve(undefined);
+        console.log(image, "Failed to load image");
       };
     };
 
     reader.onerror = () => {
-      reject(new Error("Failed to read file"));
+      // reject(new Error("Failed to read file"));
+      resolve(undefined);
+      console.log(image, "Failed to read file");
     };
 
     reader.readAsDataURL(image);

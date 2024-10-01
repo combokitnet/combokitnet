@@ -13,7 +13,8 @@ export default function AppLayout(props: PropsWithChildren) {
   useEffect(() => {
     const tokenType = Cookies.get("tokenType");
     if (tokenType === "login") {
-      //TODO: auth with user info
+      // TODO: auth with user info
+      // TODO: make api for dev bypass cookie
     } else {
       request("/guest", { method: "POST" })
         .then((res) => {

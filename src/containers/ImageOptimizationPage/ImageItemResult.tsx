@@ -1,15 +1,15 @@
 // TODO: add copy result
 // TODO: add upload with link, url
 // TODO: handle with big file (bigger than 15MB)
-// TODO: rm all error file
-// TODO: show process
-// TODO: add btn retry when got fail,...
+// TODO: btn delete: rm all error file, rm no change file size, rm all
+// TODO: btn cancel
 
 import useWindowSize from "@/hooks/useWindowSize";
 import { sizeFormat } from "@/utils/number";
 import { maxLength } from "@/utils/string";
 import { Dispatch, SetStateAction } from "react";
 import { FaArrowRight, FaDownload, FaSpinner } from "react-icons/fa";
+import { IoReloadCircle } from "react-icons/io5";
 import { MdRemoveRedEye } from "react-icons/md";
 import { RiDeleteBin6Fill } from "react-icons/ri";
 import { TImages } from "./ImageMain";
@@ -19,13 +19,14 @@ export default function ImageItemResult({
   index,
   image,
   deleteImage,
+  updateImage,
   nameFormats,
   setModalCompare,
 }: {
   index: number;
   image: TImages;
   updateImage: (id: string, updatedImage: Partial<TImages>) => void;
-  deleteImage: (id: string) => void;
+  deleteImage: (id: string[]) => void;
   nameFormats: string[];
   setModalCompare: Dispatch<SetStateAction<TImages | undefined>>;
 }) {
@@ -48,48 +49,6 @@ export default function ImageItemResult({
           <span>{image?.file?.type}</span>
         </div>
       </div>
-
-      {/* {image.status === "upload" ? (
-        <div className="flex  flex-col items-center">
-          <span>{sizeFormat(image?.file?.size)}</span>
-        </div>
-      ) : image.status === "running" ? (
-        <div className="flex  flex-col items-center">
-          <span>{sizeFormat(image?.file?.size)}</span>
-          <span>optimization...</span>
-        </div>
-      ) : image.status === "done" && image.output ? (
-        <div className="flex flex-col text-center justify-center items-center">
-          <div className="flex flex-row items-center gap-2">
-            <span>{sizeFormat(image?.file?.size)}</span>
-            <FaArrowRight />
-            <span>{sizeFormat(image?.output?.sizeAfter || 0)}</span>
-          </div>
-          <div>
-            <span>
-              {`- ${sizeFormat(
-                image?.output?.sizeBefore - image?.output?.sizeAfter
-              )} (${
-                100 -
-                Math.floor(
-                  (image?.output?.sizeAfter * 100) / image?.output?.sizeBefore
-                )
-              }%)`}
-            </span>
-          </div>
-        </div>
-      ) : image.status === "error" && image.error ? (
-        <div className="flex flex-col text-center justify-center items-center">
-          <div className="flex flex-row items-center gap-2">
-            <span>{sizeFormat(image?.file?.size)}</span>
-          </div>
-          <div>
-            <span>{image?.error?.message}</span>
-          </div>
-        </div>
-      ) : (
-        <div className="flex flex-row items-center justify-center">fail</div>
-      )} */}
 
       <div className="flex flex-col items-center text-center justify-center">
         {image.status === "done" && image.output ? (
@@ -130,11 +89,27 @@ export default function ImageItemResult({
             );
           }
 
-          if (image.status === "error" && image.error) {
-            return <span>{image?.error?.message}</span>;
-          }
-
-          return <span>Failed</span>;
+          return (
+            <span className="flex flex-row gap-3 items-center justify-center">
+              <span className="text-red-500">
+                {image?.error?.message || "Failed"}
+              </span>
+              <button
+                disabled={image?.retryCount >= 3}
+                onClick={() => {
+                  updateImage(image?.id, {
+                    status: "upload",
+                    retryCount: image.retryCount + 1,
+                  });
+                }}
+                type="button"
+                className="text-blue-600 flex flex-row gap-1 items-center justify-center disabled:text-gray-300 disabled:cursor-not-allowed"
+              >
+                <IoReloadCircle size={28} />
+                Retry {image.retryCount}
+              </button>
+            </span>
+          );
         })()}
       </div>
 
@@ -164,7 +139,7 @@ export default function ImageItemResult({
           <button
             onClick={() => {
               URL.revokeObjectURL(image.blobUrl);
-              deleteImage(image?.id);
+              deleteImage([image?.id]);
             }}
             className="flex gap-[6px] h-[32px] items-center justify-center w-full p-[5px] text-sm font-medium text-center text-gray-900 border border-gray-200 rounded-lg sm:w-auto hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 dark:text-white dark:border-gray-700 dark:hover:bg-gray-700 dark:focus:ring-gray-800"
           >

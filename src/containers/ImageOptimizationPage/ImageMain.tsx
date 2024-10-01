@@ -46,6 +46,7 @@ export interface TImages {
     message: string;
   };
   metaData?: ImageMetaData;
+  retryCount: number;
 }
 
 const MAX_FILES = 100;
@@ -84,6 +85,7 @@ export default function Main() {
               status: "upload",
               timestamp: Date.now(),
               blobUrl,
+              retryCount: 0,
             },
           ]);
         }
@@ -164,6 +166,7 @@ export default function Main() {
                       timestamp: Date.now(),
                       blobUrl: URL.createObjectURL(file),
                       metaData: await getImageMetaData(file),
+                      retryCount: 0,
                     });
                   }
                 }
@@ -206,7 +209,7 @@ export default function Main() {
             <input
               id="dropzone-file"
               onChange={async (e) => {
-                console.log(e.target.files);
+                console.log("dropzone-file", e.target.files);
                 if (!e.target.files) {
                   return;
                 }
@@ -221,6 +224,7 @@ export default function Main() {
                       timestamp: Date.now(),
                       blobUrl: URL.createObjectURL(file),
                       metaData: await getImageMetaData(file),
+                      retryCount: 0,
                     });
                   }
                 }
@@ -262,6 +266,7 @@ export default function Main() {
         total={total}
         totalError={totalError}
         totalSuccess={totalSuccess}
+        deleteImage={deleteImage}
       />
 
       {Object.values(images)

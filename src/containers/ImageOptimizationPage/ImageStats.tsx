@@ -1,11 +1,17 @@
+import { DropDown } from "@/components/DropDown";
 import useLocalStorage from "@/hooks/useLocalStorage";
 import { sizeFormat } from "@/utils/number";
 import { delay, timeFormat } from "@/utils/time";
 import axios from "axios";
 import JSZip from "jszip";
 import { useMemo, useRef, useState } from "react";
-import { FaArrowDown, FaArrowUp, FaDownload, FaSpinner } from "react-icons/fa";
-import { IoMdRemoveCircle } from "react-icons/io";
+import {
+  FaArrowDown,
+  FaArrowUp,
+  FaDownload,
+  FaSpinner,
+  FaTrash,
+} from "react-icons/fa";
 import { IMAGE_FILENAME_OPTIONS } from "./FileNameFormat";
 import { TImages } from "./ImageMain";
 import { reNameFile } from "./utils";
@@ -19,6 +25,7 @@ export default function ImageStats({
   total,
   totalError,
   totalSuccess,
+  deleteImage,
 }: {
   images: {
     [key: string]: TImages;
@@ -26,6 +33,7 @@ export default function ImageStats({
   total: number;
   totalError: number;
   totalSuccess: number;
+  deleteImage: (id: string[]) => void;
 }) {
   const {
     totalSizeBefore,
@@ -76,7 +84,7 @@ export default function ImageStats({
     <div>
       {/* stats list */}
       <div className="mt-3 mb-3 rounded-lg col-span-12 p-[12px] border border-stroke bg-white p-7.5 shadow-default dark:border-strokedark dark:bg-boxdark">
-        <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 xl:grid-cols-4 xl:gap-0">
+        <div className="grid grid-cols-2 gap-5 sm:grid-cols-2 xl:grid-cols-4 xl:gap-0">
           <div className="flex text-center items-center justify-center gap-2 border-b border-stroke pb-5 dark:border-strokedark xl:border-b-0 xl:border-r xl:pb-0">
             <div>
               <h4 className="mb-0.5 text-xl font-semibold text-black dark:text-white md:text-title-lg">
@@ -125,21 +133,69 @@ export default function ImageStats({
 
       {/* actions  */}
       <div className="flex justify-center gap-3 w-full mb-3">
-        <button
-          onClick={() => {
-            // TODO: ask cf and delete all
-          }}
-          type="button"
-          className="capitalize gap-1 text-white bg-[#ea3b3b] hover:bg-[#ea3b3b]/80 focus:ring-4 focus:outline-none focus:ring-[#ea3b3b]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:hover:bg-[#ea3b3b]/80 dark:focus:ring-[#ea3b3b]/40 me-2 mb-2"
-        >
-          <IoMdRemoveCircle />
-          delete all
-        </button>
+        <BtnDeleteAll
+          total={total}
+          totalError={totalError}
+          images={images}
+          deleteImage={deleteImage}
+        />
         <BtnDownloadAll images={images} total={total} />
       </div>
     </div>
   );
 }
+
+const BtnDeleteAll = ({
+  total,
+  totalError,
+  images,
+  deleteImage,
+}: {
+  images: {
+    [key: string]: TImages;
+  };
+  total: number;
+  totalError: number;
+  deleteImage: (id: string[]) => void;
+}) => {
+  let items = [
+    {
+      label: (
+        <span className="whitespace-nowrap text-left">
+          Delete All {`(${total})`}
+        </span>
+      ),
+      onClick: async () => {
+        const array = Object.keys(images);
+        console.log("array", array);
+        deleteImage(array);
+      },
+    },
+    {
+      label: (
+        <span className="whitespace-nowrap text-left">
+          Failed Items {`(${totalError})`}
+        </span>
+      ),
+      onClick: () => {
+        let array = Object.values(images);
+        array = array.filter((m) => m.status === "error");
+        deleteImage(array.map((m) => m.id));
+      },
+    },
+  ];
+  return (
+    <DropDown items={items}>
+      <button
+        type="button"
+        className="capitalize gap-1 text-white bg-[#ea3b3b] hover:bg-[#ea3b3b]/80 focus:ring-4 focus:outline-none focus:ring-[#ea3b3b]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:hover:bg-[#ea3b3b]/80 dark:focus:ring-[#ea3b3b]/40 me-2 mb-2"
+      >
+        <FaTrash />
+        delete
+      </button>
+    </DropDown>
+  );
+};
 
 const BtnDownloadAll = ({
   images,

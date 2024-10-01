@@ -71,8 +71,8 @@ const Feedback = ({
           profileLink: formData?.profileLink,
         }),
       });
-      toast.success("Thank you!");
       startCelebration(10_000);
+      toast.success("Thank you!");
       setIsModalOpen(false);
     } catch (error: any) {
       toast.error(error?.response?.message || "Submit form error.");

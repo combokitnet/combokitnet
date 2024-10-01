@@ -135,13 +135,15 @@ const NotFoundTool = () => {
 
         {/* buttons  */}
         <div className="flex gap-3 items-center justify-center">
-          <button className="inline-block bg-blue-500 text-white px-4 py-2 rounded">
-            <Feedback
-              serviceId={"all"}
-              type={FeedbackType.request_feature}
-              render={<span className="capitalize">This quick form</span>}
-            />
-          </button>
+          <Feedback
+            serviceId={"all"}
+            type={FeedbackType.request_feature}
+            render={
+              <button className="inline-block bg-blue-500 text-white px-4 py-2 rounded">
+                <span className="capitalize">This quick form</span>
+              </button>
+            }
+          />
           <a
             href="https://github.com/combokitnet/combokitnet"
             target="_blank"

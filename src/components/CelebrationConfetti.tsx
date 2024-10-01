@@ -10,12 +10,14 @@ const CelebrationConfetti = () => {
   const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   startCelebration = (duration: number = 5000) => {
+    console.log("startCelebration", new Date());
     if (timeoutRef.current) {
       clearTimeout(timeoutRef.current);
     }
     timeoutRef.current = setTimeout(() => {
       setIsConfettiRunning(false);
     }, duration);
+    console.log("startCelebration end", new Date());
   };
 
   useEffect(() => {

@@ -92,7 +92,7 @@ const ToolItem = ({ data }: { data: TTool; toolTags: TToolTag[] }) => {
               </div>
             </Link>
             <span className="truncate leading-4">
-              Update at <DateFormat date={new Date(data?.updatedAt)} />
+              Update at <DateFormat date={new Date(data?.createdAt)} />
             </span>
           </div>
 

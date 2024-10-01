@@ -1,3 +1,4 @@
+import { startCelebration } from "@/components/CelebrationConfetti";
 import Modal from "@/components/Modal";
 import { APP_SOCIAL } from "@/configs/const";
 import { useAppContext } from "@/contexts/AppContext";
@@ -71,6 +72,7 @@ const Feedback = ({
         }),
       });
       toast.success("Thank you!");
+      startCelebration(10_000);
       setIsModalOpen(false);
     } catch (error: any) {
       toast.error(error?.response?.message || "Submit form error.");
@@ -106,7 +108,9 @@ const Feedback = ({
 
       <Modal
         isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
+        onClose={() => {
+          setIsModalOpen(false);
+        }}
         title="Share Your Vision, Guide Our Future!"
       >
         <form className="text-left" onSubmit={handleSubmit}>

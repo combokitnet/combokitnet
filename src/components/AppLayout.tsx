@@ -3,6 +3,7 @@ import Cookies from "js-cookie";
 import { Inter } from "next/font/google";
 import { PropsWithChildren, useEffect } from "react";
 import { Toaster } from "react-hot-toast";
+import { CelebrationConfetti } from "./CelebrationConfetti";
 import Footer from "./Footer";
 import Header from "./Header";
 
@@ -31,6 +32,7 @@ export default function AppLayout(props: PropsWithChildren) {
       <br />
       <Footer />
       <Toaster />
+      <CelebrationConfetti />
     </main>
   );
 }

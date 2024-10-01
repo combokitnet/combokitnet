@@ -58,7 +58,7 @@ export default function Document() {
             src="/favicon.ico"
             alt="App Logo"
             style={{
-              height: "24px",
+              height: "42px",
               marginRight: "12px",
             }}
           />

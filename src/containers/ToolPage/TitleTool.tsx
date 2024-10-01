@@ -1,5 +1,4 @@
 // TODO: share to social + get random desc share from api, navigator.share(data)
-// TODO: feedback form
 
 import Breadcrumb from "@/components/Breadcrumb";
 import { LOCAL_STORAGE } from "@/configs/const";
@@ -10,6 +9,7 @@ import { useRouter } from "next/navigation";
 import { FaHeart } from "react-icons/fa";
 import { GoStarFill } from "react-icons/go";
 import { IoEye } from "react-icons/io5";
+import { MdFeedback } from "react-icons/md";
 import Feedback from "./Feedback";
 import ShareSocial from "./ShareSocial";
 import { ItemFav } from "./ToolItem";
@@ -60,6 +60,18 @@ export default function TitleTool({ data }: { data: TTool }) {
                 <div className="flex flex-col">
                   <h2 className="font-medium text-[18px] flex items-center gap-[24px]">
                     {data?.name}
+                    <Feedback
+                      serviceId={data?.id}
+                      render={
+                        <button className="animate-bounce ml-3 whitespace-nowrap rounded-lg bg-slate-100 px-2 py-0.5 text-xs font-semibold leading-6 text-slate-700 lg:block flex flex-row text-[13px] items-center justify-center gap-[2px]">
+                          Feedback{" "}
+                          <MdFeedback
+                            className="animate-bounce"
+                            size={"15px"}
+                          />
+                        </button>
+                      }
+                    />
                   </h2>
                   <ul className="flex gap-[5px]">
                     {data?.tags?.map((tag) => (
@@ -124,7 +136,6 @@ export default function TitleTool({ data }: { data: TTool }) {
                 <ItemFav data={data} favorites={favorites} />
               </button>
 
-              <Feedback serviceId={data?.id} />
               <ShareSocial data={data} />
             </div>
           </div>
@@ -156,6 +167,15 @@ export default function TitleTool({ data }: { data: TTool }) {
                       </li>
                     ))}
                   </ul>
+
+                  <Feedback
+                    serviceId={data?.id}
+                    render={
+                      <button className=" animate-bounce ml-3 whitespace-nowrap rounded-lg bg-slate-100 px-2 py-0.5 text-xs font-semibold leading-6 text-slate-700 flex flex-row text-[13px] items-center justify-center gap-[2px]">
+                        <span>Feedback</span> <MdFeedback size={"15px"} />
+                      </button>
+                    }
+                  />
                 </h2>
                 <p className="text-[15px]">{data?.description}</p>
                 <div className="flex gap-[12px] text-[13px]">
@@ -199,7 +219,6 @@ export default function TitleTool({ data }: { data: TTool }) {
                 <ItemFav data={data} favorites={favorites} />
               </button>
 
-              <Feedback serviceId={data?.id} />
               <ShareSocial data={data} />
             </div>
           </div>

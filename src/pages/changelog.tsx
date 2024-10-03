@@ -1,3 +1,4 @@
+import AppLayout from "@/components/AppLayout";
 import { useEffect } from "react";
 
 export default function Changelog() {
@@ -9,9 +10,9 @@ export default function Changelog() {
     }
   }, []);
   return (
-    <div>
-      changelog
+    <AppLayout>
+      <h1>Changelog</h1>
       <div id="ezoic-pub-ad-placeholder-101"></div>
-    </div>
+    </AppLayout>
   );
 }

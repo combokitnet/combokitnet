@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const IMAGE_URL = "https://image_v2.combokit.net";
+const IMAGE_URL = "https://image.combokit.net";
 
 export const apiImageCompress = async ({
   file,

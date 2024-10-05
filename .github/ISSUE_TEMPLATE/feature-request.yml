@@ -1,0 +1,52 @@
+name: 🚀 New Feature Proposal
+description: Got a new feature or tool idea for ComboKit.Net? Let us know!
+labels: ["enhancement", "triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        We're excited to hear your ideas! Thanks for taking the time to propose a new feature or tool.
+
+  - type: dropdown
+    id: request-type
+    attributes:
+      label: What kind of request are you making?
+      options:
+        - A new tool idea
+        - A new feature for an existing tool
+        - Something else
+    validations:
+      required: true
+
+  - type: textarea
+    id: feature-description
+    attributes:
+      label: Describe the feature you're proposing
+      description: Please provide a clear and concise description of the feature you have in mind.
+      placeholder: "Example: A tool to generate tokens"
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternative
+    attributes:
+      label: Have you seen something similar before?
+      description: Share links to any similar tools, apps, or npm packages that might inspire this feature.
+      placeholder: "Example: I found a similar tool at [link]"
+
+  - type: textarea
+    id: additional-context
+    attributes:
+      label: Extra info
+      description: Feel free to share any other details, screenshots, or context related to your idea.
+
+  - type: checkboxes
+    id: checkboxes
+    attributes:
+      label: Before you submit
+      description: Please make sure you’ve checked off the following before submitting
+      options:
+        - label: I've confirmed that this feature isn't already in the project.
+          required: true
+        - label: I've searched for existing issues to avoid duplicates.
+          required: true

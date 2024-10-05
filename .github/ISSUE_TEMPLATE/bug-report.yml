@@ -1,0 +1,38 @@
+name: 🐞 Bug Report
+description: Help us squash those bugs!
+labels: ["bug", "triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for helping us out by reporting this bug! We’ll get it fixed as soon as possible.
+
+  - type: textarea
+    id: bug-description
+    attributes:
+      label: What's the issue?
+      description: Please give us a quick overview of the bug you're experiencing. If you’re planning to submit a pull request, feel free to mention that here!
+      placeholder: Tell us about the bug
+    validations:
+      required: true
+
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What did you see? What were you expecting?
+      description: Tell us what you expected to happen and what actually happened. If you have any screenshots, you can paste them here too!
+      placeholder: Describe what you saw!
+      value: "A bug happened!"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: app-type
+    attributes:
+      label: Where were you using the app?
+      options:
+        - On Desktop/PC
+        - On Mobile
+        - Somewhere else
+    validations:
+      required: true

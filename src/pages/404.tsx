@@ -1,12 +1,12 @@
 // TODO: add suggest tools
 
 import AppLayout from "@/components/AppLayout";
-import Link from "next/link";
+import { NotFoundTool } from "@/containers/ToolPage";
 
 export default function Page404() {
   return (
     <AppLayout>
-      <div className="flex flex-col items-center justify-center h-screen">
+      {/* <div className="flex flex-col items-center justify-center h-screen">
         <h1 className="text-4xl font-bold text-gray-800">
           404 - Page Not Found
         </h1>
@@ -22,6 +22,10 @@ export default function Page404() {
         >
           Go Back to Homepage
         </Link>
+      </div> */}
+
+      <div className="pt-[82px] p-[42px] text-center">
+        <NotFoundTool />
       </div>
     </AppLayout>
   );

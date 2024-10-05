@@ -101,7 +101,7 @@ export default function ToolPage({
   );
 }
 
-const NotFoundTool = () => {
+export const NotFoundTool = () => {
   return (
     <div className="p-4">
       <h2 className="text-center text-xl font-bold mb-4">No Tool Found</h2>
@@ -123,7 +123,7 @@ const NotFoundTool = () => {
           Are you a developer or interested in contributing? Help us improve and
           create new tools by contributing to our open-source project on{" "}
           <a
-            href="https://github.com/combokitnet/combokitnet"
+            href="https://github.com/combokitnet/combokitnet/issues"
             className="text-blue-500 underline"
             target="_blank"
             rel="noopener noreferrer"
@@ -145,7 +145,7 @@ const NotFoundTool = () => {
             }
           />
           <a
-            href="https://github.com/combokitnet/combokitnet"
+            href="https://github.com/combokitnet/combokitnet/issues"
             target="_blank"
             rel="noopener noreferrer"
             className="inline-block bg-blue-500 text-white px-4 py-2 rounded capitalize"

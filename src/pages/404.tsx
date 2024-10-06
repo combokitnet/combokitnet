@@ -1,5 +1,3 @@
-// TODO: add suggest tools
-
 import AppLayout from "@/components/AppLayout";
 import { NotFoundTool } from "@/containers/ToolPage";
 

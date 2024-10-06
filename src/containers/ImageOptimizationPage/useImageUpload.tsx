@@ -29,13 +29,11 @@ const useImageUpload = () => {
           try {
             updateImage(item.id, { status: "running" });
             console.log("start", item.file?.name, item.status);
-            // TODO: add check size bigger with api job -> max 60s will got timeout
             // image size >= 10MB ?
             const res = await apiImageCompress({ file: item.file as File });
             updateImage(item.id, { status: "done", output: res?.data?.data });
           } catch (error: any) {
             console.error("Upload error:", error);
-            // TODO: Improved error logging
             updateImage(item.id, {
               status: "error",
               error: error?.response?.data,

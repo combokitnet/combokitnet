@@ -17,4 +17,6 @@ export const LOCAL_STORAGE = {
   TOOLS_FAVORITES: "_app_favorites",
   // for image tool
   IMAGE_FILENAME_OPTIONS: "IMAGE_FILENAME_OPTIONS",
+  // for password generator
+  PASSWORD_TYPE: "PASSWORD_TYPE",
 };

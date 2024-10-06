@@ -8,11 +8,10 @@ import {
   symbols,
   uppercase,
 } from "./const";
-import PasswordTypeDesc from "./PasswordTypeDesc";
+import PasswordTypePick from "./PasswordType";
 import {
   calculateHackTime,
   generatePassword,
-  mapPasswordConfig,
   mapWordWithSymbol,
   passwordConfigs,
   PasswordType,
@@ -78,7 +77,7 @@ const PasswordGenerator: React.FC = () => {
   return (
     <div className="container mx-auto p-4 max-w-[1200px]">
       <div className="mb-4 flex gap-3 justify-end">
-        <select
+        {/* <select
           className="bg-gray-50 px-2 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 w-[50%] max-w-[200px]"
           defaultValue={type}
           onChange={(e) => {
@@ -96,7 +95,9 @@ const PasswordGenerator: React.FC = () => {
               {passwordConfigs[m].name}
             </option>
           ))}
-        </select>
+        </select> */}
+
+        <PasswordTypePick setType={setType} setLength={setLength} type={type} />
 
         <select
           className="bg-gray-50 px-2 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 w-[50%] max-w-[200px]"
@@ -285,8 +286,6 @@ const PasswordGenerator: React.FC = () => {
           </div>
         </div>
       </div>
-
-      <PasswordTypeDesc type={type} />
     </div>
   );
 };

@@ -39,14 +39,3 @@ body:
     attributes:
       label: Extra info
       description: Feel free to share any other details, screenshots, or context related to your idea.
-
-  - type: checkboxes
-    id: checkboxes
-    attributes:
-      label: Before you submit
-      description: Please make sure you’ve checked off the following before submitting
-      options:
-        - label: I've confirmed that this feature isn't already in the project.
-          required: true
-        - label: I've searched for existing issues to avoid duplicates.
-          required: true

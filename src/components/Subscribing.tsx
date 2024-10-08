@@ -1,10 +1,12 @@
 import { APP_NAME } from "@/configs/const";
 import { request } from "@/configs/request";
 import { useLoading } from "@/hooks/useLoading";
+import { SECOND } from "@/utils/time";
 import Link from "next/link";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { IoIosMailUnread } from "react-icons/io";
+import { startCelebration } from "./CelebrationConfetti";
 
 const validateEmail = (email: string): boolean => {
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -53,6 +55,8 @@ export default function Subscribing() {
       });
 
       toast.success("Subscribed successfully.");
+      setEmail("");
+      startCelebration(10 * SECOND);
     } catch (error: any) {
       console.log(error?.response);
       setError(

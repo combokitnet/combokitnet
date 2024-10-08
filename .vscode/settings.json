@@ -5,7 +5,7 @@
     "prettier": "explicit"
   },
   "editor.formatOnSave": true,
-  "cSpell.words": ["comming", "nestjs", "TWCA", "webpush"],
+  "cSpell.words": ["COMBOKIT", "comming", "nestjs", "TWCA", "webpush"],
   "files.exclude": {
     ".git": true,
     "dist": true,

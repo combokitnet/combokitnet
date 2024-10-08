@@ -1,11 +1,9 @@
-import useWindowSize from "@/hooks/useWindowSize";
 import { useState } from "react";
 import Confetti from "react-confetti";
 
 let startCelebration: (durationMs?: number) => void;
 
 const CelebrationConfetti = () => {
-  const { width, height } = useWindowSize();
   const [isConfettiRunning, setIsConfettiRunning] = useState(false);
 
   startCelebration = (duration: number = 5000) => {
@@ -15,10 +13,18 @@ const CelebrationConfetti = () => {
     }, duration);
   };
 
+  // useEffect(() => {
+  //   console.log(new Date(), "CelebrationConfetti", isConfettiRunning);
+  // }, [isConfettiRunning]);
+
   return (
     <>
       {isConfettiRunning && (
-        <Confetti style={{ zIndex: 99 }} width={width} height={height} />
+        <Confetti
+          style={{ zIndex: 99 }}
+          width={window?.innerWidth || 0}
+          height={document?.body?.scrollHeight || 0}
+        />
       )}
     </>
   );

@@ -3,10 +3,8 @@ import { APP_NAME, APP_SOCIAL } from "@/configs/const";
 import useTranslate from "@/hooks/useTranslate";
 import Link from "next/link";
 import { FaGithub, FaSearch } from "react-icons/fa";
-import Features from "./Features";
 import Questions from "./Questions";
 import RecentUsed from "./RecentUsed";
-import Trusted from "./Trusted";
 import Typer from "./Typer";
 
 export default function HomePage() {
@@ -62,8 +60,8 @@ export default function HomePage() {
       </section>
 
       <RecentUsed />
-      <Features />
-      <Trusted />
+      {/* <Features /> */}
+      {/* <Trusted /> */}
       {/* <Reviews /> */}
       <Questions />
 
@@ -76,12 +74,12 @@ export default function HomePage() {
             <p className="mb-6 font-light text-gray-500 dark:text-gray-400 md:text-lg">
               Try {APP_NAME} Platform for free. No credit card required.
             </p>
-            <a
-              href="#"
+            <Link
+              href="/tools"
               className="text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-purple-600 dark:hover:bg-purple-700 focus:outline-none dark:focus:ring-purple-800"
             >
-              Free trial
-            </a>
+              Explore tools
+            </Link>
           </div>
         </div>
       </section>

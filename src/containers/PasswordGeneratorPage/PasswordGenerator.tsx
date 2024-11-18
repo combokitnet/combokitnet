@@ -23,15 +23,20 @@ const copyToClipboard = (password: string) => {
   });
 };
 
+const PasswordGeneratorDefaultKey: PasswordType = "wordsWithSymbols";
+const PasswordGeneratorDefault = passwordConfigs[PasswordGeneratorDefaultKey];
+
 const PasswordGenerator: React.FC = () => {
   const [passwords, setPasswords] = useState<string[]>([]);
-  const [length, setLength] = useState<number>(12);
+  const [length, setLength] = useState<number>(
+    PasswordGeneratorDefault?.minLength
+  );
   const [quantity, setQuantity] = useState<number>(3);
   const [includeNumbers, setIncludeNumbers] = useState<boolean>(true);
   const [includeSymbols, setIncludeSymbols] = useState<boolean>(true);
   const [includeLowercase, setIncludeLowercase] = useState<boolean>(true);
   const [includeUppercase, setIncludeUppercase] = useState<boolean>(true);
-  const [type, setType] = useState<PasswordType>("normal");
+  const [type, setType] = useState<PasswordType>(PasswordGeneratorDefaultKey);
 
   const [charset, setCharset] = useState<string>(
     "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
@@ -80,7 +85,7 @@ const PasswordGenerator: React.FC = () => {
         <PasswordTypePick setType={setType} setLength={setLength} type={type} />
 
         <select
-          className="bg-gray-50 px-2 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 w-[50%] max-w-[200px]"
+          className="flex items-center justify-between whitespace-nowrap rounded-md border border-input bg-transparent px-1 shadow-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1 h-7 text-xs"
           defaultValue={quantity}
           onChange={(e) => setQuantity(parseInt(e.target.value))}
         >
@@ -88,7 +93,7 @@ const PasswordGenerator: React.FC = () => {
             .fill(0)
             .map((_, i) => (
               <option key={i} value={i + 1}>
-                Generator {i + 1} password
+                {i + 1} times
               </option>
             ))}
         </select>
@@ -96,7 +101,9 @@ const PasswordGenerator: React.FC = () => {
 
       {type === "normal" ? (
         <div className="mb-4">
-          <label className="block ">Charsets (Allow only this chars)</label>
+          <label className="block ">
+            Charsets <span className="text-xs">(Allow only this chars)</span>
+          </label>
           <textarea
             value={charset}
             onChange={(e) => setCharset(e.target.value)}
@@ -121,9 +128,9 @@ const PasswordGenerator: React.FC = () => {
                   </span>
                   <button
                     onClick={() => copyToClipboard(password)}
-                    className="bg-green-500 text-white select-none px-2 py-1 rounded ml-4"
+                    className="bg-green-500 text-white select-none flex flex-row items-center px-2 py-1 rounded ml-4"
                   >
-                    Copy
+                    <FaClipboard className="mr-2" /> Copy
                   </button>
                 </div>
 
@@ -164,8 +171,22 @@ const PasswordGenerator: React.FC = () => {
               {passwordConfigs[type]?.typeCount === "char"
                 ? "Password Length"
                 : "Word Count"}
-              : {length}
+              :
+              <input
+                type="number"
+                min={passwordConfigs[type]?.minLength}
+                value={length}
+                onChange={(e) => {
+                  if (+e.target.value < passwordConfigs[type]?.minLength) {
+                    return;
+                  }
+
+                  setLength(+e.target.value);
+                }}
+                className="mr-2 ml-2 w-[45px] text-center rounded-md border-0 shadow-sm ring-1 ring-inset ring-gray-300"
+              />
             </label>
+
             <input
               type="range"
               min={passwordConfigs[type]?.typeCount === "char" ? 4 : 2}
@@ -253,7 +274,7 @@ const PasswordGenerator: React.FC = () => {
               onClick={onGeneratePassword}
               className="bg-blue-500 w-full text-white px-4 py-2 rounded flex items-center justify-center"
             >
-              <FaKey className="mr-2" /> Generate Passwords
+              <FaKey className="mr-2" /> Generate
             </button>
             <button
               onClick={() => {

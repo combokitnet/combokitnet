@@ -7,29 +7,26 @@ import {
   useRef,
   useState,
 } from "react";
-import { FaAngleRight } from "react-icons/fa";
+import { FaAngleDown, FaAngleRight } from "react-icons/fa";
 
-export interface DropDownItemProps {
+interface DropDownItemProps {
   label: React.ReactNode;
-  onClick?: () => void;
+  value: string;
+  //   onClick?: () => void;
   icon?: React.ReactNode;
   disabled?: boolean;
   customClass?: string;
   customStyle?: React.CSSProperties;
   children?: DropDownItemProps[];
-  render?: (item: DropDownItemProps) => React.ReactNode;
-}
-
-export interface DropDownProps extends PropsWithChildren {
-  items: DropDownItemProps[];
-  customClass?: string;
-  customStyle?: React.CSSProperties;
+  render?: (item: DropDownItemProps, selected: string[]) => React.ReactNode;
 }
 
 const DropDownItem: React.FC<{
   item: DropDownItemProps;
   closeParent: () => void;
-}> = ({ item, closeParent }) => {
+  selected: string[];
+  onPick: (value: string) => void;
+}> = ({ item, closeParent, selected, onPick }) => {
   const [isSubOpen, setIsSubOpen] = useState(false);
   const itemRef = useRef<HTMLLIElement>(null);
 
@@ -49,10 +46,7 @@ const DropDownItem: React.FC<{
   }, []);
 
   const handleClick = () => {
-    if (item.onClick && !item.disabled) {
-      item.onClick();
-      closeParent();
-    }
+    onPick(item?.value);
   };
 
   return (
@@ -65,9 +59,9 @@ const DropDownItem: React.FC<{
         style={item.customStyle}
         disabled={item.disabled}
       >
-        <div className="flex items-center">
+        <div className="w-full">
           {item.icon && <span className="mr-2">{item.icon}</span>}
-          {item.render ? item.render(item) : item.label}
+          {item.render ? item.render(item, selected) : item.label}
         </div>
 
         {item.children && <FaAngleRight />}
@@ -78,9 +72,11 @@ const DropDownItem: React.FC<{
           <ul className="py-2 text-sm text-gray-700 dark:text-gray-200">
             {item.children.map((child, index) => (
               <DropDownItem
+                selected={selected}
                 key={index}
                 item={child}
                 closeParent={closeParent}
+                onPick={onPick}
               />
             ))}
           </ul>
@@ -90,11 +86,21 @@ const DropDownItem: React.FC<{
   );
 };
 
+interface DropDownProps extends PropsWithChildren {
+  items: DropDownItemProps[];
+  customClass?: string;
+  customStyle?: React.CSSProperties;
+  selected: string[];
+  onPick: (value: string) => void;
+}
+
 export const DropDown: React.FC<DropDownProps> = ({
   items,
   children,
   customClass,
   customStyle,
+  selected,
+  onPick,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -140,10 +146,95 @@ export const DropDown: React.FC<DropDownProps> = ({
       >
         <ul className="py-2 text-sm text-gray-700 dark:text-gray-200">
           {items.map((item, index) => (
-            <DropDownItem key={index} item={item} closeParent={closeDropdown} />
+            <DropDownItem
+              selected={selected}
+              key={index}
+              item={item}
+              closeParent={closeDropdown}
+              onPick={onPick}
+            />
           ))}
         </ul>
       </div>
     </div>
   );
 };
+
+export interface TPropsInputSelect {
+  items: DropDownItemProps[];
+  title?: string;
+  showTitle?: boolean;
+  isMultiple?: boolean;
+  defaultValue?: string[];
+  onChange: (selected: string[]) => void;
+}
+
+export default function InputSelect({
+  items,
+  isMultiple,
+  title,
+  defaultValue,
+  showTitle,
+  onChange,
+}: TPropsInputSelect) {
+  const [selected, setSelected] = useState<string[]>([]);
+
+  useEffect(() => {
+    if (defaultValue) {
+      setSelected(defaultValue);
+    }
+  }, [defaultValue]);
+
+  const onPick = (value: string) => {
+    let s = [...selected];
+
+    if (selected?.includes(value)) {
+      s = s?.filter((k) => k !== value);
+    }
+
+    if (isMultiple) {
+      s.push(value);
+    } else {
+      s = [value];
+    }
+
+    setSelected(s);
+    onChange(s);
+  };
+
+  let valueRaws = items
+    ?.filter((m) => selected?.includes(m?.value))
+    ?.map((m) => m?.label);
+
+  console.log({ selected, items });
+  return (
+    <DropDown
+      selected={selected}
+      items={items}
+      children={
+        <button
+          type="button"
+          role="combobox"
+          dir="ltr"
+          className="flex items-center justify-between whitespace-nowrap rounded-md border border-input bg-transparent px-3 py-2 shadow-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1 h-7 text-xs"
+        >
+          {title && showTitle && (
+            <span className="text-muted-foreground">
+              {title}
+              {selected?.length > 0 ? ":" : ""}{" "}
+            </span>
+          )}
+
+          {selected?.length > 0 ? (
+            <span className="pl-1 select-none">{valueRaws?.join(", ")}</span>
+          ) : (
+            <></>
+          )}
+
+          <FaAngleDown className="pl-1" size={16} />
+        </button>
+      }
+      onPick={onPick}
+    />
+  );
+}

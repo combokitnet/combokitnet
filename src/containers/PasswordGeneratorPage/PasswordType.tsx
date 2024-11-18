@@ -1,10 +1,10 @@
-import Modal from "@/components/Modal";
+import InputSelect from "@/components/InputSelect";
 import { LOCAL_STORAGE } from "@/configs/const";
 import useLocalStorage from "@/hooks/useLocalStorage";
-import { PropsWithChildren, useEffect, useState } from "react";
-import { IoIosArrowDropright } from "react-icons/io";
-import PasswordTypeDesc from "./PasswordTypeDesc";
-import { mapPasswordConfig, passwordConfigs, PasswordType } from "./utils";
+import useWindowSize from "@/hooks/useWindowSize";
+import { PropsWithChildren, useEffect } from "react";
+import { FaCheck } from "react-icons/fa";
+import { passwordConfigs, PasswordType } from "./utils";
 
 interface FileNameFormatProps extends PropsWithChildren {
   setType: React.Dispatch<React.SetStateAction<PasswordType>>;
@@ -14,7 +14,7 @@ interface FileNameFormatProps extends PropsWithChildren {
 
 export const PW_OPTIONS = {
   key: LOCAL_STORAGE.PASSWORD_TYPE,
-  defaultValue: "normal",
+  defaultValue: "wordsWithSymbols",
 };
 
 const PasswordTypePick = ({
@@ -22,14 +22,11 @@ const PasswordTypePick = ({
   setType,
   type,
 }: FileNameFormatProps) => {
-  const { setValue: setLocalData, oldValue } =
-    useLocalStorage<string>(PW_OPTIONS);
-
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const { isMobile } = useWindowSize();
+  const { setValue, oldValue } = useLocalStorage<string>(PW_OPTIONS);
 
   useEffect(() => {
     if (oldValue && passwordConfigs[oldValue as PasswordType]) {
-      console.log({ oldValue });
       setType(oldValue as PasswordType);
       setLength(passwordConfigs[oldValue as PasswordType].minLength);
     }
@@ -37,14 +34,52 @@ const PasswordTypePick = ({
 
   return (
     <>
-      <button
+      <InputSelect
+        defaultValue={type ? [type] : undefined}
+        items={Object?.entries(passwordConfigs).map(([key, m]) => ({
+          label: m?.name,
+          value: key,
+          render(_, selected) {
+            return (
+              <div className="flex flex-col w-full items-start relative pr-[17px]">
+                <span className="text-sm whitespace-nowrap text-gray-800 font-semibold">
+                  {m?.name}
+                </span>
+
+                {!isMobile && (
+                  <span className="text-xs whitespace-nowrap text-gray-500">
+                    {m?.description}
+                  </span>
+                )}
+
+                {selected?.includes(key) && (
+                  <FaCheck className="absolute right-[-3px] top-[50%] translate-y-[-50%]" />
+                )}
+              </div>
+            );
+          },
+        }))}
+        title="Format"
+        showTitle
+        onChange={(selected) => {
+          console.log("onChange", selected);
+          if (selected?.length > 0) {
+            let type = selected[0] as PasswordType;
+            setType(type);
+            setLength(passwordConfigs[type].minLength);
+            setValue(type);
+          }
+        }}
+      />
+
+      {/* <button
         onClick={() => {
           setIsModalOpen(true);
         }}
         className="capitalize  bg-gray-50 px-2 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 flex justify-center gap-3 items-center p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 w-[50%] max-w-[200px]"
         type="button"
       >
-        {passwordConfigs[type]?.name} <IoIosArrowDropright />
+        {passwordConfigs[type]?.name}
       </button>
 
       <Modal
@@ -63,7 +98,7 @@ const PasswordTypePick = ({
               setLength(
                 passwordConfigs[e.target.value as PasswordType].minLength
               );
-              setLocalData(e.target.value);
+              setValue(e.target.value);
             }}
           >
             <option value="" disabled>
@@ -78,7 +113,7 @@ const PasswordTypePick = ({
         </div>
 
         <PasswordTypeDesc type={type} />
-      </Modal>
+      </Modal> */}
     </>
   );
 };

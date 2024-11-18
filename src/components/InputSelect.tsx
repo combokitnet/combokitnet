@@ -12,7 +12,6 @@ import { FaAngleDown, FaAngleRight } from "react-icons/fa";
 interface DropDownItemProps {
   label: React.ReactNode;
   value: string;
-  //   onClick?: () => void;
   icon?: React.ReactNode;
   disabled?: boolean;
   customClass?: string;
@@ -206,35 +205,29 @@ export default function InputSelect({
     ?.filter((m) => selected?.includes(m?.value))
     ?.map((m) => m?.label);
 
-  console.log({ selected, items });
   return (
-    <DropDown
-      selected={selected}
-      items={items}
-      children={
-        <button
-          type="button"
-          role="combobox"
-          dir="ltr"
-          className="flex items-center justify-between whitespace-nowrap rounded-md border border-input bg-transparent px-3 py-2 shadow-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1 h-7 text-xs"
-        >
-          {title && showTitle && (
-            <span className="text-muted-foreground">
-              {title}
-              {selected?.length > 0 ? ":" : ""}{" "}
-            </span>
-          )}
+    <DropDown selected={selected} items={items} onPick={onPick}>
+      <button
+        type="button"
+        role="combobox"
+        dir="ltr"
+        className="flex items-center justify-between whitespace-nowrap rounded-md border border-input bg-transparent px-3 py-2 shadow-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1 h-7 text-xs"
+      >
+        {title && showTitle && (
+          <span className="text-muted-foreground">
+            {title}
+            {selected?.length > 0 ? ":" : ""}{" "}
+          </span>
+        )}
 
-          {selected?.length > 0 ? (
-            <span className="pl-1 select-none">{valueRaws?.join(", ")}</span>
-          ) : (
-            <></>
-          )}
+        {selected?.length > 0 ? (
+          <span className="pl-1 select-none">{valueRaws?.join(", ")}</span>
+        ) : (
+          <></>
+        )}
 
-          <FaAngleDown className="pl-1" size={16} />
-        </button>
-      }
-      onPick={onPick}
-    />
+        <FaAngleDown className="pl-1" size={16} />
+      </button>
+    </DropDown>
   );
 }

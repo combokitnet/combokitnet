@@ -32,7 +32,7 @@ export default function AppLayout(props: PropsWithChildren) {
       <div className="p-[0_12px] sm:p-[0_18px]">{props.children}</div>
       <br />
       <Footer />
-      <Toaster />
+      <Toaster position="top-right" containerStyle={{ top: "60px" }} />
       <CelebrationConfetti />
     </main>
   );

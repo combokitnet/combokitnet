@@ -272,10 +272,11 @@ const PasswordGenerator: React.FC = () => {
           <div className="flex space-x-4">
             <button
               onClick={onGeneratePassword}
-              className="bg-blue-500 w-full text-white px-4 py-2 rounded flex items-center justify-center"
+              className="w-full flex flex-row items-center justify-center group relative h-12 overflow-hidden rounded-md bg-blue-500 px-6 text-neutral-50 transition transform hover:scale-105 hover:shadow-lg active:scale-95 active:shadow-md focus:outline-none focus:ring focus:ring-blue-300"
             >
-              <FaKey className="mr-2" /> Generate
+              <FaKey className="mr-2" /> Generate{" "}
             </button>
+
             <button
               onClick={() => {
                 copyToClipboard(passwords.join("\n"));

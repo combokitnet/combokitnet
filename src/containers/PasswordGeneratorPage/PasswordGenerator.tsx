@@ -1,27 +1,11 @@
+import { copyToClipboard } from "@/utils/app";
 import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { FaClipboard, FaKey } from "react-icons/fa";
-import {
-  lowercase,
-  numbers,
-  reverseSpecialCharMap,
-  symbols,
-  uppercase,
-} from "./const";
+import { lowercase, numbers, symbols, uppercase } from "./const";
+import PasswordGeneratorItem from "./PasswordGeneratorItem";
 import PasswordTypePick from "./PasswordType";
-import {
-  calculateHackTime,
-  generatePassword,
-  mapWordWithSymbol,
-  passwordConfigs,
-  PasswordType,
-} from "./utils";
-
-const copyToClipboard = (password: string) => {
-  navigator?.clipboard?.writeText(password).then(() => {
-    toast.success("Password copied!");
-  });
-};
+import { generatePassword, passwordConfigs, PasswordType } from "./utils";
 
 const PasswordGeneratorDefaultKey: PasswordType = "wordsWithSymbols";
 const PasswordGeneratorDefault = passwordConfigs[PasswordGeneratorDefaultKey];
@@ -31,7 +15,7 @@ const PasswordGenerator: React.FC = () => {
   const [length, setLength] = useState<number>(
     PasswordGeneratorDefault?.minLength
   );
-  const [quantity, setQuantity] = useState<number>(3);
+  const [quantity, setQuantity] = useState<number>(1);
   const [includeNumbers, setIncludeNumbers] = useState<boolean>(true);
   const [includeSymbols, setIncludeSymbols] = useState<boolean>(true);
   const [includeLowercase, setIncludeLowercase] = useState<boolean>(true);
@@ -102,7 +86,7 @@ const PasswordGenerator: React.FC = () => {
       {type === "normal" ? (
         <div className="mb-4">
           <label className="block ">
-            Charsets <span className="text-xs">(Allow only this chars)</span>
+            Charset <span className="text-xs">(Allow only this chars)</span>
           </label>
           <textarea
             value={charset}
@@ -116,48 +100,13 @@ const PasswordGenerator: React.FC = () => {
 
       {passwords.length > 0 && (
         <div className="mt-4">
-          <ul className="space-y-2">
+          <ul className="space-y-5">
             {passwords.map((password, index) => (
-              <li key={index} className="mb-3">
-                <div
-                  onDoubleClick={() => copyToClipboard(password)}
-                  className="bg-gray-100 p-2 rounded flex justify-between items-center"
-                >
-                  <span className="w-full break-all text-center text-[18px] font-bold">
-                    {password}
-                  </span>
-                  <button
-                    onClick={() => copyToClipboard(password)}
-                    className="bg-green-500 text-white select-none flex flex-row items-center px-2 py-1 rounded ml-4"
-                  >
-                    <FaClipboard className="mr-2" /> Copy
-                  </button>
-                </div>
-
-                {type === "wordsWithSymbols" ? (
-                  <p className="break-all select-none text-[12px]">
-                    Origin password:{" "}
-                    <span className="text-green-600">
-                      {mapWordWithSymbol(password, reverseSpecialCharMap)}
-                    </span>
-                  </p>
-                ) : (
-                  ""
-                )}
-                <p
-                  onClick={(e) => {
-                    e.preventDefault();
-                    console.log("Estimated");
-                  }}
-                  className="break-all  select-none text-[12px]"
-                >
-                  Estimated time to crack:{" "}
-                  <span className="cursor-pointer hover:text-blue-500">
-                    {calculateHackTime(password)}
-                  </span>
-                  , length: {password.length}
-                </p>
-              </li>
+              <PasswordGeneratorItem
+                key={index}
+                password={password}
+                type={type}
+              />
             ))}
           </ul>
         </div>
@@ -278,8 +227,9 @@ const PasswordGenerator: React.FC = () => {
             </button>
 
             <button
-              onClick={() => {
-                copyToClipboard(passwords.join("\n"));
+              onClick={async () => {
+                await copyToClipboard(passwords.join("\n"));
+                toast.success("Passwords copied!");
               }}
               className="bg-blue-500 w-full text-white px-4 py-2 rounded flex items-center justify-center"
             >

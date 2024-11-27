@@ -1,3 +1,5 @@
+// TODO: QR Code Storage, Password in Images, Encrypted File, Audio Representation, Password Phrase Art
+
 "use client";
 
 import { DropDown } from "@/components/DropDown";

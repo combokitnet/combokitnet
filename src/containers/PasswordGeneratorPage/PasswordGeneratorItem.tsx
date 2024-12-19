@@ -135,7 +135,7 @@ export default function PasswordGeneratorItem({
               }}
               className="bg-green-500 text-white select-none flex flex-row items-center px-2 py-1 rounded "
             >
-              <FaClipboard className="mr-2" /> Text
+              <FaClipboard className="mr-2" /> Copy
             </button>
             <button
               type="button"

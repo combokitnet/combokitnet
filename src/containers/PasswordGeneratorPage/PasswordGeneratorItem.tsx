@@ -145,7 +145,7 @@ export default function PasswordGeneratorItem({
               }}
               className="bg-green-500 text-white select-none flex flex-row items-center px-2 py-1 rounded "
             >
-              <FaImages className="mr-2" /> Image
+              <FaImages className="mr-2" /> Other
             </button>
           </div>
         ) : (
@@ -164,7 +164,7 @@ export default function PasswordGeneratorItem({
               },
               {
                 icon: <FaImages className="mr-2" />,
-                label: "Store inside Image",
+                label: "Store inside File",
                 onClick: () => {
                   setShowImage((m) => !m);
                 },

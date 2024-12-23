@@ -4,6 +4,7 @@ import toast from "react-hot-toast";
 import { FaClipboard, FaKey } from "react-icons/fa";
 import { lowercase, numbers, symbols, uppercase } from "./const";
 import PasswordGeneratorItem from "./PasswordGeneratorItem";
+import PasswordHistory, { addPasswordHistory } from "./PasswordHistory";
 import PasswordTypePick from "./PasswordType";
 import { generatePassword, passwordConfigs, PasswordType } from "./utils";
 
@@ -113,6 +114,8 @@ const PasswordGenerator: React.FC = () => {
               </option>
             ))}
         </select>
+
+        <PasswordHistory />
       </div>
 
       {type === "normal" ? (
@@ -262,6 +265,9 @@ const PasswordGenerator: React.FC = () => {
               onClick={async () => {
                 await copyToClipboard(passwords.join("\n"));
                 toast.success("Passwords copied!");
+                for (let index = 0; index < passwords.length; index++) {
+                  addPasswordHistory(passwords[index]);
+                }
               }}
               className="bg-blue-500 w-full text-white px-4 py-2 rounded flex items-center justify-center"
             >

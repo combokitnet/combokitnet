@@ -12,6 +12,7 @@ import toast from "react-hot-toast";
 import { FaClipboard, FaImages } from "react-icons/fa";
 import slugify from "slugify";
 import { reverseSpecialCharMap } from "./const";
+import { addPasswordHistory } from "./PasswordHistory";
 import { calculateHackTime, mapWordWithSymbol, PasswordType } from "./utils";
 
 const OptionQrCode = ({ password }: { password: string }) => {
@@ -132,6 +133,7 @@ export default function PasswordGeneratorItem({
                 e.stopPropagation();
                 await copyToClipboard(password);
                 toast.success("Password copied!");
+                addPasswordHistory(password);
               }}
               className="bg-green-500 text-white select-none flex flex-row items-center px-2 py-1 rounded "
             >
@@ -157,6 +159,7 @@ export default function PasswordGeneratorItem({
                 onClick: async () => {
                   await copyToClipboard(password);
                   toast.success("Password copied!");
+                  addPasswordHistory(password);
                 },
                 render: (item) => (
                   <div className="whitespace-nowrap">{item?.label}</div>

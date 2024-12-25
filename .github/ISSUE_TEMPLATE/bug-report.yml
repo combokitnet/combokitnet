@@ -7,6 +7,17 @@ body:
       value: |
         Thanks for helping us out by reporting this bug! We’ll get it fixed as soon as possible.
 
+  - type: dropdown
+    id: request-type
+    attributes:
+      label: What service?
+      options:
+        - All services
+        - Password Generator
+        - Image Optimization
+    validations:
+      required: true
+
   - type: textarea
     id: bug-description
     attributes:

@@ -10,6 +10,17 @@ body:
   - type: dropdown
     id: request-type
     attributes:
+      label: What service?
+      options:
+        - All services
+        - Password Generator
+        - Image Optimization
+    validations:
+      required: true
+
+  - type: dropdown
+    id: request-type
+    attributes:
       label: What kind of request are you making?
       options:
         - A new tool idea

@@ -1,3 +1,4 @@
+import AppLayout from "@/components/AppLayout";
 import { LOCAL_STORAGE } from "@/configs/const";
 import { useEffect, useState } from "react";
 
@@ -50,42 +51,44 @@ const Changelog: React.FC = () => {
   }, []);
 
   return (
-    <div className="p-4 md:p-8">
-      <h1 className="text-2xl md:text-3xl font-bold">Changelog</h1>
-      <div className="mt-6 md:mt-10">
-        <ul className="space-y-6 md:space-y-8">
-          {changelogData.map((log, index) => {
-            const logDate = new Date(log.date); // log.date as yyyy-mm-dd
-            const isNew = lastReadDate ? logDate > lastReadDate : true;
+    <AppLayout>
+      <div className="p-4 md:p-8">
+        <h1 className="text-2xl md:text-3xl font-bold mt-[80px]">Changelog</h1>
+        <div className="mt-6 md:mt-10">
+          <ul className="space-y-6 md:space-y-8">
+            {changelogData.map((log, index) => {
+              const logDate = new Date(log.date); // log.date as yyyy-mm-dd
+              const isNew = lastReadDate ? logDate > lastReadDate : true;
 
-            return (
-              <li
-                key={index}
-                className={`flex flex-col md:flex-row items-start p-3 md:p-4 ${
-                  isNew ? "bg-yellow-100" : ""
-                }`}
-              >
-                <div className="flex-shrink-0 w-8 h-8 md:w-10 md:h-10 bg-blue-500 text-white rounded-full flex items-center justify-center font-bold text-lg">
-                  {changelogData.length - index}
-                </div>
-                <div className="ml-0 md:ml-6 mt-2 md:mt-0">
-                  <div className="text-lg md:text-xl font-semibold text-gray-700">
-                    {log.label}
+              return (
+                <li
+                  key={index}
+                  className={`flex flex-col md:flex-row items-start p-3 md:p-4 ${
+                    isNew ? "bg-yellow-100" : ""
+                  }`}
+                >
+                  <div className="flex-shrink-0 w-8 h-8 md:w-10 md:h-10 bg-blue-500 text-white rounded-full flex items-center justify-center font-bold text-lg">
+                    {changelogData.length - index}
                   </div>
-                  <div className="text-xs md:text-sm text-gray-500">
-                    {log.date}
+                  <div className="ml-0 md:ml-6 mt-2 md:mt-0">
+                    <div className="text-lg md:text-xl font-semibold text-gray-700">
+                      {log.label}
+                    </div>
+                    <div className="text-xs md:text-sm text-gray-500">
+                      {log.date}
+                    </div>
+                    <p
+                      className="mt-1 md:mt-2 text-gray-600 leading-relaxed"
+                      dangerouslySetInnerHTML={{ __html: log.desc }}
+                    />
                   </div>
-                  <p
-                    className="mt-1 md:mt-2 text-gray-600 leading-relaxed"
-                    dangerouslySetInnerHTML={{ __html: log.desc }}
-                  />
-                </div>
-              </li>
-            );
-          })}
-        </ul>
+                </li>
+              );
+            })}
+          </ul>
+        </div>
       </div>
-    </div>
+    </AppLayout>
   );
 };
 export default Changelog;

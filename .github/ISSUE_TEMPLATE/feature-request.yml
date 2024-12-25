@@ -8,7 +8,7 @@ body:
         We're excited to hear your ideas! Thanks for taking the time to propose a new feature or tool.
 
   - type: dropdown
-    id: request-type
+    id: service-type
     attributes:
       label: What service?
       options:

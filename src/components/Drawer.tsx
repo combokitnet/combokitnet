@@ -23,14 +23,21 @@ const Drawer: React.FC<DrawerProps> = ({
 
     if (isOpen) {
       document.addEventListener("keydown", handleEsc);
+      document.body.classList.add("!overflow-hidden");
     } else {
       document.removeEventListener("keydown", handleEsc);
+      document.body.classList.remove("!overflow-hidden");
     }
 
     return () => {
       document.removeEventListener("keydown", handleEsc);
+      document.body.classList.remove("!overflow-hidden");
     };
   }, [isOpen, onClose]);
+
+  console.log("Drawer", { isOpen });
+
+  if (!isOpen) return null;
 
   return (
     <>
@@ -61,7 +68,7 @@ const Drawer: React.FC<DrawerProps> = ({
         </div>
 
         {/* Content */}
-        <div className="p-4 overflow-y-auto">{children}</div>
+        <div className="p-4 overflow-y-auto h-full">{children}</div>
       </div>
     </>
   );

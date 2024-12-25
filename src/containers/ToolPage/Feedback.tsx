@@ -12,7 +12,12 @@ import React, {
   useState,
 } from "react";
 import toast from "react-hot-toast";
-import { FaEnvelope, FaTelegramPlane, FaTwitter } from "react-icons/fa";
+import {
+  FaEnvelope,
+  FaGithub,
+  FaTelegramPlane,
+  FaTwitter,
+} from "react-icons/fa";
 import { MdFeedback, MdStar } from "react-icons/md";
 
 export enum FeedbackType {
@@ -291,6 +296,15 @@ const Feedback = ({
               >
                 <FaTelegramPlane size={24} />
                 <span className="sr-only">Telegram</span>
+              </a>
+              <a
+                href={APP_SOCIAL.githubRepo}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-gray-700 dark:text-gray-300 hover:text-blue-500 dark:hover:text-blue-400"
+              >
+                <FaGithub size={24} />
+                <span className="sr-only">Github</span>
               </a>
               <a
                 href={APP_SOCIAL.twitter}

@@ -58,8 +58,10 @@ export default function TitleTool({ data }: { data: TTool }) {
                   alt={data?.name}
                 />
                 <div className="flex flex-col">
-                  <h2 className="font-medium text-[18px] flex items-center gap-[24px]">
-                    {data?.name}
+                  <div className="flex items-center gap-[24px]">
+                    <h2 className="font-medium text-[18px] whitespace-nowrap">
+                      {data?.name}
+                    </h2>
                     <Feedback
                       serviceId={data?.id}
                       render={
@@ -72,7 +74,7 @@ export default function TitleTool({ data }: { data: TTool }) {
                         </button>
                       }
                     />
-                  </h2>
+                  </div>
                   <ul className="flex gap-[5px]">
                     {data?.tags?.map((tag) => (
                       <li
@@ -148,8 +150,10 @@ export default function TitleTool({ data }: { data: TTool }) {
                 alt={data?.name}
               />
               <div className="flex flex-col gap-[3px]">
-                <h2 className="font-medium text-[18px] flex items-center gap-[24px]">
-                  {data?.name}
+                <div className="flex items-center gap-[24px] ">
+                  <h2 className="font-medium text-[18px] whitespace-nowrap">
+                    {data?.name}
+                  </h2>
 
                   <ul className="flex gap-[5px]">
                     {data?.tags?.map((tag) => (
@@ -176,7 +180,7 @@ export default function TitleTool({ data }: { data: TTool }) {
                       </button>
                     }
                   />
-                </h2>
+                </div>
                 <p className="text-[15px]">{data?.description}</p>
                 <div className="flex gap-[12px] text-[13px]">
                   <span

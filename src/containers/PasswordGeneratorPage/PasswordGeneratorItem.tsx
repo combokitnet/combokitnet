@@ -111,7 +111,7 @@ export default function PasswordGeneratorItem({
 
   return (
     <li className="">
-      <div className="bg-gray-100 p-2 rounded flex justify-between items-center">
+      <div className="p-2 rounded flex justify-between items-center bg-yellow-100 ">
         <span
           onClick={(el) => {
             let range = document.createRange();
@@ -120,7 +120,7 @@ export default function PasswordGeneratorItem({
             sel.removeAllRanges();
             sel.addRange(range);
           }}
-          className="w-full break-all text-center text-[18px] font-bold"
+          className="w-full break-all text-center text-[18px] font-bold p-2 rounded-md"
         >
           {password}
         </span>

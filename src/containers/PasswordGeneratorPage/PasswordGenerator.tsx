@@ -7,40 +7,10 @@ import PasswordGeneratorItem from "./PasswordGeneratorItem";
 import PasswordHistory, { addPasswordHistory } from "./PasswordHistory";
 import PasswordTypePick from "./PasswordType";
 import { generatePassword, passwordConfigs, PasswordType } from "./utils";
+import WarnNotStorePassword from "./WarnNotStorePassword";
 
 const PasswordGeneratorDefaultKey: PasswordType = "wordsWithSymbols";
 const PasswordGeneratorDefault = passwordConfigs[PasswordGeneratorDefaultKey];
-const WarnNotStorePassword: React.FC = () => {
-  const [isVisible, setIsVisible] = useState(true);
-
-  if (!isVisible) return null;
-
-  return (
-    <div className="bg-yellow-100 border-l-4 border-yellow-500 text-yellow-700 p-4 mb-3 rounded-md flex justify-between items-start">
-      <p className="text-sm font-medium">
-        Rest assured, we do not store your passwords. Everything is generated
-        and processed securely on your device. <br /> You can review the source
-        code on our{" "}
-        <a
-          href="https://github.com/combokitnet/combokitnet"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="text-blue-600 hover:underline"
-        >
-          GitHub repository
-        </a>
-        .
-      </p>
-      <button
-        onClick={() => setIsVisible(false)}
-        className="text-yellow-700 hover:text-yellow-900 ml-4 focus:outline-none"
-        aria-label="Close"
-      >
-        ✕
-      </button>
-    </div>
-  );
-};
 
 const PasswordGenerator: React.FC = () => {
   const [passwords, setPasswords] = useState<string[]>([]);
@@ -98,7 +68,7 @@ const PasswordGenerator: React.FC = () => {
   return (
     <div className="container mx-auto p-4 max-w-[1200px]">
       <WarnNotStorePassword />
-      <div className="mb-4 flex gap-3 justify-end">
+      <div className="mb-4 flex gap-3 justify-end flex-wrap">
         <PasswordTypePick setType={setType} setLength={setLength} type={type} />
 
         <select

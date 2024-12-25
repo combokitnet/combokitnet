@@ -18,6 +18,7 @@ export const APP_SOCIAL = {
 export const LOCAL_STORAGE = {
   // for global app
   TOOLS_FAVORITES: "COMBOKIT_FAVORITES",
+  CHANGELOG_LAST_READ: "CHANGELOG_LAST_READ",
   // for image tool
   IMAGE_FILENAME_OPTIONS: "IMAGE_FILENAME_OPTIONS",
   // for password generator

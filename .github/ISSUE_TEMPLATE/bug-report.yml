@@ -8,7 +8,7 @@ body:
         Thanks for helping us out by reporting this bug! We’ll get it fixed as soon as possible.
 
   - type: dropdown
-    id: request-type
+    id: service-type
     attributes:
       label: What service?
       options:

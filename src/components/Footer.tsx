@@ -34,6 +34,11 @@ export default function Footer() {
                   Blog
                 </Link>
               </li>
+              <li className="mb-4">
+                <Link href="/changelog" className="hover:underline">
+                  Changelog
+                </Link>
+              </li>
             </ul>
           </div>
 

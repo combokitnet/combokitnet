@@ -36,12 +36,16 @@ export default function Header() {
           <Link href="/" className="flex items-center">
             <img
               src="/favicon.ico"
-              className="h-6 mr-3 sm:h-9"
+              className="h-9 mr-3"
               alt={`${APP_NAME} Logo`}
             />
-            <span className="self-center text-xl font-semibold whitespace-nowrap dark:text-white">
-              {APP_NAME}
-            </span>
+            {width < 400 ? (
+              <></>
+            ) : (
+              <span className="self-center text-xl font-semibold whitespace-nowrap dark:text-white">
+                {APP_NAME}
+              </span>
+            )}
           </Link>
 
           <div className="flex items-center lg:order-2 gap-[12px]">

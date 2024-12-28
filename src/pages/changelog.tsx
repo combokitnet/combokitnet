@@ -67,16 +67,14 @@ const Changelog: React.FC = () => {
                     isNew ? "bg-yellow-100" : ""
                   }`}
                 >
-                  <div className="flex-shrink-0 w-8 h-8 md:w-10 md:h-10 bg-blue-500 text-white rounded-full flex items-center justify-center font-bold text-lg">
-                    {changelogData.length - index}
+                  <div className="flex-shrink-0  rounded-full flex items-center justify-center font-bold text-lg">
+                    {log.date}
                   </div>
                   <div className="ml-0 md:ml-6 mt-2 md:mt-0">
                     <div className="text-lg md:text-xl font-semibold text-gray-700">
                       {log.label}
                     </div>
-                    <div className="text-xs md:text-sm text-gray-500">
-                      {log.date}
-                    </div>
+
                     <p
                       className="mt-1 md:mt-2 text-gray-600 leading-relaxed"
                       dangerouslySetInnerHTML={{ __html: log.desc }}

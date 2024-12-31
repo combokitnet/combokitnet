@@ -15,7 +15,7 @@ export default async function handler(request: NextRequest, event: any) {
     );
 
     const html = response?.data;
-
+    console.log("html", html);
     // Regular expression to extract specific data from the HTML
     const descriptionMatch = html.match(
       /<div itemprop="description">([\s\S]*?)<\/div>/

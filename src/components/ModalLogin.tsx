@@ -44,9 +44,9 @@ export default function ModalLogin() {
           <button
             onClick={(e) => {
               e.preventDefault();
-              // open mini browser to google auth
+              // nav to api google auth
               window.location.replace(
-                `/api/auth/google?state=${window.location.pathname}`
+                `${process.env.NEXT_PUBLIC_API_URL}/api/auth/google?state=${window.location.pathname}`
               );
             }}
             className="bg-red-600 text-white p-2 max-h-[42px] rounded hover:bg-red-700 flex items-center gap-2"

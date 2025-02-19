@@ -11,6 +11,7 @@ interface ModalProps {
     onClick: () => void;
     className?: string;
   }>;
+  className?: string;
 }
 
 const Modal: React.FC<ModalProps> = ({
@@ -19,6 +20,7 @@ const Modal: React.FC<ModalProps> = ({
   children,
   title,
   footerButtons,
+  className,
 }) => {
   useEffect(() => {
     if (!footerButtons) {
@@ -45,8 +47,12 @@ const Modal: React.FC<ModalProps> = ({
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 p-4 transition-opacity duration-300 ease-out ">
-      <div className="relative w-full  bg-white rounded-lg shadow-lg transform transition-all duration-300 ease-out scale-95 translate-y-4 ">
-        <div className="opacity-100 scale-100 translate-y-0 transition-all duration-300 ease-out">
+      <div
+        className={`relative w-full  bg-white rounded-lg shadow-lg transform transition-all duration-300 ease-out scale-95 translate-y-4  ${className}`}
+      >
+        <div
+          className={`opacity-100 scale-100 translate-y-0 transition-all duration-300 ease-out`}
+        >
           <div className="flex justify-between items-center border-b p-4">
             {title && (
               <h3 className="text-xl font-semibold text-black">{title}</h3>

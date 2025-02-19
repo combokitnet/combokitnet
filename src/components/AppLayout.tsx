@@ -1,5 +1,5 @@
 import { request } from "@/configs/request";
-import Cookies from "js-cookie";
+import { useAppContext } from "@/contexts/AppContext";
 import { Inter } from "next/font/google";
 import { PropsWithChildren, useEffect } from "react";
 import { Toaster } from "react-hot-toast";
@@ -10,20 +10,16 @@ import Header from "./Header";
 const inter = Inter({ subsets: ["latin"] });
 
 export default function AppLayout(props: PropsWithChildren) {
+  const { setUser } = useAppContext();
   useEffect(() => {
-    const tokenType = Cookies.get("tokenType");
-    if (tokenType === "login") {
-      // TODO: auth with user info
-      // TODO: make api for dev bypass cookie
-    } else {
-      request("/guest", { method: "POST" })
-        .then((res) => {
-          // console.log(res);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    }
+    request("/api/user", { method: "POST" })
+      .then((res: any) => {
+        console.log(res.data);
+        setUser(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }, []);
 
   return (

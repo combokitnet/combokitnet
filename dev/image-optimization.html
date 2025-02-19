@@ -1,0 +1,550 @@
+<!-- 
+
+# Image Optimization Specification
+
+## Features
+- [ ] Tiny file optimization (reduce file size efficiently)
+- [ ] Upload from URL (fetch & handle CORS)
+- [ ] Paste & Copy Image (Clipboard API integration)
+- [ ] Control Panel (Type, Quality settings)
+- [ ] Select all / Deselect all images' options
+- [ ] Rename with options (prefix, suffix, slugify, uuid, size, etc.)
+- [ ] Resize (One & Bulk and specific sizes (100KB, 10KB, 50KB, for social media FB, Instagram, etc.) - allow users to select single/multiple images
+- [ ] Convert image formats (PNG, WebP, SVG, GIF, JPEG, JPG)
+- [ ] Background Removal, Object Isolation
+- [ ] Watermark, Logo, Signature Overlay (custom positioning & transparency)
+- [ ] Additional File Format Support (AVIF, HEIC, BMP, TIFF)
+- [ ] Image Compression (Lossy, Lossless, Super Lossy)
+
+## Tech Stack
+- pure HTML, CSS, JS and reactjs library
+- Tailwind CSS
+- cdn for libraries
+- no backend, database, server required (client-side only)
+
+## libraries
+- https://www.npmjs.com/package/browser-image-compression
+- https://www.npmjs.com/package/compressorjs
+
+## Examples links
+- https://imagecompressor.com/
+- https://web.dev/use-imagemin-to-compress-images/
+- https://www.iloveimg.com/ 
+- https://imageresizer.com/bulk-resize 
+
+## Change Log
+- 2025-02-05: Initial draft
+
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Image Optimizer</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/react@17/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+
+    <script
+        src="https://cdn.jsdelivr.net/npm/browser-image-compression@2.0.0/dist/browser-image-compression.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/compressorjs/1.2.1/compressor.min.js"></script>
+</head>
+
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+
+        function ImageOptimizer() {
+            const [images, setImages] = React.useState([]);
+
+            //
+            // id: ,
+            // name: file.name,
+            // original: file binary,
+            // preview: URL.createObjectURL(file),
+            // previewCompressed: URL.createObjectURL(compressedFile),
+            // compressed: result file binary,
+            // originalSize: in bytes,
+            // compressedSize: in bytes,
+            // status: "pending", pending, processing, done, error
+            // error: error message,
+            // settings: { quality: 0.6, targetFormat: "", library: "browser-image-compression", resize: { width: null, height: null } }
+            //
+
+            const [settings, setSettings] = React.useState({
+                quality: 0.6,
+                targetFormat: "",
+                library: "browser-image-compression",
+                resize: { width: null, height: null },
+                rename: ""
+            });
+            const [loading, setLoading] = React.useState(false);
+            const [urlInput, setUrlInput] = React.useState("");
+            const [isDragging, setIsDragging] = React.useState(false);
+
+            // File handling
+            const processFiles = async (files) => {
+                setLoading(true);
+                try {
+                    const list = Array.from(files);
+                    console.log("list:", list);
+                    console.log("files:", files);
+
+                    for (let index = 0; index < list.length; index++) {
+                        const file = list[index];
+                        let newImage = {
+                            id: Date.now() + Math.random(),
+                            name: file.name,
+                            original: file,
+                            preview: URL.createObjectURL(file),
+                            compressed: null,
+                            originalSize: file.size,
+                            compressedSize: null,
+                            status: "pending",
+                            error: null,
+                            settings: { ...settings },
+                        };
+
+                        try {
+                            let compressedFile = await compress(file);
+
+                            setImages((prevImages) => [
+                                ...prevImages,
+                                {
+                                    ...newImage,
+                                    status: "done",
+                                    compressed: compressedFile,
+                                    compressedSize: compressedFile.size,
+                                    previewCompressed: URL.createObjectURL(compressedFile),
+                                },
+                            ]);
+                        } catch (error) {
+                            setImages((prevImages) => [
+                                ...prevImages,
+                                {
+                                    ...newImage,
+                                    status: "error",
+                                    error,
+                                },
+                            ]);
+                        }
+                    }
+                } catch (error) {
+                    console.error("processFiles", error);
+                }
+                setLoading(false);
+            };
+
+            // Drag and drop handlers
+            const handleDrag = (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                if (e.type === "dragover") setIsDragging(true);
+                else setIsDragging(false);
+            };
+
+            const handleDrop = (e) => {
+                e.preventDefault();
+                setIsDragging(false);
+                processFiles(e.dataTransfer.files);
+            };
+
+            // URL upload handler
+            const handleUrlUpload = async () => {
+                if (!urlInput) return;
+                if (!urlInput.match(/\.(jpeg|jpg|png|gif)$/)) {
+                    console.error("Invalid file format");
+                    return;
+                }
+                setLoading(true);
+                try {
+                    const response = await fetch(urlInput); // TODO: CORS issue need fix: cors-anywhere
+                    const blob = await response.blob();
+                    const fileName = urlInput.split("/").pop();
+                    const file = new File([blob], fileName || "image-from-url", {
+                        type: blob.type,
+                    });
+                    processFiles([file]);
+                    setUrlInput("");
+                } catch (error) {
+                    console.error("URL upload failed:", error);
+                }
+                setLoading(false);
+            };
+
+            // Clipboard handler
+            React.useEffect(() => {
+                const handlePaste = (e) => {
+                    const items = e.clipboardData.items;
+                    for (let item of items) {
+                        if (item.type.indexOf("image") === 0) {
+                            const blob = item.getAsFile();
+                            const file = new File([blob], "pasted-image", {
+                                type: blob.type,
+                            });
+                            processFiles([file]);
+                        }
+                    }
+                };
+                document.addEventListener("paste", handlePaste);
+                return () => document.removeEventListener("paste", handlePaste);
+            }, []);
+
+            // get query params and set settings
+            React.useEffect(() => {
+                const url = new URL(window.location);
+                const quality = parseFloat(url.searchParams.get('quality')) || 0.6;
+                const targetFormat = url.searchParams.get('targetFormat') || "";
+                const library = url.searchParams.get('library') || "browser-image-compression";
+                const rename = url.searchParams.get('rename') || "";
+                setSettings({ quality, targetFormat, library, rename });
+            }, []);
+
+            // Compression logic
+            const compress = async (file) => {
+                console.log("compressing:", file);
+                try {
+                    let compressedFile;
+                    if (settings.library === "browser-image-compression") {
+                        compressedFile = await imageCompression(file, {
+                            maxSizeMB: settings.quality,
+                            maxWidthOrHeight: settings.resize.width || undefined,
+                            useWebWorker: true,
+                            fileType: settings.targetFormat,
+                        });
+                    } else {
+                        compressedFile = await new Promise((resolve, reject) => {
+                            new Compressor(file, {
+                                quality: settings.quality,
+                                width: settings.resize.width || undefined,
+                                height: settings.resize.height || undefined,
+                                convertSize: Infinity,
+                                success: resolve,
+                                error: reject,
+                            });
+                        });
+                    }
+
+                    if (compressedFile.size > file.size) {
+                        console.log("Compression failed: File size increased");
+                        return file;
+                    }
+
+                    return compressedFile;
+                } catch (error) {
+                    console.error("Compression failed:", error);
+                    throw error;
+                }
+            };
+
+            const clickCompress = async (image) => {
+                setImages(
+                    images.map((img) =>
+                        img.id === image.id ? { ...img, status: "processing", settings: { ...settings } } : img
+                    )
+                );
+
+                try {
+                    let compressedFile = await compress(image.original);
+
+                    setImages(
+                        images.map((img) =>
+                            img.id === image.id
+                                ? {
+                                    ...img,
+                                    compressed: compressedFile,
+                                    compressedSize: compressedFile.size,
+                                    status: "done",
+                                    previewCompressed: URL.createObjectURL(compressedFile),
+                                }
+                                : img
+                        )
+                    );
+                } catch (error) {
+                    setImages(
+                        images.map((img) =>
+                            img.id === image.id ? { ...img, status: "error", error } : img
+                        )
+                    );
+                }
+            };
+
+            // Download handler
+            const handleDownload = (image) => {
+                console.log("handleDownload:", image);
+
+                const link = document.createElement("a");
+                link.href = image.previewCompressed;
+                link.download = `optimized-${image.name}`;
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+            };
+
+            // Delete handler
+            const handleDelete = (imageId) => {
+                setImages(images.filter((img) => img.id !== imageId));
+            };
+
+            return (
+                <div className="container mx-auto p-4">
+                    {/* Input Section */}
+                    <div
+                        className={`cursor-pointer border-4 border-dashed rounded-lg p-8 mb-6 text-center ${isDragging ? "border-blue-500 bg-blue-50" : "border-gray-300"
+                            }`}
+                        onDragOver={handleDrag}
+                        onDragLeave={handleDrag}
+                        onDrop={handleDrop}
+                    >
+                        <p className="text-lg mb-4">Drag & Drop or Paste</p>
+                        <div className="flex flex-wrap gap-4 justify-center">
+                            <input
+                                type="file"
+                                multiple
+                                onChange={(e) => processFiles(e.target.files)}
+                                className="hidden"
+                                id="fileInput"
+                            />
+                            <label
+                                htmlFor="fileInput"
+                                className="px-4 py-2 bg-blue-500 text-white rounded cursor-pointer hover:bg-blue-600"
+                            >
+                                Browse Files
+                            </label>
+
+                            <div className="relative">
+                                <div className="flex items-center">
+                                    <input
+                                        type="text"
+                                        placeholder="Paste image URL"
+                                        className="p-2 border rounded pr-20 w-64"
+                                        value={urlInput}
+                                        onChange={(e) => setUrlInput(e.target.value)}
+                                        onKeyPress={(e) => e.key === "Enter" && handleUrlUpload()}
+                                    />
+                                    <button
+                                        className="absolute right-0 top-1/2 -translate-y-1/2 px-4 py-2 bg-green-500 text-white rounded-r hover:bg-green-600"
+                                        onClick={handleUrlUpload}
+                                    >
+                                        Upload
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div className="text-gray-500"></div>
+                        </div>
+                    </div>
+
+                    {/* Settings Panel */}
+                    <div className="bg-white p-4 rounded-lg shadow-md mb-6">
+                        <h2 className="text-xl font-bold mb-4">Settings</h2>
+                        <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+                            <div>
+                                <label className="block mb-2">
+                                    Quality (
+                                    <span
+                                        contentEditable={true}
+                                        onInput={(e) => {
+                                            const value = parseFloat(e.currentTarget.textContent) / 100;
+                                            if (value >= 0 && value <= 1)
+                                                setSettings({ ...settings, quality: value });
+                                            else if (value > 1)
+                                                setSettings({ ...settings, quality: 1 });
+                                            else if (value < 0)
+                                                setSettings({ ...settings, quality: 0 });
+                                        }}
+                                    >
+                                        {Math.round(settings.quality * 100)}
+                                    </span>
+                                    %)
+                                </label>
+                                <input
+                                    type="range"
+                                    min="0"
+                                    max="1"
+                                    step="0.1"
+                                    value={settings.quality}
+                                    onChange={(e) =>
+                                        setSettings({ ...settings, quality: e.target.value })
+                                    }
+                                    className="w-full"
+                                />
+                            </div>
+
+                            <div>
+                                <label className="block mb-2">Library <span className='text-[11px]'>(Try with each library get the best result)</span></label>
+                                <select
+                                    value={settings.library}
+                                    onChange={(e) =>
+                                        setSettings({ ...settings, library: e.target.value })
+                                    }
+                                    className="w-full p-2 border rounded"
+                                >
+                                    <option value="browser-image-compression">
+                                        Browser Image Compression
+                                    </option>
+                                    <option value="compressorjs">Compressor.js</option>
+                                </select>
+
+                            </div>
+
+
+                            <div>
+                                <label className="block mb-2">Output Format</label>
+                                <select
+                                    value={settings.targetFormat}
+                                    onChange={(e) =>
+                                        setSettings({ ...settings, targetFormat: e.target.value })
+                                    }
+                                    className="w-full p-2 border rounded"
+                                >
+                                    <option value="">Origin</option>
+                                    <option value="webp">WebP</option>
+                                    <option value="jpeg">JPEG</option>
+                                    <option value="png">PNG</option>
+                                </select>
+                            </div>
+
+                            <div>
+                                <label className="block mb-2">Rename format</label>
+                                <select
+                                    value={settings.rename}
+                                    onChange={(e) => {
+                                        setSettings({ ...settings, rename: e.target.value });
+                                        if (e.target.value) {
+                                            const url = new URL(window.location);
+                                            url.searchParams.set('rename', e.target.value);
+                                            window.history.pushState({}, '', url);
+                                        }
+
+                                    }}
+                                    className="w-full p-2 border rounded"
+                                >
+                                    <option value="">Origin</option>
+                                    <option value="slug">Slug</option>
+                                    <option value="uuid">UUID</option>
+                                    <option value="size">Size</option>
+                                    <option value="sorter">Sorter</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Results Table */}
+                    <div className="bg-white rounded-lg shadow-md overflow-x-auto">
+                        <table className="w-full">
+                            <thead className="bg-gray-50">
+                                <tr>
+                                    <th className="p-3 text-center">Preview</th>
+                                    <th className="p-3 text-center">Name</th>
+                                    <th className="p-3 text-center">Size Info</th>
+                                    <th className="p-3 text-center">Status</th>
+                                    <th className="p-3 text-center">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {images.map((image) => (
+                                    <tr key={image.id} className="border-t">
+                                        <td className="p-3">
+                                            <div className="flex gap-2 justify-center">
+                                                <img
+                                                    src={image.preview}
+                                                    alt="Original"
+                                                    className="w-16 h-16 object-contain"
+                                                />
+                                                {image.previewCompressed && (
+                                                    <img
+                                                        src={image.previewCompressed}
+                                                        alt="Optimized"
+                                                        className="w-16 h-16 object-contain"
+                                                    />
+                                                )}
+                                            </div>
+                                        </td>
+                                        <td className="p-3 text-center" title={image.name}>
+                                            {image.name.length > 20
+                                                ? `${image.name.substring(0, 10)}...${image.name.substring(image.name.length - 10)}`
+                                                : image.name}
+                                        </td>
+                                        <td className="p-3 text-center">
+                                            <div>
+                                                <div>
+                                                    {(image.originalSize / 1024).toFixed(2)}KB{" "}
+                                                    {image.compressedSize
+                                                        ? `to ${(image.compressedSize / 1024).toFixed(
+                                                            2
+                                                        )}KB`
+                                                        : ""}
+                                                </div>
+                                                <div>
+                                                    {image.compressedSize &&
+                                                        `${Math.round(
+                                                            (1 -
+                                                                image.compressedSize / image.originalSize) *
+                                                            100
+                                                        )}% ↓`}
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td className="p-3 text-center">
+                                            <span
+                                                className={`px-2 py-1 rounded ${image.status === "done"
+                                                    ? "bg-green-100 text-green-800"
+                                                    : image.status === "processing"
+                                                        ? "bg-blue-100 text-blue-800"
+                                                        : image.status === "error"
+                                                            ? "bg-red-100 text-red-800"
+                                                            : "bg-gray-100"
+                                                    }`}
+                                            >
+                                                {image.status}
+                                            </span>
+                                        </td>
+                                        <td className="p-3">
+                                            <div className="flex gap-2 justify-center">
+                                                <button
+                                                    onClick={() => clickCompress(image)}
+                                                    className="px-3 py-1 bg-blue-500 text-white rounded hover:bg-blue-600"
+                                                    disabled={image.status === "processing"}
+                                                >
+                                                    {image.status === "processing"
+                                                        ? "Processing..."
+                                                        : "Optimize"}
+                                                </button>
+
+                                                {image.status === "done" && (
+                                                    <button
+                                                        onClick={() => handleDownload(image)}
+                                                        className="px-3 py-1 bg-green-500 text-white rounded hover:bg-green-600"
+                                                    >
+                                                        Download
+                                                    </button>
+                                                )}
+
+                                                <button
+                                                    onClick={() => handleDelete(image.id)}
+                                                    className="px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600"
+                                                >
+                                                    Delete
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            );
+        }
+
+        ReactDOM.render(<ImageOptimizer />, document.getElementById("root"));
+    </script>
+</body>
+
+</html>

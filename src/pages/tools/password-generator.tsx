@@ -21,7 +21,12 @@ export default function PasswordGenerator({ tool }: { tool: TTool }) {
 export const getServerSideProps: GetServerSideProps = async ({ req }) => {
   try {
     const res = await axios.get(
-      `${process.env.NEXT_PUBLIC_API_URL}/tool-detail?path=/tools/password-generator`
+      `${process.env.NEXT_PUBLIC_API_URL}/api/tool-detail`,
+      {
+        params: {
+          name: "password-generator",
+        },
+      }
     );
     const data: TToolDetailRes = res.data;
 

@@ -1,12 +1,12 @@
 import { APP_NAME } from "@/configs/const";
 import useTranslate from "@/hooks/useTranslate";
 import useWindowSize from "@/hooks/useWindowSize";
-import Cookies from "js-cookie";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { HTMLAttributeAnchorTarget, useState } from "react";
 import { BsList } from "react-icons/bs";
 import { MdClose } from "react-icons/md";
+import ModalLogin from "./ModalLogin";
 
 const navs: {
   page: string;
@@ -49,7 +49,7 @@ export default function Header() {
           </Link>
 
           <div className="flex items-center lg:order-2 gap-[12px]">
-            <select
+            {/* <select
               onChange={(e) => {
                 router.push(router.pathname, router.pathname, {
                   locale: e.target.value,
@@ -67,7 +67,9 @@ export default function Header() {
                   {m.name}
                 </option>
               ))}
-            </select>
+            </select> */}
+
+            <ModalLogin />
 
             <button
               type="button"

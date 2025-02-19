@@ -1,4 +1,4 @@
-import ImageOptimizationPage from "@/containers/ImageOptimizationPage";
+import IframePage from "@/containers/IframePage";
 import ToolSeo from "@/containers/ToolPage/ToolSeo";
 import { TTool, TToolDetailRes } from "@/containers/ToolPage/types";
 import axios from "axios";
@@ -9,11 +9,11 @@ export const config = {
   runtime: "experimental-edge",
 };
 
-export default function ImageTiny({ tool }: { tool: TTool }) {
+export default function Iframe({ tool }: { tool: TTool }) {
   return (
     <>
       <ToolSeo tool={tool} />
-      <ImageOptimizationPage data={tool} />
+      <IframePage data={tool} />
     </>
   );
 }
@@ -24,7 +24,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
       `${process.env.NEXT_PUBLIC_API_URL}/api/tool-detail`,
       {
         params: {
-          name: "image-optimization",
+          path: "/tools/image-optimization",
         },
       }
     );

@@ -27,7 +27,7 @@ export default function OGImage() {
       if (type === "tool" && tool) {
         try {
           const res: AxiosResponse = await request(
-            `/tool-detail?path=${tool}`,
+            `/api/tool-detail?path=${tool}`,
             {
               method: "GET",
             }

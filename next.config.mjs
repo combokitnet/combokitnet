@@ -1,7 +1,8 @@
 import { setupDevPlatform } from "@cloudflare/next-on-pages/next-dev";
 import localeMaps from "./public/locales.json" assert { type: "json" };
 
-if (process.env.NODE_ENV === "development") {
+let isDev = process.env.NODE_ENV === "development";
+if (isDev) {
   await setupDevPlatform();
 }
 
@@ -109,6 +110,18 @@ const nextConfig = {
         permanent: true,
       };
     });
+  },
+  async rewrites() {
+    // only for the dev environment
+    if (isDev) {
+      return [
+        {
+          source: "/api/:path*",
+          destination: "http://localhost:3005/api/:path*",
+        },
+      ];
+    }
+    return [];
   },
 };
 

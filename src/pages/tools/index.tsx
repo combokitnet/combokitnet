@@ -1,5 +1,6 @@
 import ToolPage from "@/containers/ToolPage";
 import { TTool, TToolTag } from "@/containers/ToolPage/types";
+import axios from "axios";
 import { GetServerSideProps } from "next";
 
 export const config = {
@@ -10,10 +11,10 @@ export const fakeDataToolForDev = {
   id: "89aaa17c-eeb1-4ae0-a62e-b900c4bea133",
   createdAt: "2024-07-14T10:10:08.294Z",
   updatedAt: "2024-07-14T10:10:08.294Z",
-  name: "Image Optimization",
+  name: "XX XXX",
   pathUrl: "/tools/image-optimization",
   iconUrl: "/images/tools/image_compression.svg",
-  description: "WebP, PNG, JPEG, GIF and SVG optimization",
+  description: "XX XXX XXXX XXXXXX",
   rate: 4.5,
   usageCount: 12000,
   favoriteCount: 100,
@@ -87,8 +88,8 @@ export default function Tools({ tools, tags }: ToolsPageProps) {
 
 export const getServerSideProps: GetServerSideProps = async ({ req }) => {
   try {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/tool`);
-    const tools: TToolRes = await res.json();
+    const res = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/api/tool`);
+    const tools: TToolRes = res.data;
 
     return {
       props: {

@@ -63,7 +63,7 @@ const Feedback = ({
     console.log("Rating: ", rating);
 
     try {
-      await request(`/feedback`, {
+      await request(`/api/feedback`, {
         method: "POST",
         body: cleanObject({
           name: formData?.fullName || "",

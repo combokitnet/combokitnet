@@ -49,7 +49,7 @@ export default function Subscribing() {
     setError("");
     startLoading();
     try {
-      await request(`/sub-email`, {
+      await request(`/api/sub-email`, {
         method: "POST",
         body: { email },
       });
